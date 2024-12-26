@@ -97,10 +97,32 @@ This package is under active development. Current features are working but may c
 * Improved documentation and vignettes
 * Additional data transformation tools
 
-## Contributing
+## Part of the econdataverse
 
-Contributions are welcome! Please submit issues and pull requests on GitHub.
+`imfweo` is part of the [econdataverse](https://www.econdataverse.org/), a universe of open-source packages designed to make working with economic data seamless and efficient. The goal is simple: spend less time wrestling with data and more time analyzing it.
 
-## License
+Think of econdataverse packages as LEGO® pieces - modular tools designed to work together perfectly. For example, you might combine World Bank debt data (using [{wbids}](https://teal-insights.github.io/r-wbids/)) with IMF macroeconomic projections from this package.
 
-MIT + file LICENSE
+### Current Features
+
+- Download WEO data programmatically
+- Access specific indicators for selected countries
+- Get metadata about available series and countries
+- Return data in tidy format ready for analysis
+
+### Roadmap
+
+We're working on:
+
+- Standardizing country names across econdataverse packages
+- Creating consistent column names and data structures
+- Building tools for common economic analyses
+- Making data combination across sources seamless
+
+Other econdataverse packages:
+
+- [{wbids}](https://teal-insights.github.io/r-wbids/): World Bank International Debt Statistics ✅
+- [{wbwdi}](https://tidy-intelligence.github.io/r-wbwdi/): World Bank World Development Indicators 🚀
+- More coming soon!
+
+Our mission is to unclog the data bottleneck in economic analysis. By making data access and cleaning efficient and consistent, we enable policymakers and researchers to focus on what matters: using data to make better decisions in a world of limited resources.

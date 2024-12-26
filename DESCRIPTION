@@ -1,9 +1,14 @@
 Package: imfweo
-Title: What the Package Does (One Line, Title Case)
+Title: Download and Tidy IMF World Economic Outlook (WEO) Data
 Version: 0.0.0.9000
 Authors@R: 
     person("Teal", "Emery", , "lte@tealinsights.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Description: Provides tools to download, process, and analyze data from the
+    International Monetary Fund's World Economic Outlook (WEO) database. 
+    Functions support downloading complete WEO releases, accessing specific 
+    economic indicators for selected countries, and listing available data.
+    Data is returned in tidy format for easy integration with the tidyverse
+    ecosystem.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -18,3 +23,4 @@ Imports:
     readr,
     readxl,
     tidyr
+URL: https://special-dollop-5kgz4oe.pages.github.io/, https://teal-insights.github.io/imfweo/
