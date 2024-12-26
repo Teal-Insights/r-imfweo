@@ -1,0 +1,106 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# imfweo
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+`imfweo` provides easy access to the International Monetary Fund's World Economic Outlook (WEO) database in R. This is a minimum viable product under heavy development.
+
+## Features
+
+* Download and process WEO data releases
+* List available countries, indicators, and releases
+* Extract specific series for analysis
+* Consistent interface and tidy data output
+
+## Installation
+
+You can install the development version of imfweo from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("Teal-Insights/imfweo")
+```
+
+## Basic Usage
+
+### Getting WEO Data
+
+You can get WEO data either by downloading specific series for selected countries (`weo_get()`) or by downloading complete WEO releases (`weo_bulk()`).
+
+Get specific indicators for selected countries:
+```{r specific_data}
+library(imfweo)
+
+# Get GDP growth and inflation for G7 countries
+weo_get(
+  series = c("NGDP_RPCH", "PCPIPCH"),  # Real GDP growth and inflation
+  countries = c("USA", "GBR", "DEU", "FRA", "ITA", "JPN", "CAN"),
+  start_year = 2015
+)
+```
+
+Download a complete WEO release:
+```{r bulk_data}
+# Download Spring 2024 WEO
+weo_bulk(2024, "Spring")
+```
+
+### Available Data
+
+List available WEO releases:
+```{r releases}
+weo_list_releases()
+```
+
+List available countries and regions:
+```{r countries}
+weo_list_countries()
+```
+```{r countries specific}
+# Search for specific countries
+weo_list_countries("united")
+```
+
+
+List available economic indicators:
+```{r series}
+weo_list_series()
+```
+
+```{r series specific}
+# Search for GDP-related indicators
+weo_list_series("gdp")
+```
+
+
+## Development Status
+
+This package is under active development. Current features are working but may change. Future releases will add:
+
+* Better data validation
+* More convenience functions for common analyses
+* Improved documentation and vignettes
+* Additional data transformation tools
+
+## Contributing
+
+Contributions are welcome! Please submit issues and pull requests on GitHub.
+
+## License
+
+MIT + file LICENSE
