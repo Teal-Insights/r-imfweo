@@ -16,9 +16,10 @@
 #'   \item{month}{The month of release ("April" or "October")}
 #' }
 #' @export
-weo_list_releases <- function(min_year = 2007,
-                              max_year = as.integer(format(Sys.Date(), "%Y"))) {
-
+weo_list_releases <- function(
+  min_year = 2007,
+  max_year = as.integer(format(Sys.Date(), "%Y"))
+) {
   # Validate inputs
   if (!is.numeric(min_year) || !is.numeric(max_year)) {
     cli::cli_abort("Years must be numeric values")
@@ -34,7 +35,7 @@ weo_list_releases <- function(min_year = 2007,
     dplyr::mutate(
       month = dplyr::if_else(.data$release == "Spring", "April", "October")
     ) |>
-    dplyr::arrange(.data$year, .data$month)  # Sort by year ascending and month
+    dplyr::arrange(.data$year, .data$month) # Sort by year ascending and month
 
   # Remove future releases
   current_year <- as.integer(format(Sys.Date(), "%Y"))
@@ -44,7 +45,7 @@ weo_list_releases <- function(min_year = 2007,
     dplyr::filter(
       .data$year < current_year |
         (.data$year == current_year &
-           ((.data$month == "April" & current_month >= 4) |
-              (.data$month == "October" & current_month >= 10)))
+          ((.data$month == "April" & current_month >= 4) |
+            (.data$month == "October" & current_month >= 10)))
     )
 }

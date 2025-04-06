@@ -30,12 +30,13 @@
 #'   countries = c("USA", "GBR", "DEU"),
 #'   start_year = 2015
 #' )
-weo_get <- function(series,
-                    countries,
-                    start_year = 1980,
-                    end_year = NULL,
-                    release = NULL) {
-
+weo_get <- function(
+  series,
+  countries,
+  start_year = 1980,
+  end_year = NULL,
+  release = NULL
+) {
   # Input validation
   validate_inputs(series, countries, start_year, end_year)
 
@@ -63,8 +64,8 @@ weo_get <- function(series,
   # Filter and clean data
   filtered_data <- data |>
     dplyr::filter(
-      .data$series %in% !!series,  # Force evaluation of series
-      .data$iso %in% !!countries,  # Force evaluation of countries
+      .data$series %in% !!series, # Force evaluation of series
+      .data$iso %in% !!countries, # Force evaluation of countries
       .data$year >= !!start_year,
       .data$year <= !!end_year
     ) |>
