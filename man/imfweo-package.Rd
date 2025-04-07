@@ -4,11 +4,30 @@
 \name{imfweo-package}
 \alias{imfweo}
 \alias{imfweo-package}
-\title{imfweo: What the Package Does (One Line, Title Case)}
+\title{imfweo: Download and Tidy IMF World Economic Outlook (WEO) Data}
 \description{
-What the package does (one paragraph).
+Provides tools to download, process, and analyze data from the International Monetary Fund's World Economic Outlook (WEO) database. Functions support downloading complete WEO releases, accessing specific economic indicators for selected countries, and listing available data. Data is returned in tidy format for easy integration with the tidyverse ecosystem.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://teal-insights.github.io/r-imfweo/}
+  \item \url{https://github.com/teal-insights/r-imfweo/}
+  \item Report bugs at \url{https://github.com/teal-insights/r-imfweo/issues}
+}
+
 }
 \author{
 \strong{Maintainer}: Teal Emery \email{lte@tealinsights.com}
+
+Authors:
+\itemize{
+  \item Christoph Scheuch \email{christoph@tidy-intelligence.com} (\href{https://orcid.org/0009-0004-0423-6819}{ORCID})
+}
+
+Other contributors:
+\itemize{
+  \item Teal Insights [copyright holder]
+}
 
 }

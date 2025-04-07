@@ -1,22 +1,55 @@
-#' Get Latest WEO Release
-#'
-#' Determines the latest available WEO release based on the current date.
-#'
-#' @return A list with year and release
+#' Validate publication
 #' @noRd
-get_latest_release <- function() {
-  current_year <- as.integer(format(Sys.Date(), "%Y"))
-  current_month <- as.integer(format(Sys.Date(), "%m"))
-
-  if (current_month >= 10) {
-    list(year = current_year, release = "Fall")
-  } else if (current_month >= 4) {
-    list(year = current_year, release = "Spring")
-  } else {
-    list(year = current_year - 1, release = "Fall")
-  }
+validate_publication <- function(publication) {
+    if (is.null(publication$year) || is.null(publication$release)) {
+        cli::cli_abort(
+            c(
+                "!" = "{.arg publication} must have non-null 'year' and 'release'."
+            )
+        )
+    }
 }
 
-#' Create Package Environment
+#' @keywords internal
 #' @noRd
-pkg_env <- new.env(parent = emptyenv())
+validate_year <- function(year) {
+    if (!is.numeric(year)) {
+        cli::cli_abort(
+            c(
+                "!" = "{.arg year} must be numeric"
+            )
+        )
+    }
+}
+
+
+#' @keywords internal
+#' @noRd
+validate_years <- function(start_year, end_year) {
+    if (!is.numeric(start_year) || !is.numeric(end_year)) {
+        cli::cli_abort(
+            c(
+                "!" = "{.arg start_year} and {.arg end_year} must be numeric"
+            )
+        )
+    }
+    if (start_year > end_year) {
+        cli::cli_abort(
+            c(
+                "!" = "{.arg start_year} must be smaller than {.arg end_year}"
+            )
+        )
+    }
+}
+
+#' @keywords internal
+resolve_publication <- function(year = NULL, release = NULL) {
+    if (is.null(year) && is.null(release)) {
+        publication <- weo_get_latest_publication()
+    } else {
+        publication <- list(year = year, release = release)
+    }
+
+    validate_publication(publication)
+    publication
+}

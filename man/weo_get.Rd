@@ -4,12 +4,17 @@
 \alias{weo_get}
 \title{Get WEO Data}
 \usage{
-weo_get(series, countries, start_year = 1980, end_year = NULL, release = NULL)
+weo_get(
+  entities,
+  series,
+  start_year = 1980,
+  end_year = NULL,
+  year = NULL,
+  release = NULL
+)
 }
 \arguments{
 \item{series}{Character vector of series codes (from weo_list_series())}
-
-\item{countries}{Character vector of ISO country codes (from weo_list_countries())}
 
 \item{start_year}{Numeric: start year (default: 1980)}
 
@@ -17,12 +22,14 @@ weo_get(series, countries, start_year = 1980, end_year = NULL, release = NULL)
 
 \item{release}{Optional list with components 'year' and 'release' specifying
 WEO release to use. If NULL, uses latest available.}
+
+\item{countries}{Character vector of ISO country codes (from weo_list_countries())}
 }
 \value{
 A tibble with columns:
 \describe{
-\item{country_code}{ISO 3-letter country code}
-\item{country_name}{Country name}
+\item{entity_id}{ISO 3-letter country code}
+\item{entity_name}{Entity name}
 \item{series_code}{WEO series code}
 \item{series_name}{Series name}
 \item{units}{Units of measurement}
@@ -37,8 +44,10 @@ series, countries, and years.
 \examples{
 # Get GDP growth for selected countries
 weo_get(
+  entities = c("USA", "GBR", "DEU"),
   series = "NGDP_RPCH",
-  countries = c("USA", "GBR", "DEU"),
-  start_year = 2015
+  start_year = 2015,
+  end_year = 2020
 )
+
 }
