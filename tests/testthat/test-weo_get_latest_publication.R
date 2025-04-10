@@ -46,7 +46,7 @@ test_that("cli_alert_info is shown when quiet = FALSE", {
     request = function(url) structure(list(url = url), class = "httr2_request"),
     req_options = function(req, ...) req,
     req_user_agent = function(req, ...) req,
-    req_perform = function(req) NULL, # simulate failed fetch to avoid short-circuit
+    req_perform = function(req) NULL,
     {
       expect_message(
         tryCatch(

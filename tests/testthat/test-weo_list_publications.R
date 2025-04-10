@@ -1,4 +1,4 @@
-test_that("weo_list_publications filters based on current date with mocked current year/month", {
+test_that("weo_list_publications filters based on current date", {
   # Fake current date: Assume it's May 2024 (Spring release out, Fall not yet)
   fake_current_year <- 2024
   fake_current_month <- 5
@@ -12,16 +12,17 @@ test_that("weo_list_publications filters based on current date with mocked curre
       expect_s3_class(result, "data.frame")
       expect_true(all(result$year >= 2023 & result$year <= 2024))
       expect_true("Spring" %in% result$release)
-      expect_true(!("Fall" %in% result$release[result$year == 2024])) # Fall not yet released
-      expect_true("Fall" %in% result$release[result$year == 2023]) # Last year's Fall is fine
+      expect_true(!("Fall" %in% result$release[result$year == 2024]))
+      expect_true("Fall" %in% result$release[result$year == 2023])
     }
   )
 })
 
 test_that("weo_list_publications respects check_latest = TRUE", {
   with_mocked_bindings(
-    weo_get_latest_publication = function()
-      list(year = 2024, release = "April"),
+    weo_get_latest_publication = function() {
+      list(year = 2024, release = "April")
+    },
     {
       result <- weo_list_publications(
         start_year = 2023,

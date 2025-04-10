@@ -5,10 +5,11 @@
 
 <!-- badges: start -->
 
-[![CRAN
+<!-- [![CRAN
 status](https://www.r-pkg.org/badges/version/imfweo)](https://cran.r-project.org/package=imfweo)
 [![CRAN
-downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org/package=imfweo)
+downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org/package=imfweo) -->
+
 ![R CMD
 Check](https://github.com/teal-insights/r-imfweo/actions/workflows/R-CMD-check.yaml/badge.svg)
 ![Lint](https://github.com/teal-insights/r-imfweo/actions/workflows/lint.yaml/badge.svg)
@@ -26,7 +27,7 @@ published twice a year - typically in April and October.
 The package is designed to work seamlessly with World Bank’s
 International Debt Statistics (IDS) and World Development Indicators
 (WDI) provided through the
-[wbids](https://github.com/Teal-Insights/r-wbids) and
+[wbids](https://github.com/teal-insights/r-wbids) and
 [wbwdi](https://github.com/tidy-intelligence/r-wbwdi) package,
 respectively. It follows the principles of the
 [econdataverse](https://www.econdataverse.org/).
@@ -71,7 +72,8 @@ weo_get()
 
 Note: On the first run of each R session, the function may take a few
 seconds to execute as the package checks which WEO publication is
-currently the latest.
+currently the latest. This information is put into a cache that is reset
+whenver your session restarts.
 
 To explicitly retrieve the most recent publication metadata, use:
 

@@ -17,10 +17,10 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 
-[![CRAN
+<!-- [![CRAN
 status](https://www.r-pkg.org/badges/version/imfweo)](https://cran.r-project.org/package=imfweo)
 [![CRAN
-downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org/package=imfweo)
+downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org/package=imfweo) -->
 ![R CMD
 Check](https://github.com/teal-insights/r-imfweo/actions/workflows/R-CMD-check.yaml/badge.svg)
 ![Lint](https://github.com/teal-insights/r-imfweo/actions/workflows/lint.yaml/badge.svg)
@@ -32,7 +32,7 @@ MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.or
 
 `imfweo` is an R package to access and analyze the International Monetary Fund's World Economic Outlook (WEO) publications. WEO provides comprehensive analysis and forecasts of the global economy and is published twice a year - typically in April and October.
 
-The package is designed to work seamlessly with World Bank's International Debt Statistics (IDS) and World Development Indicators (WDI) provided through the [wbids](https://github.com/Teal-Insights/r-wbids) and [wbwdi](https://github.com/tidy-intelligence/r-wbwdi) package, respectively. It follows the principles of the [econdataverse](https://www.econdataverse.org/).
+The package is designed to work seamlessly with World Bank's International Debt Statistics (IDS) and World Development Indicators (WDI) provided through the [wbids](https://github.com/teal-insights/r-wbids) and [wbwdi](https://github.com/tidy-intelligence/r-wbwdi) package, respectively. It follows the principles of the [econdataverse](https://www.econdataverse.org/).
 
 This package is a product of Teal Insights and not sponsored by or affiliated with the IMF in any way, except for the use of the WEO data.
 
@@ -55,7 +55,7 @@ library(imfweo)
 weo_get()
 ```
 
-Note: On the first run of each R session, the function may take a few seconds to execute as the package checks which WEO publication is currently the latest.
+Note: On the first run of each R session, the function may take a few seconds to execute as the package checks which WEO publication is currently the latest. This information is put into a cache that is reset whenver your session restarts. 
 
 To explicitly retrieve the most recent publication metadata, use:
 
