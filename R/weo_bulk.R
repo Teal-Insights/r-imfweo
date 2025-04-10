@@ -61,7 +61,7 @@ weo_bulk <- function(
 
     writeBin(httr2::resp_body_raw(resp), file_path)
 
-    if (!file.exists(file_path) || file.size(file_path) == 0) {
+    if (check_file(file_path)) {
       cli::cli_abort(c(
         "Failed to download WEO data",
         "i" = "URL: {url}",
@@ -84,6 +84,12 @@ weo_bulk <- function(
       }
     )
   }
+}
+
+#' @keywords internal
+#' @noRd
+check_file <- function(file_path) {
+  !file.exists(file_path) || file.size(file_path) == 0
 }
 
 #' Create WEO Download URL
