@@ -4,7 +4,11 @@
 \alias{weo_get_latest_publication}
 \title{Get Latest WEO Publication from IMF Website}
 \usage{
-weo_get_latest_publication()
+weo_get_latest_publication(quiet = TRUE)
+}
+\arguments{
+\item{quiet}{A logical indicating whether to print download information.
+Defaults to TRUE.}
 }
 \value{
 A list with year and release

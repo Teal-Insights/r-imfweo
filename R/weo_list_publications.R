@@ -39,8 +39,8 @@ weo_list_publications <- function(
     current_year <- as.integer(latest$year)
     current_month <- ifelse(latest$release == "April", 4L, 10L)
   } else {
-    current_year <- as.integer(format(Sys.Date(), "%Y"))
-    current_month <- as.integer(format(Sys.Date(), "%m"))
+    current_year <- get_current_year()
+    current_month <- get_current_month()
   }
 
   publications <- publications |>
@@ -49,7 +49,20 @@ weo_list_publications <- function(
         (.data$year == current_year &
           ((.data$month == "April" & current_month >= 4) |
             (.data$month == "October" & current_month >= 10)))
-    )
+    ) |>
+    dplyr::arrange(.data$year)
 
   publications
+}
+
+#' @keywords internal
+#' @noRd
+get_current_year <- function() {
+  as.integer(format(Sys.Date(), "%Y"))
+}
+
+#' @keywords internal
+#' @noRd
+get_current_month <- function() {
+  as.integer(format(Sys.Date(), "%m"))
 }

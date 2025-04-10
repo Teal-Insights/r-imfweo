@@ -17,8 +17,8 @@ weo_get_latest_publication <- function(quiet = TRUE) {
     }
 
     base_url <- "https://www.imf.org/en/Publications/WEO/weo-database"
-    current_date <- Sys.Date()
-    current_year <- as.integer(format(current_date, "%Y"))
+
+    current_year <- get_current_year()
     previous_year <- current_year - 1
 
     publications <- list(
@@ -30,10 +30,14 @@ weo_get_latest_publication <- function(quiet = TRUE) {
     for (rel in publications) {
       url <- paste0(base_url, "/", rel$year, "/", rel$release)
       req <- request(url) |>
-        req_options(followlocation = TRUE)
+        req_options(followlocation = TRUE) |>
+        req_user_agent(
+          "imfweo R package (https://github.com/teal-insights/r-imfweo)"
+        )
 
       resp <- tryCatch(
-        req |> req_perform(),
+        req |>
+          req_perform(),
         error = function(e) NULL
       )
 

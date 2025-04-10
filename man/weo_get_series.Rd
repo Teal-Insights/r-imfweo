@@ -4,7 +4,7 @@
 \alias{weo_get_series}
 \title{Get Available WEO Series}
 \usage{
-weo_get_series(year, release)
+weo_get_series(year = NULL, release = NULL, quiet = TRUE)
 }
 \arguments{
 \item{year}{The year of a WEO publication (e.g., 2024). Defaults to latest

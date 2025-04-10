@@ -5,16 +5,18 @@
 \title{Get WEO Data}
 \usage{
 weo_get(
-  entities,
-  series,
+  entities = NULL,
+  series = NULL,
   start_year = 1980,
   end_year = NULL,
   year = NULL,
-  release = NULL
+  release = NULL,
+  quiet = TRUE
 )
 }
 \arguments{
-\item{series}{Character vector of series codes (from weo_list_series())}
+\item{series}{(Optional) character vector of series codes.
+See \link{weo_get_series}.}
 
 \item{start_year}{Numeric: start year (default: 1980)}
 
@@ -23,12 +25,15 @@ weo_get(
 \item{release}{Optional list with components 'year' and 'release' specifying
 WEO release to use. If NULL, uses latest available.}
 
-\item{countries}{Character vector of ISO country codes (from weo_list_countries())}
+\item{quiet}{description}
+
+\item{countries}{(Optional) character vector of ISO3 country codes.
+See \link{weo_get_entities}.}
 }
 \value{
 A tibble with columns:
 \describe{
-\item{entity_id}{ISO 3-letter country code}
+\item{entity_id}{ISO3 country code}
 \item{entity_name}{Entity name}
 \item{series_code}{WEO series code}
 \item{series_name}{Series name}

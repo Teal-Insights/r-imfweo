@@ -19,7 +19,7 @@ Defaults to TRUE.}
 \value{
 A tibble with columns:
 \describe{
-\item{entity_id}{ISO 3-letter country or region code}
+\item{entity_id}{ISO3 country or region code}
 \item{entity_name}{Full name of the country or region}
 }
 }
