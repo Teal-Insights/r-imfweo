@@ -6,15 +6,23 @@
 #' - Spring (April)
 #' - Fall (October)
 #'
-#' @param start_year Minimum year to include (default: 2007)
-#' @param end_year Maximum year to include (default: current year)
+#' @param start_year Minimum year to include. Defaults to 2007.
+#' @param end_year Maximum year to include. Defaults to current year.
+#' @param check_latest Logical indicating whether to check whether the latest
+#'  publication according to current date has been released. Defaults to FALSE.
 #'
-#' @return A tibble with columns:
+#' @return A data frame with columns:
 #' \describe{
 #'   \item{year}{The year of the release}
 #'   \item{release}{The release name ("Spring" or "Fall")}
 #'   \item{month}{The month of release ("April" or "October")}
 #' }
+#'
+#' @examplesIf curl::has_internet()
+#' \donttest{
+#' weo_list_publications(check_latest = TRUE)
+#' }
+#'
 #' @export
 weo_list_publications <- function(
   start_year = 2007,
@@ -47,7 +55,7 @@ weo_list_publications <- function(
     dplyr::filter(
       .data$year < current_year |
         (.data$year == current_year &
-          ((.data$month == "April" & current_month >= 4) |
+          ((.data$month == "April" & current_month >= 4) | # nolint
             (.data$month == "October" & current_month >= 10)))
     ) |>
     dplyr::arrange(.data$year)

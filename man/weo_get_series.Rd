@@ -17,7 +17,7 @@ Defaults to latest publication release.}
 Defaults to TRUE.}
 }
 \value{
-A tibble with columns:
+A data frame with columns:
 \describe{
 \item{series_id}{The WEO series ID (e.g., "NGDP_RPCH")}
 \item{series_name}{Full name of the series (e.g., "Gross domestic product,

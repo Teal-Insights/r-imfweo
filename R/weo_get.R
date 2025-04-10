@@ -4,17 +4,19 @@
 #' Retrieve data from the IMF World Economic Outlook (WEO) database for specific
 #' series, countries, and years.
 #'
-#' @param series (Optional) character vector of series codes.
-#'  See \link{weo_get_series}.
-#' @param countries (Optional) character vector of ISO3 country codes.
+#' @param entities An optional character vector of ISO3 country codes.
 #'  See \link{weo_get_entities}.
-#' @param start_year Numeric: start year (default: 1980)
-#' @param end_year Numeric: end year (default: current year + 5)
-#' @param release Optional list with components 'year' and 'release' specifying
-#'   WEO release to use. If NULL, uses latest available.
+#' @param series A optional character vector of series codes.
+#'  See \link{weo_get_series}.
+#' @param start_year Minimum year to include. Defaults to 1980.
+#' @param end_year Maximum year to include. Defaults to current year + 5 years.
+#' @param year The year of a WEO publication (e.g., 2024). Defaults to latest
+#'  publication year.
+#' @param release The release of a WEO publication ("Spring" or "Fall").
+#'  Defaults to latest publication release.
 #' @param quiet description
 #'
-#' @return A tibble with columns:
+#' @return A data frame with columns:
 #' \describe{
 #'   \item{entity_id}{ISO3 country code}
 #'   \item{entity_name}{Entity name}
@@ -26,7 +28,8 @@
 #' }
 #' @export
 #'
-#' @examples
+#' @examplesIf curl::has_internet()
+#' \donttest{
 #' # Get GDP growth for selected countries
 #' weo_get(
 #'   entities = c("USA", "GBR", "DEU"),
@@ -34,7 +37,7 @@
 #'   start_year = 2015,
 #'   end_year = 2020
 #' )
-#'
+#' }
 weo_get <- function(
   entities = NULL,
   series = NULL,

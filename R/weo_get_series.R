@@ -10,7 +10,7 @@
 #' @param quiet A logical indicating whether to print download information.
 #'  Defaults to TRUE.
 #'
-#' @return A tibble with columns:
+#' @return A data frame with columns:
 #' \describe{
 #'   \item{series_id}{The WEO series ID (e.g., "NGDP_RPCH")}
 #'   \item{series_name}{Full name of the series (e.g., "Gross domestic product,

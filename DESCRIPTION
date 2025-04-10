@@ -22,11 +22,13 @@ Imports:
     httr2,
     readr,
     readxl,
+    rlang,
     tidyr
 Suggests:
-    knitr, 
-    testthat
+    curl,
+    testthat,
+    withr,
+    tibble
 Config/testthat/edition: 3
 URL: https://teal-insights.github.io/r-imfweo/, https://github.com/teal-insights/r-imfweo/
 BugReports: https://github.com/teal-insights/r-imfweo/issues
-VignetteBuilder: knitr

@@ -4,4 +4,5 @@
 #' @importFrom tidyr pivot_longer
 #' @importFrom cli cli_alert_info cli_alert_success
 #' @importFrom readr read_tsv
+#' @importFrom rlang .data
 "_PACKAGE"

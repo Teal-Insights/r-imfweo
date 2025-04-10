@@ -15,23 +15,26 @@ weo_get(
 )
 }
 \arguments{
-\item{series}{(Optional) character vector of series codes.
+\item{entities}{An optional character vector of ISO3 country codes.
+See \link{weo_get_entities}.}
+
+\item{series}{A optional character vector of series codes.
 See \link{weo_get_series}.}
 
-\item{start_year}{Numeric: start year (default: 1980)}
+\item{start_year}{Minimum year to include. Defaults to 1980.}
 
-\item{end_year}{Numeric: end year (default: current year + 5)}
+\item{end_year}{Maximum year to include. Defaults to current year + 5 years.}
 
-\item{release}{Optional list with components 'year' and 'release' specifying
-WEO release to use. If NULL, uses latest available.}
+\item{year}{The year of a WEO publication (e.g., 2024). Defaults to latest
+publication year.}
+
+\item{release}{The release of a WEO publication ("Spring" or "Fall").
+Defaults to latest publication release.}
 
 \item{quiet}{description}
-
-\item{countries}{(Optional) character vector of ISO3 country codes.
-See \link{weo_get_entities}.}
 }
 \value{
-A tibble with columns:
+A data frame with columns:
 \describe{
 \item{entity_id}{ISO3 country code}
 \item{entity_name}{Entity name}
@@ -47,6 +50,8 @@ Retrieve data from the IMF World Economic Outlook (WEO) database for specific
 series, countries, and years.
 }
 \examples{
+\dontshow{if (curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\donttest{
 # Get GDP growth for selected countries
 weo_get(
   entities = c("USA", "GBR", "DEU"),
@@ -54,5 +59,6 @@ weo_get(
   start_year = 2015,
   end_year = 2020
 )
-
+}
+\dontshow{\}) # examplesIf}
 }

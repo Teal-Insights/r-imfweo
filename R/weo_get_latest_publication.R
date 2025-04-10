@@ -8,6 +8,12 @@
 #' @return A list with year and release
 #'
 #' @export
+#'
+#' @examplesIf curl::has_internet()
+#' \donttest{
+#' # List all series
+#' weo_get_latest_publication(quiet = FALSE)
+#' }
 weo_get_latest_publication <- function(quiet = TRUE) {
   if (!is.null(.weo_cache$latest_publication)) {
     return(.weo_cache$latest_publication)

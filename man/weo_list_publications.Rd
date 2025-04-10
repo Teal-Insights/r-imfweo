@@ -11,12 +11,15 @@ weo_list_publications(
 )
 }
 \arguments{
-\item{start_year}{Minimum year to include (default: 2007)}
+\item{start_year}{Minimum year to include. Defaults to 2007.}
 
-\item{end_year}{Maximum year to include (default: current year)}
+\item{end_year}{Maximum year to include. Defaults to current year.}
+
+\item{check_latest}{Logical indicating whether to check whether the latest
+publication according to current date has been released. Defaults to FALSE.}
 }
 \value{
-A tibble with columns:
+A data frame with columns:
 \describe{
 \item{year}{The year of the release}
 \item{release}{The release name ("Spring" or "Fall")}
@@ -30,4 +33,11 @@ The IMF typically releases the WEO database twice per year:
 \item Spring (April)
 \item Fall (October)
 }
+}
+\examples{
+\dontshow{if (curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\donttest{
+weo_list_publications(check_latest = TRUE)
+}
+\dontshow{\}) # examplesIf}
 }

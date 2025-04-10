@@ -11,7 +11,7 @@
 #' @param quiet A logical indicating whether to print download information.
 #'  Defaults to TRUE.
 #'
-#' @return A tibble with columns:
+#' @return A data frame with columns:
 #' \describe{
 #'   \item{entity_id}{ISO3 country or region code}
 #'   \item{entity_name}{Full name of the country or region}

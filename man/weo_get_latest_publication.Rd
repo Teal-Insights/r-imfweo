@@ -16,3 +16,11 @@ A list with year and release
 \description{
 Determines the latest available WEO publication based on the current date.
 }
+\examples{
+\dontshow{if (curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\donttest{
+# List all series
+weo_get_latest_publication(quiet = FALSE)
+}
+\dontshow{\}) # examplesIf}
+}
