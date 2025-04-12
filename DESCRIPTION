@@ -1,6 +1,6 @@
 Package: imfweo
 Title: Download and Tidy IMF World Economic Outlook (WEO) Data
-Version: 0.0.0.9000
+Version: 0.0.1.9000
 Authors@R: 
     person("Teal", "Emery", , "lte@tealinsights.com", role = c("aut", "cre"))
 Description: Provides tools to download, process, and analyze data from the

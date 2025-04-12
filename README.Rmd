@@ -33,20 +33,30 @@ You can install the development version of imfweo from [GitHub](https://github.c
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("Teal-Insights/imfweo")
+devtools::install_github("teal-insights/r-imfweo")
 ```
 
-## Basic Usage
+## Usage
 
-### Getting WEO Data
+The main function `weo_get()` provides a simple interface to download data from the latest World Economic Outlook (WEO) publication:
 
-You can get WEO data either by downloading specific series for selected countries (`weo_get()`) or by downloading complete WEO releases (`weo_bulk()`).
-
-Get specific indicators for selected countries:
-```{r specific_data}
+```{r}
 library(imfweo)
 
-# Get GDP growth and inflation for G7 countries
+weo_get()
+```
+
+On the first run of each R session, the function may take a few seconds to execute as the package checks which WEO publication is currently the latest. This information is put into a cache that is reset whenver your session restarts. 
+
+To explicitly retrieve the most recent publication metadata, use:
+
+```{r}
+weo_get_latest_publication()
+```
+
+To fetch data from a specific publication, or to filter by country, indicator, or time range, you can use the available parameters:
+
+```{r}
 weo_get(
   series = c("NGDP_RPCH", "PCPIPCH"),  # Real GDP growth and inflation
   countries = c("USA", "GBR", "DEU", "FRA", "ITA", "JPN", "CAN"),
