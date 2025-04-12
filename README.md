@@ -42,7 +42,7 @@ You can install the development version of `imfweo` from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("teal-insights/imfweo")
+devtools::install_github("teal-insights/r-imfweo")
 ```
 
 ## Usage
@@ -70,10 +70,10 @@ weo_get()
 #> # ℹ 322,325 more rows
 ```
 
-Note: On the first run of each R session, the function may take a few
-seconds to execute as the package checks which WEO publication is
-currently the latest. This information is put into a cache that is reset
-whenver your session restarts.
+On the first run of each R session, the function may take a few seconds
+to execute as the package checks which WEO publication is currently the
+latest. This information is put into a cache that is reset whenver your
+session restarts.
 
 To explicitly retrieve the most recent publication metadata, use:
 
