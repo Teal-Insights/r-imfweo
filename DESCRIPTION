@@ -2,25 +2,33 @@ Package: imfweo
 Title: Download and Tidy IMF World Economic Outlook (WEO) Data
 Version: 0.0.1.9000
 Authors@R: 
-    person("Teal", "Emery", , "lte@tealinsights.com", role = c("aut", "cre"))
+    c(person("Teal", "Emery", , "lte@tealinsights.com", role = c("aut", "cre")),
+      person("Teal Insights", role = c("cph")),
+      person("Christoph", "Scheuch", , "christoph@tidy-intelligence.com",
+             role = c("aut"), comment = c(ORCID = "0009-0004-0423-6819")))
 Description: Provides tools to download, process, and analyze data from the
     International Monetary Fund's World Economic Outlook (WEO) database. 
     Functions support downloading complete WEO releases, accessing specific 
     economic indicators for selected countries, and listing available data.
-    Data is returned in tidy format for easy integration with the tidyverse
-    ecosystem.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
-Suggests: 
-    testthat (>= 3.0.0)
-Config/testthat/edition: 3
+RoxygenNote: 7.3.2
+Depends: 
+    R (>= 4.1.0)
 Imports: 
     cli,
     dplyr,
     httr2,
     readr,
     readxl,
+    rlang,
     tidyr
-URL: https://special-dollop-5kgz4oe.pages.github.io/, https://teal-insights.github.io/imfweo/
+Suggests:
+    curl,
+    testthat,
+    withr,
+    tibble
+Config/testthat/edition: 3
+URL: https://teal-insights.github.io/r-imfweo/, https://github.com/teal-insights/r-imfweo/
+BugReports: https://github.com/teal-insights/r-imfweo/issues

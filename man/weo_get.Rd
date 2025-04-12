@@ -4,25 +4,40 @@
 \alias{weo_get}
 \title{Get WEO Data}
 \usage{
-weo_get(series, countries, start_year = 1980, end_year = NULL, release = NULL)
+weo_get(
+  entities = NULL,
+  series = NULL,
+  start_year = 1980,
+  end_year = NULL,
+  year = NULL,
+  release = NULL,
+  quiet = TRUE
+)
 }
 \arguments{
-\item{series}{Character vector of series codes (from weo_list_series())}
+\item{entities}{An optional character vector of ISO3 country codes.
+See \link{weo_get_entities}.}
 
-\item{countries}{Character vector of ISO country codes (from weo_list_countries())}
+\item{series}{A optional character vector of series codes.
+See \link{weo_get_series}.}
 
-\item{start_year}{Numeric: start year (default: 1980)}
+\item{start_year}{Minimum year to include. Defaults to 1980.}
 
-\item{end_year}{Numeric: end year (default: current year + 5)}
+\item{end_year}{Maximum year to include. Defaults to current year + 5 years.}
 
-\item{release}{Optional list with components 'year' and 'release' specifying
-WEO release to use. If NULL, uses latest available.}
+\item{year}{The year of a WEO publication (e.g., 2024). Defaults to latest
+publication year.}
+
+\item{release}{The release of a WEO publication ("Spring" or "Fall").
+Defaults to latest publication release.}
+
+\item{quiet}{description}
 }
 \value{
-A tibble with columns:
+A data frame with columns:
 \describe{
-\item{country_code}{ISO 3-letter country code}
-\item{country_name}{Country name}
+\item{entity_id}{ISO3 country code}
+\item{entity_name}{Entity name}
 \item{series_code}{WEO series code}
 \item{series_name}{Series name}
 \item{units}{Units of measurement}
@@ -35,10 +50,15 @@ Retrieve data from the IMF World Economic Outlook (WEO) database for specific
 series, countries, and years.
 }
 \examples{
+\dontshow{if (curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\donttest{
 # Get GDP growth for selected countries
 weo_get(
+  entities = c("USA", "GBR", "DEU"),
   series = "NGDP_RPCH",
-  countries = c("USA", "GBR", "DEU"),
-  start_year = 2015
+  start_year = 2015,
+  end_year = 2020
 )
+}
+\dontshow{\}) # examplesIf}
 }

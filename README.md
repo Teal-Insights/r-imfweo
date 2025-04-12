@@ -5,97 +5,123 @@
 
 <!-- badges: start -->
 
+<!-- [![CRAN
+status](https://www.r-pkg.org/badges/version/imfweo)](https://cran.r-project.org/package=imfweo)
+[![CRAN
+downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org/package=imfweo) -->
+
+![R CMD
+Check](https://github.com/teal-insights/r-imfweo/actions/workflows/R-CMD-check.yaml/badge.svg)
+![Lint](https://github.com/teal-insights/r-imfweo/actions/workflows/lint.yaml/badge.svg)
+[![Codecov test
+coverage](https://codecov.io/gh/teal-insights/r-imfweo/graph/badge.svg)](https://app.codecov.io/gh/teal-insights/r-imfweo)
+[![License:
+MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
 
-`imfweo` provides easy access to the International Monetary Fund’s World
-Economic Outlook (WEO) database in R. This is a minimum viable product
-under heavy development.
+`imfweo` is an R package to access and analyze the International
+Monetary Fund’s World Economic Outlook (WEO) publications. WEO provides
+comprehensive analysis and forecasts of the global economy and is
+published twice a year - typically in April and October.
 
-## Features
+The package is designed to work seamlessly with World Bank’s
+International Debt Statistics (IDS) and World Development Indicators
+(WDI) provided through the
+[wbids](https://github.com/teal-insights/r-wbids) and
+[wbwdi](https://github.com/tidy-intelligence/r-wbwdi) package,
+respectively. It follows the principles of the
+[econdataverse](https://www.econdataverse.org/).
 
-- Download and process WEO data releases
-- List available countries, indicators, and releases
-- Extract specific series for analysis
-- Consistent interface and tidy data output
+This package is a product of Teal Insights and not sponsored by or
+affiliated with the IMF in any way, except for the use of the WEO data.
 
 ## Installation
 
-You can install the development version of imfweo from
+You can install the development version of `imfweo` from
 [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("Teal-Insights/imfweo")
+devtools::install_github("teal-insights/imfweo")
 ```
 
-## Basic Usage
+## Usage
 
-### Getting WEO Data
-
-You can get WEO data either by downloading specific series for selected
-countries (`weo_get()`) or by downloading complete WEO releases
-(`weo_bulk()`).
-
-Get specific indicators for selected countries:
+The main function `weo_get()` provides a simple interface to download
+data from the latest World Economic Outlook (WEO) publication:
 
 ``` r
 library(imfweo)
 
-# Get GDP growth and inflation for G7 countries
+weo_get()
+#> # A tibble: 322,335 × 7
+#>    entity_name entity_id series_name             units    series_id  year  value
+#>    <chr>       <chr>     <chr>                   <chr>    <chr>     <int>  <dbl>
+#>  1 Aruba       ABW       Current account balance U.S. do… BCA        1999 -0.435
+#>  2 Aruba       ABW       Current account balance U.S. do… BCA        2000  0.213
+#>  3 Aruba       ABW       Current account balance U.S. do… BCA        2001  0.31 
+#>  4 Aruba       ABW       Current account balance U.S. do… BCA        2002 -0.333
+#>  5 Aruba       ABW       Current account balance U.S. do… BCA        2003 -0.167
+#>  6 Aruba       ABW       Current account balance U.S. do… BCA        2004  0.274
+#>  7 Aruba       ABW       Current account balance U.S. do… BCA        2005  0.116
+#>  8 Aruba       ABW       Current account balance U.S. do… BCA        2006  0.314
+#>  9 Aruba       ABW       Current account balance U.S. do… BCA        2007  0.259
+#> 10 Aruba       ABW       Current account balance U.S. do… BCA        2008  0.001
+#> # ℹ 322,325 more rows
+```
+
+Note: On the first run of each R session, the function may take a few
+seconds to execute as the package checks which WEO publication is
+currently the latest. This information is put into a cache that is reset
+whenver your session restarts.
+
+To explicitly retrieve the most recent publication metadata, use:
+
+``` r
+weo_get_latest_publication()
+#> $year
+#> [1] 2024
+#> 
+#> $release
+#> [1] "Fall"
+```
+
+To fetch data from a specific publication, or to filter by country,
+indicator, or time range, you can use the available parameters:
+
+``` r
 weo_get(
-  series = c("NGDP_RPCH", "PCPIPCH"),  # Real GDP growth and inflation
-  countries = c("USA", "GBR", "DEU", "FRA", "ITA", "JPN", "CAN"),
-  start_year = 2015
+    entities = c("USA", "GBR", "DEU"),
+    series = "NGDP_RPCH",
+    start_year = 2015,
+    end_year = 2020,
+    year = 2023,
+    release = "Spring"
 )
-#> ℹ Available series: NGDP_R, NGDP_RPCH, NGDP, NGDPD, PPPGDP, NGDP_D, NGDPRPC, NGDPRPPPPC, NGDPPC, NGDPDPC, PPPPC, PPPSH, PPPEX, NID_NGDP, NGSD_NGDP, PCPI, PCPIPCH, PCPIE, PCPIEPCH, TM_RPCH, TMG_RPCH, TX_RPCH, TXG_RPCH, LP, GGR, GGR_NGDP, GGX, GGX_NGDP, GGXCNL, GGXCNL_NGDP, GGXONLB, GGXONLB_NGDP, GGXWDG, GGXWDG_NGDP, NGDP_FY, BCA, BCA_NGDPD, LUR, GGXWDN, GGXWDN_NGDP, LE, GGSB, GGSB_NPGDP, NGAP_NPGDP
-#> ℹ Requested series: NGDP_RPCH, PCPIPCH
-#> ℹ Filtered series: NGDP_RPCH, PCPIPCH
-#> # A tibble: 210 × 7
-#>    country_name country_code series_name           units series_code  year value
-#>    <chr>        <chr>        <chr>                 <chr> <chr>       <int> <dbl>
-#>  1 Canada       CAN          Gross domestic produ… Perc… NGDP_RPCH    2015  0.65
-#>  2 Canada       CAN          Gross domestic produ… Perc… NGDP_RPCH    2016  1.04
-#>  3 Canada       CAN          Gross domestic produ… Perc… NGDP_RPCH    2017  3.03
-#>  4 Canada       CAN          Gross domestic produ… Perc… NGDP_RPCH    2018  2.74
-#>  5 Canada       CAN          Gross domestic produ… Perc… NGDP_RPCH    2019  1.91
-#>  6 Canada       CAN          Gross domestic produ… Perc… NGDP_RPCH    2020 -5.04
-#>  7 Canada       CAN          Gross domestic produ… Perc… NGDP_RPCH    2021  5.29
-#>  8 Canada       CAN          Gross domestic produ… Perc… NGDP_RPCH    2022  3.82
-#>  9 Canada       CAN          Gross domestic produ… Perc… NGDP_RPCH    2023  1.25
-#> 10 Canada       CAN          Gross domestic produ… Perc… NGDP_RPCH    2024  1.34
-#> # ℹ 200 more rows
+#> # A tibble: 792 × 7
+#>    entity_name    entity_id series_name             units series_id  year  value
+#>    <chr>          <chr>     <chr>                   <chr> <chr>     <int>  <dbl>
+#>  1 Germany        DEU       Current account balance U.S.… BCA        2015  288. 
+#>  2 Germany        DEU       Current account balance U.S.… BCA        2016  299. 
+#>  3 Germany        DEU       Current account balance U.S.… BCA        2017  289. 
+#>  4 Germany        DEU       Current account balance U.S.… BCA        2018  316. 
+#>  5 Germany        DEU       Current account balance U.S.… BCA        2019  318. 
+#>  6 Germany        DEU       Current account balance U.S.… BCA        2020  274. 
+#>  7 United Kingdom GBR       Current account balance U.S.… BCA        2015 -149. 
+#>  8 United Kingdom GBR       Current account balance U.S.… BCA        2016 -149. 
+#>  9 United Kingdom GBR       Current account balance U.S.… BCA        2017  -96.9
+#> 10 United Kingdom GBR       Current account balance U.S.… BCA        2018 -117. 
+#> # ℹ 782 more rows
 ```
 
-Download a complete WEO release:
+Even when filtering, the full dataset for the selected publication must
+be downloaded, as the WEO data is distributed in Excel format.
+
+To explore available publications:
 
 ``` r
-# Download Spring 2024 WEO
-weo_bulk(2024, "Spring")
-#> ℹ Downloading WEO data...
-#> ℹ Processing data...
-#> # A tibble: 322,437 × 7
-#>    country     iso   subject                            units series  year value
-#>    <chr>       <chr> <chr>                              <chr> <chr>  <int> <dbl>
-#>  1 Afghanistan AFG   Gross domestic product, constant … Nati… NGDP_R  2002  453.
-#>  2 Afghanistan AFG   Gross domestic product, constant … Nati… NGDP_R  2003  493.
-#>  3 Afghanistan AFG   Gross domestic product, constant … Nati… NGDP_R  2004  496.
-#>  4 Afghanistan AFG   Gross domestic product, constant … Nati… NGDP_R  2005  555.
-#>  5 Afghanistan AFG   Gross domestic product, constant … Nati… NGDP_R  2006  585.
-#>  6 Afghanistan AFG   Gross domestic product, constant … Nati… NGDP_R  2007  663.
-#>  7 Afghanistan AFG   Gross domestic product, constant … Nati… NGDP_R  2008  688.
-#>  8 Afghanistan AFG   Gross domestic product, constant … Nati… NGDP_R  2009  830.
-#>  9 Afghanistan AFG   Gross domestic product, constant … Nati… NGDP_R  2010  900.
-#> 10 Afghanistan AFG   Gross domestic product, constant … Nati… NGDP_R  2011  958.
-#> # ℹ 322,427 more rows
-```
-
-### Available Data
-
-List available WEO releases:
-
-``` r
-weo_list_releases()
-#> # A tibble: 36 × 3
+weo_list_publications()
+#> # A tibble: 37 × 3
 #>     year release month  
 #>    <int> <chr>   <chr>  
 #>  1  2007 Spring  April  
@@ -108,46 +134,36 @@ weo_list_releases()
 #>  8  2010 Fall    October
 #>  9  2011 Spring  April  
 #> 10  2011 Fall    October
-#> # ℹ 26 more rows
+#> # ℹ 27 more rows
 ```
 
-List available countries and regions:
+To list the available entities (countries or regions) for the latest
+publication:
 
 ``` r
-weo_list_countries()
+weo_get_entities()
 #> # A tibble: 196 × 2
-#>    country_code country_name       
-#>    <chr>        <chr>              
-#>  1 AFG          Afghanistan        
-#>  2 ALB          Albania            
-#>  3 DZA          Algeria            
-#>  4 AND          Andorra            
-#>  5 AGO          Angola             
-#>  6 ATG          Antigua and Barbuda
-#>  7 ARG          Argentina          
-#>  8 ARM          Armenia            
-#>  9 ABW          Aruba              
-#> 10 AUS          Australia          
+#>    entity_id entity_name        
+#>    <chr>     <chr>              
+#>  1 AFG       Afghanistan        
+#>  2 ALB       Albania            
+#>  3 DZA       Algeria            
+#>  4 AND       Andorra            
+#>  5 AGO       Angola             
+#>  6 ATG       Antigua and Barbuda
+#>  7 ARG       Argentina          
+#>  8 ARM       Armenia            
+#>  9 ABW       Aruba              
+#> 10 AUS       Australia          
 #> # ℹ 186 more rows
 ```
 
-``` r
-# Search for specific countries
-weo_list_countries("united")
-#> # A tibble: 3 × 2
-#>   country_code country_name        
-#>   <chr>        <chr>               
-#> 1 ARE          United Arab Emirates
-#> 2 GBR          United Kingdom      
-#> 3 USA          United States
-```
-
-List available economic indicators:
+To list the available data series:
 
 ``` r
-weo_list_series()
+weo_get_series()
 #> # A tibble: 44 × 3
-#>    series_code series_name                                      units           
+#>    series_id   series_name                                      units           
 #>    <chr>       <chr>                                            <chr>           
 #>  1 BCA         Current account balance                          U.S. dollars    
 #>  2 BCA_NGDPD   Current account balance                          Percent of GDP  
@@ -162,72 +178,18 @@ weo_list_series()
 #> # ℹ 34 more rows
 ```
 
-``` r
-# Search for GDP-related indicators
-weo_list_series("gdp")
-#> # A tibble: 22 × 3
-#>    series_code  series_name                                      units          
-#>    <chr>        <chr>                                            <chr>          
-#>  1 BCA_NGDPD    Current account balance                          Percent of GDP 
-#>  2 GGR_NGDP     General government revenue                       Percent of GDP 
-#>  3 GGSB_NPGDP   General government structural balance            Percent of pot…
-#>  4 GGXCNL_NGDP  General government net lending/borrowing         Percent of GDP 
-#>  5 GGXONLB_NGDP General government primary net lending/borrowing Percent of GDP 
-#>  6 GGXWDG_NGDP  General government gross debt                    Percent of GDP 
-#>  7 GGXWDN_NGDP  General government net debt                      Percent of GDP 
-#>  8 GGX_NGDP     General government total expenditure             Percent of GDP 
-#>  9 NGAP_NPGDP   Output gap in percent of potential GDP           Percent of pot…
-#> 10 NGDP         Gross domestic product, current prices           National curre…
-#> # ℹ 12 more rows
-```
+## Contributing
 
-## Development Status
+Contributions to `imfweo` are welcome! If you’d like to contribute,
+please follow these steps:
 
-This package is under active development. Current features are working
-but may change. Future releases will add:
-
-- Better data validation
-- More convenience functions for common analyses
-- Improved documentation and vignettes
-- Additional data transformation tools
-
-## Part of the econdataverse
-
-`imfweo` is part of the [econdataverse](https://www.econdataverse.org/),
-a universe of open-source packages designed to make working with
-economic data seamless and efficient. The goal is simple: spend less
-time wrestling with data and more time analyzing it.
-
-Think of econdataverse packages as LEGO® pieces - modular tools designed
-to work together perfectly. For example, you might combine World Bank
-debt data (using [{wbids}](https://teal-insights.github.io/r-wbids/))
-with IMF macroeconomic projections from this package.
-
-### Current Features
-
-- Download WEO data programmatically
-- Access specific indicators for selected countries
-- Get metadata about available series and countries
-- Return data in tidy format ready for analysis
-
-### Roadmap
-
-We’re working on:
-
-- Standardizing country names across econdataverse packages
-- Creating consistent column names and data structures
-- Building tools for common economic analyses
-- Making data combination across sources seamless
-
-Other econdataverse packages:
-
-- [{wbids}](https://teal-insights.github.io/r-wbids/): World Bank
-  International Debt Statistics ✅
-- [{wbwdi}](https://tidy-intelligence.github.io/r-wbwdi/): World Bank
-  World Development Indicators 🚀
-- More coming soon!
-
-Our mission is to unclog the data bottleneck in economic analysis. By
-making data access and cleaning efficient and consistent, we enable
-policymakers and researchers to focus on what matters: using data to
-make better decisions in a world of limited resources.
+1.  **Create an issue**: Before making changes, create an issue
+    describing the bug or feature you’re addressing.
+2.  **Fork the repository**: Fork the repository to your GitHub account.
+3.  **Create a branch**: Create a branch for your changes with a
+    descriptive name.
+4.  **Make your changes**: Implement your bug fix or feature.
+5.  **Test your changes**: Run tests to ensure your changes don’t break
+    existing functionality.
+6.  **Submit a pull request**: Push your changes to your fork and submit
+    a pull request to the main repository.

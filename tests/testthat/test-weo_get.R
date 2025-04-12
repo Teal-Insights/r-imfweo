@@ -1,41 +1,73 @@
+test_that("weo_get filters correctly with mocked bindings", {
+  fake_publication <- list(year = 2024, release = "Spring")
 
-test_that("weo_get retrieves specific data correctly", {
-  data <- weo_get(
-    series = "NGDP_RPCH",
-    countries = "USA",
-    start_year = 2020
+  fake_bulk_data <- data.frame(
+    iso = c("USA", "GBR", "DEU", "USA"),
+    country = c("United States", "United Kingdom", "Germany", "United States"),
+    series = c("NGDP_RPCH", "NGDP_RPCH", "NGDP_RPCH", "NGDP_RPCH"),
+    subject = c(
+      "Real GDP Growth",
+      "Real GDP Growth",
+      "Real GDP Growth",
+      "Real GDP Growth"
+    ),
+    units = c("Percent", "Percent", "Percent", "Percent"),
+    year = c(2015, 2016, 2017, 2018),
+    value = c(2.5, 1.8, 1.6, 2.9),
+    stringsAsFactors = FALSE
   )
 
-  # Test structure
-  expect_s3_class(data, "tbl_df")
-  expect_named(data, c("country_name", "country_code", "series_name",
-                       "units", "series_code", "year", "value"))
+  with_mocked_bindings(
+    resolve_publication = function(year, release) fake_publication,
+    weo_bulk = function(year, release, quiet) fake_bulk_data,
+    {
+      result <- weo_get(
+        entities = c("USA", "GBR"),
+        series = "NGDP_RPCH",
+        start_year = 2015,
+        end_year = 2016
+      )
 
-  # Test filtering
-  expect_equal(unique(data$series_code), "NGDP_RPCH")
-  expect_equal(unique(data$country_code), "USA")
-  expect_true(all(data$year >= 2020))
+      expect_s3_class(result, "data.frame")
+      expect_equal(unique(result$entity_id), c("GBR", "USA"))
+      expect_equal(unique(result$series_id), "NGDP_RPCH")
+      expect_true(all(result$year >= 2015 & result$year <= 2016))
+    }
+  )
 })
 
-test_that("weo_get handles multiple series and countries", {
-  data <- weo_get(
-    series = c("NGDP_RPCH", "PCPIPCH"),
-    countries = c("USA", "GBR", "DEU"),
-    start_year = 2020
+test_that("weo_get defaults end_year to current year + 5", {
+  fake_year <- 2024
+  current_year <- as.integer(format(Sys.Date(), "%Y"))
+  expected_end <- current_year + 5
+
+  fake_publication <- list(year = fake_year, release = "Spring")
+
+  fake_bulk_data <- data.frame(
+    iso = "USA",
+    country = "United States",
+    series = "NGDP_RPCH",
+    subject = "Real GDP Growth",
+    units = "Percent",
+    year = expected_end,
+    value = 2.9,
+    stringsAsFactors = FALSE
   )
 
-  # Test filtering
-  expect_equal(
-    sort(unique(data$series_code)),
-    sort(c("NGDP_RPCH", "PCPIPCH"))
-  )
-  expect_equal(
-    sort(unique(data$country_code)),
-    sort(c("USA", "GBR", "DEU"))
-  )
-  expect_true(all(data$year >= 2020))
+  with_mocked_bindings(
+    resolve_publication = function(year, release) fake_publication,
+    weo_bulk = function(year, release, quiet) fake_bulk_data,
+    {
+      result <- weo_get(
+        entities = "USA",
+        series = "NGDP_RPCH",
+        start_year = expected_end,
+        end_year = NULL
+      )
 
-  # Test completeness
-  expected_rows <- length(2020:2029) * 2 * 3  # years * series * countries
-  expect_true(nrow(data) >= expected_rows)
+      expect_s3_class(result, "data.frame")
+      expect_equal(nrow(result), 1)
+      expect_equal(result$year, expected_end)
+    }
+  )
 })
