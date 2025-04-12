@@ -11,8 +11,8 @@
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Download and Tidy IMF World Economic Outlook (WEO) Data">
-<meta name="description" content="Provides tools to download, process, and analyze data from the International Monetary Fund's World Economic Outlook (WEO) database. Functions support downloading complete WEO releases, accessing specific economic indicators for selected countries, and listing available data. Data is returned in tidy format for easy integration with the tidyverse ecosystem.">
-<meta property="og:description" content="Provides tools to download, process, and analyze data from the International Monetary Fund's World Economic Outlook (WEO) database. Functions support downloading complete WEO releases, accessing specific economic indicators for selected countries, and listing available data. Data is returned in tidy format for easy integration with the tidyverse ecosystem.">
+<meta name="description" content="Provides tools to download, process, and analyze data from the International Monetary Fund's World Economic Outlook (WEO) database. Functions support downloading complete WEO releases, accessing specific economic indicators for selected countries, and listing available data.">
+<meta property="og:description" content="Provides tools to download, process, and analyze data from the International Monetary Fund's World Economic Outlook (WEO) database. Functions support downloading complete WEO releases, accessing specific economic indicators for selected countries, and listing available data.">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -37,6 +37,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/teal-insights/r-imfweo/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -48,88 +49,82 @@
 <div class="page-header"><h1 id="imfweo">imfweo<a class="anchor" aria-label="anchor" href="#imfweo"></a>
 </h1></div>
 <!-- badges: start -->
-<!-- badges: end -->
-<p><code>imfweo</code> provides easy access to the International Monetary Fund’s World Economic Outlook (WEO) database in R. This is a minimum viable product under heavy development.</p>
-<div class="section level2">
-<h2 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
-</h2>
-<ul>
-<li>Download and process WEO data releases</li>
-<li>List available countries, indicators, and releases</li>
-<li>Extract specific series for analysis</li>
-<li>Consistent interface and tidy data output</li>
-</ul>
-</div>
+<!-- [![CRAN
+status](https://www.r-pkg.org/badges/version/imfweo)](https://cran.r-project.org/package=imfweo)
+[![CRAN
+downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org/package=imfweo) -->
+
+<p><code>imfweo</code> is an R package to access and analyze the International Monetary Fund’s World Economic Outlook (WEO) publications. WEO provides comprehensive analysis and forecasts of the global economy and is published twice a year - typically in April and October.</p>
+<p>The package is designed to work seamlessly with World Bank’s International Debt Statistics (IDS) and World Development Indicators (WDI) provided through the <a href="https://github.com/teal-insights/r-wbids" class="external-link">wbids</a> and <a href="https://github.com/tidy-intelligence/r-wbwdi" class="external-link">wbwdi</a> package, respectively. It follows the principles of the <a href="https://www.econdataverse.org/" class="external-link">econdataverse</a>.</p>
+<p>This package is a product of Teal Insights and not sponsored by or affiliated with the IMF in any way, except for the use of the WEO data.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of imfweo from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>You can install the development version of <code>imfweo</code> from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"Teal-Insights/imfweo"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"teal-insights/imfweo"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="basic-usage">Basic Usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
-<div class="section level3">
-<h3 id="getting-weo-data">Getting WEO Data<a class="anchor" aria-label="anchor" href="#getting-weo-data"></a>
-</h3>
-<p>You can get WEO data either by downloading specific series for selected countries (<code><a href="reference/weo_get.html">weo_get()</a></code>) or by downloading complete WEO releases (<code><a href="reference/weo_bulk.html">weo_bulk()</a></code>).</p>
-<p>Get specific indicators for selected countries:</p>
+<p>The main function <code><a href="reference/weo_get.html">weo_get()</a></code> provides a simple interface to download data from the latest World Economic Outlook (WEO) publication:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://special-dollop-5kgz4oe.pages.github.io/" class="external-link">imfweo</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://teal-insights.github.io/r-imfweo/">imfweo</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Get GDP growth and inflation for G7 countries</span></span>
-<span><span class="fu"><a href="reference/weo_get.html">weo_get</a></span><span class="op">(</span></span>
-<span>  series <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NGDP_RPCH"</span>, <span class="st">"PCPIPCH"</span><span class="op">)</span>,  <span class="co"># Real GDP growth and inflation</span></span>
-<span>  countries <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"USA"</span>, <span class="st">"GBR"</span>, <span class="st">"DEU"</span>, <span class="st">"FRA"</span>, <span class="st">"ITA"</span>, <span class="st">"JPN"</span>, <span class="st">"CAN"</span><span class="op">)</span>,</span>
-<span>  start_year <span class="op">=</span> <span class="fl">2015</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; ℹ Available series: NGDP_R, NGDP_RPCH, NGDP, NGDPD, PPPGDP, NGDP_D, NGDPRPC, NGDPRPPPPC, NGDPPC, NGDPDPC, PPPPC, PPPSH, PPPEX, NID_NGDP, NGSD_NGDP, PCPI, PCPIPCH, PCPIE, PCPIEPCH, TM_RPCH, TMG_RPCH, TX_RPCH, TXG_RPCH, LP, GGR, GGR_NGDP, GGX, GGX_NGDP, GGXCNL, GGXCNL_NGDP, GGXONLB, GGXONLB_NGDP, GGXWDG, GGXWDG_NGDP, NGDP_FY, BCA, BCA_NGDPD, LUR, GGXWDN, GGXWDN_NGDP, LE, GGSB, GGSB_NPGDP, NGAP_NPGDP</span></span>
-<span><span class="co">#&gt; ℹ Requested series: NGDP_RPCH, PCPIPCH</span></span>
-<span><span class="co">#&gt; ℹ Filtered series: NGDP_RPCH, PCPIPCH</span></span>
-<span><span class="co">#&gt; # A tibble: 210 × 7</span></span>
-<span><span class="co">#&gt;    country_name country_code series_name           units series_code  year value</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;                 &lt;chr&gt; &lt;chr&gt;       &lt;int&gt; &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 Canada       CAN          Gross domestic produ… Perc… NGDP_RPCH    2015  0.65</span></span>
-<span><span class="co">#&gt;  2 Canada       CAN          Gross domestic produ… Perc… NGDP_RPCH    2016  1.04</span></span>
-<span><span class="co">#&gt;  3 Canada       CAN          Gross domestic produ… Perc… NGDP_RPCH    2017  3.03</span></span>
-<span><span class="co">#&gt;  4 Canada       CAN          Gross domestic produ… Perc… NGDP_RPCH    2018  2.74</span></span>
-<span><span class="co">#&gt;  5 Canada       CAN          Gross domestic produ… Perc… NGDP_RPCH    2019  1.91</span></span>
-<span><span class="co">#&gt;  6 Canada       CAN          Gross domestic produ… Perc… NGDP_RPCH    2020 -5.04</span></span>
-<span><span class="co">#&gt;  7 Canada       CAN          Gross domestic produ… Perc… NGDP_RPCH    2021  5.29</span></span>
-<span><span class="co">#&gt;  8 Canada       CAN          Gross domestic produ… Perc… NGDP_RPCH    2022  3.82</span></span>
-<span><span class="co">#&gt;  9 Canada       CAN          Gross domestic produ… Perc… NGDP_RPCH    2023  1.25</span></span>
-<span><span class="co">#&gt; 10 Canada       CAN          Gross domestic produ… Perc… NGDP_RPCH    2024  1.34</span></span>
-<span><span class="co">#&gt; # ℹ 200 more rows</span></span></code></pre></div>
-<p>Download a complete WEO release:</p>
+<span><span class="fu"><a href="reference/weo_get.html">weo_get</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 322,335 × 7</span></span>
+<span><span class="co">#&gt;    entity_name entity_id series_name             units    series_id  year  value</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;                   &lt;chr&gt;    &lt;chr&gt;     &lt;int&gt;  &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 Aruba       ABW       Current account balance U.S. do… BCA        1999 -0.435</span></span>
+<span><span class="co">#&gt;  2 Aruba       ABW       Current account balance U.S. do… BCA        2000  0.213</span></span>
+<span><span class="co">#&gt;  3 Aruba       ABW       Current account balance U.S. do… BCA        2001  0.31 </span></span>
+<span><span class="co">#&gt;  4 Aruba       ABW       Current account balance U.S. do… BCA        2002 -0.333</span></span>
+<span><span class="co">#&gt;  5 Aruba       ABW       Current account balance U.S. do… BCA        2003 -0.167</span></span>
+<span><span class="co">#&gt;  6 Aruba       ABW       Current account balance U.S. do… BCA        2004  0.274</span></span>
+<span><span class="co">#&gt;  7 Aruba       ABW       Current account balance U.S. do… BCA        2005  0.116</span></span>
+<span><span class="co">#&gt;  8 Aruba       ABW       Current account balance U.S. do… BCA        2006  0.314</span></span>
+<span><span class="co">#&gt;  9 Aruba       ABW       Current account balance U.S. do… BCA        2007  0.259</span></span>
+<span><span class="co">#&gt; 10 Aruba       ABW       Current account balance U.S. do… BCA        2008  0.001</span></span>
+<span><span class="co">#&gt; # ℹ 322,325 more rows</span></span></code></pre></div>
+<p>Note: On the first run of each R session, the function may take a few seconds to execute as the package checks which WEO publication is currently the latest. This information is put into a cache that is reset whenver your session restarts.</p>
+<p>To explicitly retrieve the most recent publication metadata, use:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Download Spring 2024 WEO</span></span>
-<span><span class="fu"><a href="reference/weo_bulk.html">weo_bulk</a></span><span class="op">(</span><span class="fl">2024</span>, <span class="st">"Spring"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; ℹ Downloading WEO data...</span></span>
-<span><span class="co">#&gt; ℹ Processing data...</span></span>
-<span><span class="co">#&gt; # A tibble: 322,437 × 7</span></span>
-<span><span class="co">#&gt;    country     iso   subject                            units series  year value</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;                              &lt;chr&gt; &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 Afghanistan AFG   Gross domestic product, constant … Nati… NGDP_R  2002  453.</span></span>
-<span><span class="co">#&gt;  2 Afghanistan AFG   Gross domestic product, constant … Nati… NGDP_R  2003  493.</span></span>
-<span><span class="co">#&gt;  3 Afghanistan AFG   Gross domestic product, constant … Nati… NGDP_R  2004  496.</span></span>
-<span><span class="co">#&gt;  4 Afghanistan AFG   Gross domestic product, constant … Nati… NGDP_R  2005  555.</span></span>
-<span><span class="co">#&gt;  5 Afghanistan AFG   Gross domestic product, constant … Nati… NGDP_R  2006  585.</span></span>
-<span><span class="co">#&gt;  6 Afghanistan AFG   Gross domestic product, constant … Nati… NGDP_R  2007  663.</span></span>
-<span><span class="co">#&gt;  7 Afghanistan AFG   Gross domestic product, constant … Nati… NGDP_R  2008  688.</span></span>
-<span><span class="co">#&gt;  8 Afghanistan AFG   Gross domestic product, constant … Nati… NGDP_R  2009  830.</span></span>
-<span><span class="co">#&gt;  9 Afghanistan AFG   Gross domestic product, constant … Nati… NGDP_R  2010  900.</span></span>
-<span><span class="co">#&gt; 10 Afghanistan AFG   Gross domestic product, constant … Nati… NGDP_R  2011  958.</span></span>
-<span><span class="co">#&gt; # ℹ 322,427 more rows</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="available-data">Available Data<a class="anchor" aria-label="anchor" href="#available-data"></a>
-</h3>
-<p>List available WEO releases:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/weo_get_latest_publication.html">weo_get_latest_publication</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $year</span></span>
+<span><span class="co">#&gt; [1] 2024</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $release</span></span>
+<span><span class="co">#&gt; [1] "Fall"</span></span></code></pre></div>
+<p>To fetch data from a specific publication, or to filter by country, indicator, or time range, you can use the available parameters:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/weo_list_releases.html">weo_list_releases</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 36 × 3</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/weo_get.html">weo_get</a></span><span class="op">(</span></span>
+<span>    entities <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"USA"</span>, <span class="st">"GBR"</span>, <span class="st">"DEU"</span><span class="op">)</span>,</span>
+<span>    series <span class="op">=</span> <span class="st">"NGDP_RPCH"</span>,</span>
+<span>    start_year <span class="op">=</span> <span class="fl">2015</span>,</span>
+<span>    end_year <span class="op">=</span> <span class="fl">2020</span>,</span>
+<span>    year <span class="op">=</span> <span class="fl">2023</span>,</span>
+<span>    release <span class="op">=</span> <span class="st">"Spring"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 792 × 7</span></span>
+<span><span class="co">#&gt;    entity_name    entity_id series_name             units series_id  year  value</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;          &lt;chr&gt;     &lt;chr&gt;                   &lt;chr&gt; &lt;chr&gt;     &lt;int&gt;  &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 Germany        DEU       Current account balance U.S.… BCA        2015  288. </span></span>
+<span><span class="co">#&gt;  2 Germany        DEU       Current account balance U.S.… BCA        2016  299. </span></span>
+<span><span class="co">#&gt;  3 Germany        DEU       Current account balance U.S.… BCA        2017  289. </span></span>
+<span><span class="co">#&gt;  4 Germany        DEU       Current account balance U.S.… BCA        2018  316. </span></span>
+<span><span class="co">#&gt;  5 Germany        DEU       Current account balance U.S.… BCA        2019  318. </span></span>
+<span><span class="co">#&gt;  6 Germany        DEU       Current account balance U.S.… BCA        2020  274. </span></span>
+<span><span class="co">#&gt;  7 United Kingdom GBR       Current account balance U.S.… BCA        2015 -149. </span></span>
+<span><span class="co">#&gt;  8 United Kingdom GBR       Current account balance U.S.… BCA        2016 -149. </span></span>
+<span><span class="co">#&gt;  9 United Kingdom GBR       Current account balance U.S.… BCA        2017  -96.9</span></span>
+<span><span class="co">#&gt; 10 United Kingdom GBR       Current account balance U.S.… BCA        2018 -117. </span></span>
+<span><span class="co">#&gt; # ℹ 782 more rows</span></span></code></pre></div>
+<p>Even when filtering, the full dataset for the selected publication must be downloaded, as the WEO data is distributed in Excel format.</p>
+<p>To explore available publications:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/weo_list_publications.html">weo_list_publications</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 37 × 3</span></span>
 <span><span class="co">#&gt;     year release month  </span></span>
 <span><span class="co">#&gt;    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;  </span></span>
 <span><span class="co">#&gt;  1  2007 Spring  April  </span></span>
@@ -142,38 +137,29 @@
 <span><span class="co">#&gt;  8  2010 Fall    October</span></span>
 <span><span class="co">#&gt;  9  2011 Spring  April  </span></span>
 <span><span class="co">#&gt; 10  2011 Fall    October</span></span>
-<span><span class="co">#&gt; # ℹ 26 more rows</span></span></code></pre></div>
-<p>List available countries and regions:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/weo_list_countries.html">weo_list_countries</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 196 × 2</span></span>
-<span><span class="co">#&gt;    country_code country_name       </span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;        &lt;chr&gt;              </span></span>
-<span><span class="co">#&gt;  1 AFG          Afghanistan        </span></span>
-<span><span class="co">#&gt;  2 ALB          Albania            </span></span>
-<span><span class="co">#&gt;  3 DZA          Algeria            </span></span>
-<span><span class="co">#&gt;  4 AND          Andorra            </span></span>
-<span><span class="co">#&gt;  5 AGO          Angola             </span></span>
-<span><span class="co">#&gt;  6 ATG          Antigua and Barbuda</span></span>
-<span><span class="co">#&gt;  7 ARG          Argentina          </span></span>
-<span><span class="co">#&gt;  8 ARM          Armenia            </span></span>
-<span><span class="co">#&gt;  9 ABW          Aruba              </span></span>
-<span><span class="co">#&gt; 10 AUS          Australia          </span></span>
-<span><span class="co">#&gt; # ℹ 186 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt; # ℹ 27 more rows</span></span></code></pre></div>
+<p>To list the available entities (countries or regions) for the latest publication:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Search for specific countries</span></span>
-<span><span class="fu"><a href="reference/weo_list_countries.html">weo_list_countries</a></span><span class="op">(</span><span class="st">"united"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 3 × 2</span></span>
-<span><span class="co">#&gt;   country_code country_name        </span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;        &lt;chr&gt;               </span></span>
-<span><span class="co">#&gt; 1 ARE          United Arab Emirates</span></span>
-<span><span class="co">#&gt; 2 GBR          United Kingdom      </span></span>
-<span><span class="co">#&gt; 3 USA          United States</span></span></code></pre></div>
-<p>List available economic indicators:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/weo_get_entities.html">weo_get_entities</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 196 × 2</span></span>
+<span><span class="co">#&gt;    entity_id entity_name        </span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;              </span></span>
+<span><span class="co">#&gt;  1 AFG       Afghanistan        </span></span>
+<span><span class="co">#&gt;  2 ALB       Albania            </span></span>
+<span><span class="co">#&gt;  3 DZA       Algeria            </span></span>
+<span><span class="co">#&gt;  4 AND       Andorra            </span></span>
+<span><span class="co">#&gt;  5 AGO       Angola             </span></span>
+<span><span class="co">#&gt;  6 ATG       Antigua and Barbuda</span></span>
+<span><span class="co">#&gt;  7 ARG       Argentina          </span></span>
+<span><span class="co">#&gt;  8 ARM       Armenia            </span></span>
+<span><span class="co">#&gt;  9 ABW       Aruba              </span></span>
+<span><span class="co">#&gt; 10 AUS       Australia          </span></span>
+<span><span class="co">#&gt; # ℹ 186 more rows</span></span></code></pre></div>
+<p>To list the available data series:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/weo_list_series.html">weo_list_series</a></span><span class="op">(</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/weo_get_series.html">weo_get_series</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 44 × 3</span></span>
-<span><span class="co">#&gt;    series_code series_name                                      units           </span></span>
+<span><span class="co">#&gt;    series_id   series_name                                      units           </span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;                                            &lt;chr&gt;           </span></span>
 <span><span class="co">#&gt;  1 BCA         Current account balance                          U.S. dollars    </span></span>
 <span><span class="co">#&gt;  2 BCA_NGDPD   Current account balance                          Percent of GDP  </span></span>
@@ -186,74 +172,36 @@
 <span><span class="co">#&gt;  9 GGXCNL_NGDP General government net lending/borrowing         Percent of GDP  </span></span>
 <span><span class="co">#&gt; 10 GGXONLB     General government primary net lending/borrowing National curren…</span></span>
 <span><span class="co">#&gt; # ℹ 34 more rows</span></span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Search for GDP-related indicators</span></span>
-<span><span class="fu"><a href="reference/weo_list_series.html">weo_list_series</a></span><span class="op">(</span><span class="st">"gdp"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 22 × 3</span></span>
-<span><span class="co">#&gt;    series_code  series_name                                      units          </span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;        &lt;chr&gt;                                            &lt;chr&gt;          </span></span>
-<span><span class="co">#&gt;  1 BCA_NGDPD    Current account balance                          Percent of GDP </span></span>
-<span><span class="co">#&gt;  2 GGR_NGDP     General government revenue                       Percent of GDP </span></span>
-<span><span class="co">#&gt;  3 GGSB_NPGDP   General government structural balance            Percent of pot…</span></span>
-<span><span class="co">#&gt;  4 GGXCNL_NGDP  General government net lending/borrowing         Percent of GDP </span></span>
-<span><span class="co">#&gt;  5 GGXONLB_NGDP General government primary net lending/borrowing Percent of GDP </span></span>
-<span><span class="co">#&gt;  6 GGXWDG_NGDP  General government gross debt                    Percent of GDP </span></span>
-<span><span class="co">#&gt;  7 GGXWDN_NGDP  General government net debt                      Percent of GDP </span></span>
-<span><span class="co">#&gt;  8 GGX_NGDP     General government total expenditure             Percent of GDP </span></span>
-<span><span class="co">#&gt;  9 NGAP_NPGDP   Output gap in percent of potential GDP           Percent of pot…</span></span>
-<span><span class="co">#&gt; 10 NGDP         Gross domestic product, current prices           National curre…</span></span>
-<span><span class="co">#&gt; # ℹ 12 more rows</span></span></code></pre></div>
-</div>
 </div>
 <div class="section level2">
-<h2 id="development-status">Development Status<a class="anchor" aria-label="anchor" href="#development-status"></a>
+<h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
 </h2>
-<p>This package is under active development. Current features are working but may change. Future releases will add:</p>
-<ul>
-<li>Better data validation</li>
-<li>More convenience functions for common analyses</li>
-<li>Improved documentation and vignettes</li>
-<li>Additional data transformation tools</li>
-</ul>
-</div>
-<div class="section level2">
-<h2 id="part-of-the-econdataverse">Part of the econdataverse<a class="anchor" aria-label="anchor" href="#part-of-the-econdataverse"></a>
-</h2>
-<p><code>imfweo</code> is part of the <a href="https://www.econdataverse.org/" class="external-link">econdataverse</a>, a universe of open-source packages designed to make working with economic data seamless and efficient. The goal is simple: spend less time wrestling with data and more time analyzing it.</p>
-<p>Think of econdataverse packages as LEGO® pieces - modular tools designed to work together perfectly. For example, you might combine World Bank debt data (using <a href="https://teal-insights.github.io/r-wbids/" class="external-link">{wbids}</a>) with IMF macroeconomic projections from this package.</p>
-<div class="section level3">
-<h3 id="current-features">Current Features<a class="anchor" aria-label="anchor" href="#current-features"></a>
-</h3>
-<ul>
-<li>Download WEO data programmatically</li>
-<li>Access specific indicators for selected countries</li>
-<li>Get metadata about available series and countries</li>
-<li>Return data in tidy format ready for analysis</li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="roadmap">Roadmap<a class="anchor" aria-label="anchor" href="#roadmap"></a>
-</h3>
-<p>We’re working on:</p>
-<ul>
-<li>Standardizing country names across econdataverse packages</li>
-<li>Creating consistent column names and data structures</li>
-<li>Building tools for common economic analyses</li>
-<li>Making data combination across sources seamless</li>
-</ul>
-<p>Other econdataverse packages:</p>
-<ul>
+<p>Contributions to <code>imfweo</code> are welcome! If you’d like to contribute, please follow these steps:</p>
+<ol style="list-style-type: decimal">
 <li>
-<a href="https://teal-insights.github.io/r-wbids/" class="external-link">{wbids}</a>: World Bank International Debt Statistics ✅</li>
+<strong>Create an issue</strong>: Before making changes, create an issue describing the bug or feature you’re addressing.</li>
 <li>
-<a href="https://tidy-intelligence.github.io/r-wbwdi/" class="external-link">{wbwdi}</a>: World Bank World Development Indicators 🚀</li>
-<li>More coming soon!</li>
+<strong>Fork the repository</strong>: Fork the repository to your GitHub account.</li>
+<li>
+<strong>Create a branch</strong>: Create a branch for your changes with a descriptive name.</li>
+<li>
+<strong>Make your changes</strong>: Implement your bug fix or feature.</li>
+<li>
+<strong>Test your changes</strong>: Run tests to ensure your changes don’t break existing functionality.</li>
+<li>
+<strong>Submit a pull request</strong>: Push your changes to your fork and submit a pull request to the main repository.</li>
+</ol>
+</div>
+</div>
+  </main><aside class="col-md-3"><div class="links">
+<h2 data-toc-skip>Links</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/teal-insights/r-imfweo/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/teal-insights/r-imfweo/issues" class="external-link">Report a bug</a></li>
 </ul>
-<p>Our mission is to unclog the data bottleneck in economic analysis. By making data access and cleaning efficient and consistent, we enable policymakers and researchers to focus on what matters: using data to make better decisions in a world of limited resources.</p>
 </div>
-</div>
-</div>
-  </main><aside class="col-md-3"><div class="license">
+
+<div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
@@ -273,17 +221,25 @@
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>Teal Emery <br><small class="roles"> Author, maintainer </small>  </li>
+<li>Christoph Scheuch <br><small class="roles"> Author </small> <a href="https://orcid.org/0009-0004-0423-6819" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://app.codecov.io/gh/teal-insights/r-imfweo" class="external-link"><img src="https://codecov.io/gh/teal-insights/r-imfweo/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://opensource.org/licenses/MIT" class="external-link"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a></li>
+</ul>
+</div>
 
   </aside>
 </div>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Teal Emery.</p>
+  <p>Developed by Teal Emery, Christoph Scheuch.</p>
 </div>
 
 <div class="pkgdown-footer-right">
