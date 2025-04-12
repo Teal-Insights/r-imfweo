@@ -16,113 +16,93 @@ knitr::opts_chunk$set(
 # imfweo
 
 <!-- badges: start -->
+
+<!-- [![CRAN
+status](https://www.r-pkg.org/badges/version/imfweo)](https://cran.r-project.org/package=imfweo)
+[![CRAN
+downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org/package=imfweo) -->
+![R CMD
+Check](https://github.com/teal-insights/r-imfweo/actions/workflows/R-CMD-check.yaml/badge.svg)
+![Lint](https://github.com/teal-insights/r-imfweo/actions/workflows/lint.yaml/badge.svg)
+[![Codecov test
+coverage](https://codecov.io/gh/teal-insights/r-imfweo/graph/badge.svg)](https://app.codecov.io/gh/teal-insights/r-imfweo)
+[![License:
+MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
 
-`imfweo` provides easy access to the International Monetary Fund's World Economic Outlook (WEO) database in R. This is a minimum viable product under heavy development.
+`imfweo` is an R package to access and analyze the International Monetary Fund's World Economic Outlook (WEO) publications. WEO provides comprehensive analysis and forecasts of the global economy and is published twice a year - typically in April and October.
 
-## Features
+The package is designed to work seamlessly with World Bank's International Debt Statistics (IDS) and World Development Indicators (WDI) provided through the [wbids](https://github.com/teal-insights/r-wbids) and [wbwdi](https://github.com/tidy-intelligence/r-wbwdi) package, respectively. It follows the principles of the [econdataverse](https://www.econdataverse.org/).
 
-* Download and process WEO data releases
-* List available countries, indicators, and releases
-* Extract specific series for analysis
-* Consistent interface and tidy data output
+This package is a product of Teal Insights and not sponsored by or affiliated with the IMF in any way, except for the use of the WEO data.
 
 ## Installation
 
-You can install the development version of imfweo from [GitHub](https://github.com/) with:
+You can install the development version of `imfweo` from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("Teal-Insights/imfweo")
+devtools::install_github("teal-insights/imfweo")
 ```
 
-## Basic Usage
+## Usage
 
-### Getting WEO Data
+The main function `weo_get()` provides a simple interface to download data from the latest World Economic Outlook (WEO) publication:
 
-You can get WEO data either by downloading specific series for selected countries (`weo_get()`) or by downloading complete WEO releases (`weo_bulk()`).
-
-Get specific indicators for selected countries:
-```{r specific_data}
+```{r}
 library(imfweo)
 
-# Get GDP growth and inflation for G7 countries
+weo_get()
+```
+
+Note: On the first run of each R session, the function may take a few seconds to execute as the package checks which WEO publication is currently the latest. This information is put into a cache that is reset whenver your session restarts. 
+
+To explicitly retrieve the most recent publication metadata, use:
+
+```{r}
+weo_get_latest_publication()
+```
+
+To fetch data from a specific publication, or to filter by country, indicator, or time range, you can use the available parameters:
+
+```{r}
 weo_get(
-  series = c("NGDP_RPCH", "PCPIPCH"),  # Real GDP growth and inflation
-  countries = c("USA", "GBR", "DEU", "FRA", "ITA", "JPN", "CAN"),
-  start_year = 2015
+    entities = c("USA", "GBR", "DEU"),
+    series = "NGDP_RPCH",
+    start_year = 2015,
+    end_year = 2020,
+    year = 2023,
+    release = "Spring"
 )
 ```
 
-Download a complete WEO release:
-```{r bulk_data}
-# Download Spring 2024 WEO
-weo_bulk(2024, "Spring")
+Even when filtering, the full dataset for the selected publication must be downloaded, as the WEO data is distributed in Excel format.
+
+To explore available publications:
+
+```{r}
+weo_list_publications()
 ```
 
-### Available Data
+To list the available entities (countries or regions) for the latest publication:
 
-List available WEO releases:
-```{r releases}
-weo_list_releases()
+```{r}
+weo_get_entities()
 ```
 
-List available countries and regions:
-```{r countries}
-weo_list_countries()
-```
-```{r countries specific}
-# Search for specific countries
-weo_list_countries("united")
+To list the available data series:
+
+```{r}
+weo_get_series()
 ```
 
+## Contributing
 
-List available economic indicators:
-```{r series}
-weo_list_series()
-```
+Contributions to `imfweo` are welcome! If you'd like to contribute, please follow these steps:
 
-```{r series specific}
-# Search for GDP-related indicators
-weo_list_series("gdp")
-```
-
-
-## Development Status
-
-This package is under active development. Current features are working but may change. Future releases will add:
-
-* Better data validation
-* More convenience functions for common analyses
-* Improved documentation and vignettes
-* Additional data transformation tools
-
-## Part of the econdataverse
-
-`imfweo` is part of the [econdataverse](https://www.econdataverse.org/), a universe of open-source packages designed to make working with economic data seamless and efficient. The goal is simple: spend less time wrestling with data and more time analyzing it.
-
-Think of econdataverse packages as LEGO® pieces - modular tools designed to work together perfectly. For example, you might combine World Bank debt data (using [{wbids}](https://teal-insights.github.io/r-wbids/)) with IMF macroeconomic projections from this package.
-
-### Current Features
-
-- Download WEO data programmatically
-- Access specific indicators for selected countries
-- Get metadata about available series and countries
-- Return data in tidy format ready for analysis
-
-### Roadmap
-
-We're working on:
-
-- Standardizing country names across econdataverse packages
-- Creating consistent column names and data structures
-- Building tools for common economic analyses
-- Making data combination across sources seamless
-
-Other econdataverse packages:
-
-- [{wbids}](https://teal-insights.github.io/r-wbids/): World Bank International Debt Statistics ✅
-- [{wbwdi}](https://tidy-intelligence.github.io/r-wbwdi/): World Bank World Development Indicators 🚀
-- More coming soon!
-
-Our mission is to unclog the data bottleneck in economic analysis. By making data access and cleaning efficient and consistent, we enable policymakers and researchers to focus on what matters: using data to make better decisions in a world of limited resources.
+1. **Create an issue**: Before making changes, create an issue describing the bug or feature you're addressing.
+2. **Fork the repository**: Fork the repository to your GitHub account.
+3. **Create a branch**: Create a branch for your changes with a descriptive name.
+4. **Make your changes**: Implement your bug fix or feature.
+5. **Test your changes**: Run tests to ensure your changes don't break existing functionality.
+6. **Submit a pull request**: Push your changes to your fork and submit a pull request to the main repository.
