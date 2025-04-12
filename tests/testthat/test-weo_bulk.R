@@ -126,7 +126,7 @@ test_that("read_weo_file errors if file does not exist", {
 test_that("read_weo_file removes all-NA columns and '...1' columns", {
   tmp <- withr::local_tempfile(fileext = ".txt")
   writeLines(
-    "Country\tISO\tSubject Descriptor\t2020\t...61\t\nUSA\tUSA\tGDP\t21000\t\n",
+    "Country\tISO\tSubject Descriptor\t2020\t...61\t\nUSA\tUSA\tGDP\t21000\n",
     tmp
   )
 
