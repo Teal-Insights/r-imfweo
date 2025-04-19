@@ -19,13 +19,13 @@ Defaults to TRUE.}
 \value{
 A data frame with columns:
 \describe{
-\item{entity_id}{ISO3 country or region code}
-\item{entity_name}{Full name of the country or region}
+\item{entity_id}{ISO3 country code or country group ID}
+\item{entity_name}{Full name of the country or country group}
 }
 }
 \description{
-Returns a data frame with available entities (countries and regions) in the
-WEO database.
+Returns a data frame with available entities (countries and country groups)
+in the WEO database.
 }
 \examples{
 \dontshow{if (curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}

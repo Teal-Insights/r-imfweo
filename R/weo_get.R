@@ -4,8 +4,8 @@
 #' Retrieve data from the IMF World Economic Outlook (WEO) database for specific
 #' series, countries, and years.
 #'
-#' @param entities An optional character vector of ISO3 country codes.
-#'  See \link{weo_get_entities}.
+#' @param entities An optional character vector of ISO3 country codes or country
+#'  group identifiers. See \link{weo_get_entities}.
 #' @param series A optional character vector of series codes.
 #'  See \link{weo_get_series}.
 #' @param start_year Minimum year to include. Defaults to 1980.
@@ -18,7 +18,7 @@
 #'
 #' @return A data frame with columns:
 #' \describe{
-#'   \item{entity_id}{ISO3 country code}
+#'   \item{entity_id}{ISO3 country code or country group ID}
 #'   \item{entity_name}{Entity name}
 #'   \item{series_code}{WEO series code}
 #'   \item{series_name}{Series name}
@@ -41,7 +41,7 @@
 weo_get <- function(
   entities = NULL,
   series = NULL,
-  start_year = 1980,
+  start_year = 1980L,
   end_year = NULL,
   year = NULL,
   release = NULL,
@@ -60,13 +60,13 @@ weo_get <- function(
   filtered_data <- data |>
     dplyr::filter(
       if (!is.null(series)) .data$series %in% series else TRUE,
-      if (!is.null(entities)) .data$iso %in% entities else TRUE,
+      if (!is.null(entities)) .data$id %in% entities else TRUE,
       .data$year >= start_year,
       .data$year <= end_year
     ) |>
     dplyr::rename(
-      entity_id = "iso",
-      entity_name = "country",
+      entity_id = "id",
+      entity_name = "name",
       series_id = "series",
       series_name = "subject"
     ) |>

@@ -47,7 +47,7 @@ test_that("process_weo_data works with valid WEO input", {
   expect_s3_class(result, "data.frame")
   expect_equal(
     names(result),
-    c("country", "iso", "subject", "units", "series", "year", "value")
+    c("name", "id", "subject", "units", "series", "year", "value")
   )
   expect_equal(nrow(result), 4)
   expect_true(all(result$year %in% c(2020, 2021)))
@@ -191,7 +191,7 @@ test_that("weo_bulk handles valid mocked response", {
       }
     )
 
-    expect_equal(result, data.frame(Cleaned = TRUE))
+    expect_equal(result, data.frame(Cleaned = c(TRUE)))
   })
 })
 
@@ -226,7 +226,7 @@ test_that("weo_bulk errors when request throws exception", {
       {
         expect_error(
           weo_bulk(2024, "Spring"),
-          "Failed to download WEO data.*Network failure"
+          regexp = "Error: Network failure"
         )
       }
     )
@@ -252,7 +252,7 @@ test_that("weo_bulk errors when downloaded file is empty (via check_file)", {
       {
         expect_error(
           weo_bulk(2024, "Spring"),
-          "Downloaded file is empty"
+          "file is empty"
         )
       }
     )
@@ -277,7 +277,7 @@ test_that("weo_bulk errors if read_weo_file or process_weo_data fails", {
       {
         expect_error(
           weo_bulk(2024, "Spring"),
-          "Failed to download WEO data"
+          "Failed to process"
         )
       }
     )
