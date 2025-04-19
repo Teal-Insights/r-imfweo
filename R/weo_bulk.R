@@ -2,7 +2,6 @@
 #'
 #' @param year Numeric year of the WEO release (e.g., 2024)
 #' @param release Character: "Spring" / "Fall"
-#' @param file_path Optional path to save downloaded file.
 #' @param quiet A logical indicating whether to print download information.
 #'
 #' @return A data frame containing WEO data (countries + groups) in long format.
@@ -12,7 +11,6 @@
 weo_bulk <- function(
   year,
   release,
-  file_path = NULL,
   quiet = FALSE
 ) {
   if (
@@ -29,85 +27,26 @@ weo_bulk <- function(
     url_groups <- create_weo_url(year, release_num, country_groups = TRUE)
 
     # Temp file paths
-    if (is.null(file_path)) {
-      file_country <- tempfile(fileext = ".xls")
-      file_groups <- tempfile(fileext = ".xls")
-      on.exit({
-        unlink(file_country)
-        unlink(file_groups)
-      })
-    } else {
-      file_country <- file_path
-      file_groups <- sub("\\.xls$", "_groups.xls", file_path)
-    }
-
-    # Download helper
-    download_weo <- function(url, dest, label) {
-      if (!quiet) cli::cli_alert_info("Downloading {label} data...")
-
-      resp <- tryCatch(
-        httr2::request(url) |>
-          httr2::req_error(is_error = function(resp) FALSE) |>
-          httr2::req_perform(),
-        error = function(e) {
-          cli::cli_abort(c(
-            "Failed to download {label} data",
-            "i" = "URL: {url}",
-            "x" = "Error: {conditionMessage(e)}"
-          ))
-        }
-      )
-
-      if (httr2::resp_status(resp) != 200) {
-        cli::cli_abort(c(
-          "Failed to download {label} data",
-          "i" = "URL: {url}",
-          "x" = "HTTP status: {httr2::resp_status(resp)}"
-        ))
-      }
-
-      writeBin(httr2::resp_body_raw(resp), dest)
-
-      if (check_file(dest)) {
-        cli::cli_abort(c(
-          "Downloaded {label} file is empty",
-          "i" = "URL: {url}"
-        ))
-      }
-    }
+    file_country <- tempfile(fileext = ".xls")
+    file_groups <- tempfile(fileext = ".xls")
+    on.exit({
+      unlink(file_country)
+      unlink(file_groups)
+    })
 
     # Download both files
-    download_weo(url_country, file_country, "WEO country")
-    download_weo(url_groups, file_groups, "WEO country groups")
+    download_weo(url_country, file_country, "WEO country", quiet)
+    download_weo(url_groups, file_groups, "WEO country groups", quiet)
 
     if (!quiet) cli::cli_alert_info("Processing data...")
 
     # Read and process both
-    data_country <- tryCatch(
-      {
-        raw_country <- read_weo_file(file_country)
-        process_weo_data(raw_country)
-      },
-      error = function(e) {
-        cli::cli_abort(c("x" = "Failed to process country data"))
-      }
-    )
+    raw_country <- read_weo_file(file_country)
+    data_country <- process_weo_data(raw_country)
 
-    data_groups <- tryCatch(
-      {
-        raw_group <- read_weo_file(file_groups)
-        processed <- process_weo_group_data(raw_group)
-        processed
-      },
-      error = function(e) {
-        cli::cli_warn(
-          "Could not process country group data: {conditionMessage(e)}"
-        )
-        NULL
-      }
-    )
+    raw_group <- read_weo_file(file_groups)
+    data_groups <- process_weo_group_data(raw_group)
 
-    # Combine datasets
     full_data <- dplyr::bind_rows(data_country, data_groups)
 
     # Optionally cache
@@ -117,6 +56,48 @@ weo_bulk <- function(
 
     full_data
   }
+}
+
+#' @keywords internal
+#' @noRd
+download_weo <- function(url, dest, label, quiet) {
+  if (!quiet) cli::cli_alert_info("Downloading {label} data...")
+
+  resp <- tryCatch(
+    perform_request(url),
+    error = function(e) {
+      cli::cli_abort(c(
+        "Failed to download {label} data",
+        "i" = "URL: {url}",
+        "x" = "Error: {conditionMessage(e)}"
+      ))
+    }
+  )
+
+  if (httr2::resp_status(resp) != 200) {
+    cli::cli_abort(c(
+      "Failed to download {label} data",
+      "i" = "URL: {url}",
+      "x" = "HTTP status: {httr2::resp_status(resp)}"
+    ))
+  }
+
+  writeBin(httr2::resp_body_raw(resp), dest)
+
+  if (check_file(dest)) {
+    cli::cli_abort(c(
+      "Downloaded {label} file is empty",
+      "i" = "URL: {url}"
+    ))
+  }
+}
+
+#' @keywords internal
+#' @noRd
+perform_request <- function(url) {
+  httr2::request(url) |>
+    httr2::req_error(is_error = function(resp) FALSE) |>
+    httr2::req_perform()
 }
 
 #' @keywords internal
