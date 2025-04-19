@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">imfweo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,18 +75,18 @@ downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org
 <span></span>
 <span><span class="fu"><a href="reference/weo_get.html">weo_get</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 345,356 × 7</span></span>
-<span><span class="co">#&gt;    entity_name entity_id series_name             units    series_id  year  value</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;                   &lt;chr&gt;    &lt;chr&gt;     &lt;int&gt;  &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 Aruba       ABW       Current account balance U.S. do… BCA        1999 -0.435</span></span>
-<span><span class="co">#&gt;  2 Aruba       ABW       Current account balance U.S. do… BCA        2000  0.213</span></span>
-<span><span class="co">#&gt;  3 Aruba       ABW       Current account balance U.S. do… BCA        2001  0.31 </span></span>
-<span><span class="co">#&gt;  4 Aruba       ABW       Current account balance U.S. do… BCA        2002 -0.333</span></span>
-<span><span class="co">#&gt;  5 Aruba       ABW       Current account balance U.S. do… BCA        2003 -0.167</span></span>
-<span><span class="co">#&gt;  6 Aruba       ABW       Current account balance U.S. do… BCA        2004  0.274</span></span>
-<span><span class="co">#&gt;  7 Aruba       ABW       Current account balance U.S. do… BCA        2005  0.116</span></span>
-<span><span class="co">#&gt;  8 Aruba       ABW       Current account balance U.S. do… BCA        2006  0.314</span></span>
-<span><span class="co">#&gt;  9 Aruba       ABW       Current account balance U.S. do… BCA        2007  0.259</span></span>
-<span><span class="co">#&gt; 10 Aruba       ABW       Current account balance U.S. do… BCA        2008  0.001</span></span>
+<span><span class="co">#&gt;    entity_name entity_id series_name             units     series_id  year value</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;                   &lt;chr&gt;     &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 World       001       Current account balance U.S. dol… BCA        1980 -56.3</span></span>
+<span><span class="co">#&gt;  2 World       001       Current account balance U.S. dol… BCA        1981 -82.2</span></span>
+<span><span class="co">#&gt;  3 World       001       Current account balance U.S. dol… BCA        1982 -91.8</span></span>
+<span><span class="co">#&gt;  4 World       001       Current account balance U.S. dol… BCA        1983 -76.0</span></span>
+<span><span class="co">#&gt;  5 World       001       Current account balance U.S. dol… BCA        1984 -67.9</span></span>
+<span><span class="co">#&gt;  6 World       001       Current account balance U.S. dol… BCA        1985 -63.5</span></span>
+<span><span class="co">#&gt;  7 World       001       Current account balance U.S. dol… BCA        1986 -66.3</span></span>
+<span><span class="co">#&gt;  8 World       001       Current account balance U.S. dol… BCA        1987 -63.5</span></span>
+<span><span class="co">#&gt;  9 World       001       Current account balance U.S. dol… BCA        1988 -57.3</span></span>
+<span><span class="co">#&gt; 10 World       001       Current account balance U.S. dol… BCA        1989 -83.3</span></span>
 <span><span class="co">#&gt; # ℹ 345,346 more rows</span></span></code></pre></div>
 <p>Note: On the first run of each R session, the function may take a few seconds to execute as the package checks which WEO publication is currently the latest. This information is put into a cache, which is reset whenever your session restarts.</p>
 <p>To explicitly retrieve the most recent publication metadata, use:</p>
@@ -100,12 +100,12 @@ downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org
 <p>To fetch data from a specific publication, or to filter by country, indicator, or time range, you can use the available parameters:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/weo_get.html">weo_get</a></span><span class="op">(</span></span>
-<span>    entities <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"USA"</span>, <span class="st">"GBR"</span>, <span class="st">"DEU"</span><span class="op">)</span>,</span>
-<span>    series <span class="op">=</span> <span class="st">"NGDP_RPCH"</span>,</span>
-<span>    start_year <span class="op">=</span> <span class="fl">2015</span>,</span>
-<span>    end_year <span class="op">=</span> <span class="fl">2020</span>,</span>
-<span>    year <span class="op">=</span> <span class="fl">2023</span>,</span>
-<span>    release <span class="op">=</span> <span class="st">"Spring"</span></span>
+<span>  entities <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"USA"</span>, <span class="st">"GBR"</span>, <span class="st">"DEU"</span><span class="op">)</span>,</span>
+<span>  series <span class="op">=</span> <span class="st">"NGDP_RPCH"</span>,</span>
+<span>  start_year <span class="op">=</span> <span class="fl">2015</span>,</span>
+<span>  end_year <span class="op">=</span> <span class="fl">2020</span>,</span>
+<span>  year <span class="op">=</span> <span class="fl">2023</span>,</span>
+<span>  release <span class="op">=</span> <span class="st">"Spring"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 792 × 7</span></span>
 <span><span class="co">#&gt;    entity_name    entity_id series_name             units series_id  year  value</span></span>
@@ -142,37 +142,37 @@ downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org
 <p>To list the available entities (countries or country groups) for the latest publication:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/weo_get_entities.html">weo_get_entities</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 197 × 2</span></span>
+<span><span class="co">#&gt; # A tibble: 209 × 2</span></span>
 <span><span class="co">#&gt;    entity_id entity_name        </span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;              </span></span>
-<span><span class="co">#&gt;  1 AFG       Afghanistan        </span></span>
-<span><span class="co">#&gt;  2 ALB       Albania            </span></span>
-<span><span class="co">#&gt;  3 DZA       Algeria            </span></span>
-<span><span class="co">#&gt;  4 AND       Andorra            </span></span>
-<span><span class="co">#&gt;  5 AGO       Angola             </span></span>
-<span><span class="co">#&gt;  6 ATG       Antigua and Barbuda</span></span>
-<span><span class="co">#&gt;  7 ARG       Argentina          </span></span>
-<span><span class="co">#&gt;  8 ARM       Armenia            </span></span>
-<span><span class="co">#&gt;  9 ABW       Aruba              </span></span>
-<span><span class="co">#&gt; 10 AUS       Australia          </span></span>
-<span><span class="co">#&gt; # ℹ 187 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt;  1 510       ASEAN-5            </span></span>
+<span><span class="co">#&gt;  2 110       Advanced economies </span></span>
+<span><span class="co">#&gt;  3 AFG       Afghanistan        </span></span>
+<span><span class="co">#&gt;  4 ALB       Albania            </span></span>
+<span><span class="co">#&gt;  5 DZA       Algeria            </span></span>
+<span><span class="co">#&gt;  6 AND       Andorra            </span></span>
+<span><span class="co">#&gt;  7 AGO       Angola             </span></span>
+<span><span class="co">#&gt;  8 ATG       Antigua and Barbuda</span></span>
+<span><span class="co">#&gt;  9 ARG       Argentina          </span></span>
+<span><span class="co">#&gt; 10 ARM       Armenia            </span></span>
+<span><span class="co">#&gt; # ℹ 199 more rows</span></span></code></pre></div>
 <p>To list the available data series:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/weo_get_series.html">weo_get_series</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 45 × 3</span></span>
-<span><span class="co">#&gt;    series_id   series_name                                      units           </span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;                                            &lt;chr&gt;           </span></span>
-<span><span class="co">#&gt;  1 BCA         Current account balance                          U.S. dollars    </span></span>
-<span><span class="co">#&gt;  2 BCA_NGDPD   Current account balance                          Percent of GDP  </span></span>
-<span><span class="co">#&gt;  3 GGR         General government revenue                       National curren…</span></span>
-<span><span class="co">#&gt;  4 GGR_NGDP    General government revenue                       Percent of GDP  </span></span>
-<span><span class="co">#&gt;  5 GGSB        General government structural balance            National curren…</span></span>
-<span><span class="co">#&gt;  6 GGSB_NPGDP  General government structural balance            Percent of pote…</span></span>
-<span><span class="co">#&gt;  7 GGX         General government total expenditure             National curren…</span></span>
-<span><span class="co">#&gt;  8 GGXCNL      General government net lending/borrowing         National curren…</span></span>
-<span><span class="co">#&gt;  9 GGXCNL_NGDP General government net lending/borrowing         Percent of GDP  </span></span>
-<span><span class="co">#&gt; 10 GGXONLB     General government primary net lending/borrowing National curren…</span></span>
-<span><span class="co">#&gt; # ℹ 35 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt; # A tibble: 150 × 3</span></span>
+<span><span class="co">#&gt;    series_id series_name                   units         </span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;                         &lt;chr&gt;         </span></span>
+<span><span class="co">#&gt;  1 BCA       Current account balance       U.S. dollars  </span></span>
+<span><span class="co">#&gt;  2 BCA_NGDPD Current account balance       Percent of GDP</span></span>
+<span><span class="co">#&gt;  3 BF        Financial account balance     U.S. dollars  </span></span>
+<span><span class="co">#&gt;  4 BFD       Direct investment, net        U.S. dollars  </span></span>
+<span><span class="co">#&gt;  5 BFF       Financial derivatives, net    U.S. dollars  </span></span>
+<span><span class="co">#&gt;  6 BFO       Other investment, net         U.S. dollars  </span></span>
+<span><span class="co">#&gt;  7 BFP       Portfolio investment, net     U.S. dollars  </span></span>
+<span><span class="co">#&gt;  8 BFRA      Change in reserves            U.S. dollars  </span></span>
+<span><span class="co">#&gt;  9 BM        Imports of goods and services U.S. dollars  </span></span>
+<span><span class="co">#&gt; 10 BX        Exports of goods and services U.S. dollars  </span></span>
+<span><span class="co">#&gt; # ℹ 140 more rows</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
