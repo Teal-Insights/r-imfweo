@@ -97,6 +97,9 @@ download_weo <- function(url, dest, label, quiet) {
 perform_request <- function(url) {
   httr2::request(url) |>
     httr2::req_error(is_error = function(resp) FALSE) |>
+    httr2::req_user_agent(
+      "imfweo R package (https://github.com/teal-insights/r-imfweo)"
+    ) |>
     httr2::req_perform()
 }
 
@@ -395,11 +398,11 @@ process_weo_group_data <- function(raw_data) {
 
   clean_data <- raw_data |>
     dplyr::transmute(
-      name = "Country Group Name",
-      id = "WEO Country Group Code",
-      subject = "Subject Descriptor",
-      units = "Units",
-      series = "WEO Subject Code",
+      name = .data$`Country Group Name`,
+      id = .data$`WEO Country Group Code`,
+      subject = .data$`Subject Descriptor`,
+      units = .data$Units,
+      series = .data$`WEO Subject Code`,
       dplyr::across(
         dplyr::all_of(year_cols),
         \(x) {

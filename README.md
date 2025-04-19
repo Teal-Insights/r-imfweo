@@ -55,18 +55,18 @@ library(imfweo)
 
 weo_get()
 #> # A tibble: 345,356 × 7
-#>    entity_name entity_id series_name             units    series_id  year  value
-#>    <chr>       <chr>     <chr>                   <chr>    <chr>     <int>  <dbl>
-#>  1 Aruba       ABW       Current account balance U.S. do… BCA        1999 -0.435
-#>  2 Aruba       ABW       Current account balance U.S. do… BCA        2000  0.213
-#>  3 Aruba       ABW       Current account balance U.S. do… BCA        2001  0.31 
-#>  4 Aruba       ABW       Current account balance U.S. do… BCA        2002 -0.333
-#>  5 Aruba       ABW       Current account balance U.S. do… BCA        2003 -0.167
-#>  6 Aruba       ABW       Current account balance U.S. do… BCA        2004  0.274
-#>  7 Aruba       ABW       Current account balance U.S. do… BCA        2005  0.116
-#>  8 Aruba       ABW       Current account balance U.S. do… BCA        2006  0.314
-#>  9 Aruba       ABW       Current account balance U.S. do… BCA        2007  0.259
-#> 10 Aruba       ABW       Current account balance U.S. do… BCA        2008  0.001
+#>    entity_name entity_id series_name             units     series_id  year value
+#>    <chr>       <chr>     <chr>                   <chr>     <chr>     <int> <dbl>
+#>  1 World       001       Current account balance U.S. dol… BCA        1980 -56.3
+#>  2 World       001       Current account balance U.S. dol… BCA        1981 -82.2
+#>  3 World       001       Current account balance U.S. dol… BCA        1982 -91.8
+#>  4 World       001       Current account balance U.S. dol… BCA        1983 -76.0
+#>  5 World       001       Current account balance U.S. dol… BCA        1984 -67.9
+#>  6 World       001       Current account balance U.S. dol… BCA        1985 -63.5
+#>  7 World       001       Current account balance U.S. dol… BCA        1986 -66.3
+#>  8 World       001       Current account balance U.S. dol… BCA        1987 -63.5
+#>  9 World       001       Current account balance U.S. dol… BCA        1988 -57.3
+#> 10 World       001       Current account balance U.S. dol… BCA        1989 -83.3
 #> # ℹ 345,346 more rows
 ```
 
@@ -91,12 +91,12 @@ indicator, or time range, you can use the available parameters:
 
 ``` r
 weo_get(
-    entities = c("USA", "GBR", "DEU"),
-    series = "NGDP_RPCH",
-    start_year = 2015,
-    end_year = 2020,
-    year = 2023,
-    release = "Spring"
+  entities = c("USA", "GBR", "DEU"),
+  series = "NGDP_RPCH",
+  start_year = 2015,
+  end_year = 2020,
+  year = 2023,
+  release = "Spring"
 )
 #> # A tibble: 792 × 7
 #>    entity_name    entity_id series_name             units series_id  year  value
@@ -142,40 +142,40 @@ latest publication:
 
 ``` r
 weo_get_entities()
-#> # A tibble: 197 × 2
+#> # A tibble: 209 × 2
 #>    entity_id entity_name        
 #>    <chr>     <chr>              
-#>  1 AFG       Afghanistan        
-#>  2 ALB       Albania            
-#>  3 DZA       Algeria            
-#>  4 AND       Andorra            
-#>  5 AGO       Angola             
-#>  6 ATG       Antigua and Barbuda
-#>  7 ARG       Argentina          
-#>  8 ARM       Armenia            
-#>  9 ABW       Aruba              
-#> 10 AUS       Australia          
-#> # ℹ 187 more rows
+#>  1 510       ASEAN-5            
+#>  2 110       Advanced economies 
+#>  3 AFG       Afghanistan        
+#>  4 ALB       Albania            
+#>  5 DZA       Algeria            
+#>  6 AND       Andorra            
+#>  7 AGO       Angola             
+#>  8 ATG       Antigua and Barbuda
+#>  9 ARG       Argentina          
+#> 10 ARM       Armenia            
+#> # ℹ 199 more rows
 ```
 
 To list the available data series:
 
 ``` r
 weo_get_series()
-#> # A tibble: 45 × 3
-#>    series_id   series_name                                      units           
-#>    <chr>       <chr>                                            <chr>           
-#>  1 BCA         Current account balance                          U.S. dollars    
-#>  2 BCA_NGDPD   Current account balance                          Percent of GDP  
-#>  3 GGR         General government revenue                       National curren…
-#>  4 GGR_NGDP    General government revenue                       Percent of GDP  
-#>  5 GGSB        General government structural balance            National curren…
-#>  6 GGSB_NPGDP  General government structural balance            Percent of pote…
-#>  7 GGX         General government total expenditure             National curren…
-#>  8 GGXCNL      General government net lending/borrowing         National curren…
-#>  9 GGXCNL_NGDP General government net lending/borrowing         Percent of GDP  
-#> 10 GGXONLB     General government primary net lending/borrowing National curren…
-#> # ℹ 35 more rows
+#> # A tibble: 150 × 3
+#>    series_id series_name                   units         
+#>    <chr>     <chr>                         <chr>         
+#>  1 BCA       Current account balance       U.S. dollars  
+#>  2 BCA_NGDPD Current account balance       Percent of GDP
+#>  3 BF        Financial account balance     U.S. dollars  
+#>  4 BFD       Direct investment, net        U.S. dollars  
+#>  5 BFF       Financial derivatives, net    U.S. dollars  
+#>  6 BFO       Other investment, net         U.S. dollars  
+#>  7 BFP       Portfolio investment, net     U.S. dollars  
+#>  8 BFRA      Change in reserves            U.S. dollars  
+#>  9 BM        Imports of goods and services U.S. dollars  
+#> 10 BX        Exports of goods and services U.S. dollars  
+#> # ℹ 140 more rows
 ```
 
 ## Contributing

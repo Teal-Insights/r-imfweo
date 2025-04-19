@@ -67,12 +67,12 @@ To fetch data from a specific publication, or to filter by country, indicator, o
 
 ```{r}
 weo_get(
-    entities = c("USA", "GBR", "DEU"),
-    series = "NGDP_RPCH",
-    start_year = 2015,
-    end_year = 2020,
-    year = 2023,
-    release = "Spring"
+  entities = c("USA", "GBR", "DEU"),
+  series = "NGDP_RPCH",
+  start_year = 2015,
+  end_year = 2020,
+  year = 2023,
+  release = "Spring"
 )
 ```
 
