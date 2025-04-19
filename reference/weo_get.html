@@ -45,7 +45,7 @@ series, countries, and years.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">weo_get</span><span class="op">(</span></span>
 <span>  entities <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  series <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  start_year <span class="op">=</span> <span class="fl">1980</span>,</span>
+<span>  start_year <span class="op">=</span> <span class="fl">1980L</span>,</span>
 <span>  end_year <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  year <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  release <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -58,8 +58,8 @@ series, countries, and years.</p>
 
 
 <dl><dt id="arg-entities">entities<a class="anchor" aria-label="anchor" href="#arg-entities"></a></dt>
-<dd><p>An optional character vector of ISO3 country codes.
-See <a href="weo_get_entities.html">weo_get_entities</a>.</p></dd>
+<dd><p>An optional character vector of ISO3 country codes or country
+group identifiers. See <a href="weo_get_entities.html">weo_get_entities</a>.</p></dd>
 
 
 <dt id="arg-series">series<a class="anchor" aria-label="anchor" href="#arg-series"></a></dt>
@@ -92,7 +92,7 @@ Defaults to latest publication release.</p></dd>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A data frame with columns:</p><dl><dt>entity_id</dt>
-<dd><p>ISO3 country code</p></dd>
+<dd><p>ISO3 country code or country group ID</p></dd>
 
 <dt>entity_name</dt>
 <dd><p>Entity name</p></dd>

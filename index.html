@@ -74,7 +74,7 @@ downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://teal-insights.github.io/r-imfweo/">imfweo</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/weo_get.html">weo_get</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 322,335 × 7</span></span>
+<span><span class="co">#&gt; # A tibble: 345,356 × 7</span></span>
 <span><span class="co">#&gt;    entity_name entity_id series_name             units    series_id  year  value</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;                   &lt;chr&gt;    &lt;chr&gt;     &lt;int&gt;  &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt;  1 Aruba       ABW       Current account balance U.S. do… BCA        1999 -0.435</span></span>
@@ -87,8 +87,8 @@ downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org
 <span><span class="co">#&gt;  8 Aruba       ABW       Current account balance U.S. do… BCA        2006  0.314</span></span>
 <span><span class="co">#&gt;  9 Aruba       ABW       Current account balance U.S. do… BCA        2007  0.259</span></span>
 <span><span class="co">#&gt; 10 Aruba       ABW       Current account balance U.S. do… BCA        2008  0.001</span></span>
-<span><span class="co">#&gt; # ℹ 322,325 more rows</span></span></code></pre></div>
-<p>Note: On the first run of each R session, the function may take a few seconds to execute as the package checks which WEO publication is currently the latest. This information is put into a cache that is reset whenver your session restarts.</p>
+<span><span class="co">#&gt; # ℹ 345,346 more rows</span></span></code></pre></div>
+<p>Note: On the first run of each R session, the function may take a few seconds to execute as the package checks which WEO publication is currently the latest. This information is put into a cache, which is reset whenever your session restarts.</p>
 <p>To explicitly retrieve the most recent publication metadata, use:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/weo_get_latest_publication.html">weo_get_latest_publication</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -139,10 +139,10 @@ downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org
 <span><span class="co">#&gt;  9  2011 Spring  April  </span></span>
 <span><span class="co">#&gt; 10  2011 Fall    October</span></span>
 <span><span class="co">#&gt; # ℹ 27 more rows</span></span></code></pre></div>
-<p>To list the available entities (countries or regions) for the latest publication:</p>
+<p>To list the available entities (countries or country groups) for the latest publication:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/weo_get_entities.html">weo_get_entities</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 196 × 2</span></span>
+<span><span class="co">#&gt; # A tibble: 197 × 2</span></span>
 <span><span class="co">#&gt;    entity_id entity_name        </span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;              </span></span>
 <span><span class="co">#&gt;  1 AFG       Afghanistan        </span></span>
@@ -155,11 +155,11 @@ downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org
 <span><span class="co">#&gt;  8 ARM       Armenia            </span></span>
 <span><span class="co">#&gt;  9 ABW       Aruba              </span></span>
 <span><span class="co">#&gt; 10 AUS       Australia          </span></span>
-<span><span class="co">#&gt; # ℹ 186 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt; # ℹ 187 more rows</span></span></code></pre></div>
 <p>To list the available data series:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/weo_get_series.html">weo_get_series</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 44 × 3</span></span>
+<span><span class="co">#&gt; # A tibble: 45 × 3</span></span>
 <span><span class="co">#&gt;    series_id   series_name                                      units           </span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;                                            &lt;chr&gt;           </span></span>
 <span><span class="co">#&gt;  1 BCA         Current account balance                          U.S. dollars    </span></span>
@@ -172,7 +172,7 @@ downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org
 <span><span class="co">#&gt;  8 GGXCNL      General government net lending/borrowing         National curren…</span></span>
 <span><span class="co">#&gt;  9 GGXCNL_NGDP General government net lending/borrowing         Percent of GDP  </span></span>
 <span><span class="co">#&gt; 10 GGXONLB     General government primary net lending/borrowing National curren…</span></span>
-<span><span class="co">#&gt; # ℹ 34 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt; # ℹ 35 more rows</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
