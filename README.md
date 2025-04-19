@@ -54,7 +54,7 @@ data from the latest World Economic Outlook (WEO) publication:
 library(imfweo)
 
 weo_get()
-#> # A tibble: 322,335 × 7
+#> # A tibble: 345,356 × 7
 #>    entity_name entity_id series_name             units    series_id  year  value
 #>    <chr>       <chr>     <chr>                   <chr>    <chr>     <int>  <dbl>
 #>  1 Aruba       ABW       Current account balance U.S. do… BCA        1999 -0.435
@@ -67,13 +67,13 @@ weo_get()
 #>  8 Aruba       ABW       Current account balance U.S. do… BCA        2006  0.314
 #>  9 Aruba       ABW       Current account balance U.S. do… BCA        2007  0.259
 #> 10 Aruba       ABW       Current account balance U.S. do… BCA        2008  0.001
-#> # ℹ 322,325 more rows
+#> # ℹ 345,346 more rows
 ```
 
 Note: On the first run of each R session, the function may take a few
 seconds to execute as the package checks which WEO publication is
-currently the latest. This information is put into a cache that is reset
-whenver your session restarts.
+currently the latest. This information is put into a cache, which is
+reset whenever your session restarts.
 
 To explicitly retrieve the most recent publication metadata, use:
 
@@ -137,12 +137,12 @@ weo_list_publications()
 #> # ℹ 27 more rows
 ```
 
-To list the available entities (countries or regions) for the latest
-publication:
+To list the available entities (countries or country groups) for the
+latest publication:
 
 ``` r
 weo_get_entities()
-#> # A tibble: 196 × 2
+#> # A tibble: 197 × 2
 #>    entity_id entity_name        
 #>    <chr>     <chr>              
 #>  1 AFG       Afghanistan        
@@ -155,14 +155,14 @@ weo_get_entities()
 #>  8 ARM       Armenia            
 #>  9 ABW       Aruba              
 #> 10 AUS       Australia          
-#> # ℹ 186 more rows
+#> # ℹ 187 more rows
 ```
 
 To list the available data series:
 
 ``` r
 weo_get_series()
-#> # A tibble: 44 × 3
+#> # A tibble: 45 × 3
 #>    series_id   series_name                                      units           
 #>    <chr>       <chr>                                            <chr>           
 #>  1 BCA         Current account balance                          U.S. dollars    
@@ -175,7 +175,7 @@ weo_get_series()
 #>  8 GGXCNL      General government net lending/borrowing         National curren…
 #>  9 GGXCNL_NGDP General government net lending/borrowing         Percent of GDP  
 #> 10 GGXONLB     General government primary net lending/borrowing National curren…
-#> # ℹ 34 more rows
+#> # ℹ 35 more rows
 ```
 
 ## Contributing

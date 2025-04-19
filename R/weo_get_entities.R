@@ -1,8 +1,8 @@
 #' Get Available WEO Entities
 #'
 #' @description
-#' Returns a data frame with available entities (countries and regions) in the
-#' WEO database.
+#' Returns a data frame with available entities (countries and country groups)
+#' in the WEO database.
 #'
 #' @param year The year of a WEO publication (e.g., 2024). Defaults to latest
 #'  publication year.
@@ -13,8 +13,8 @@
 #'
 #' @return A data frame with columns:
 #' \describe{
-#'   \item{entity_id}{ISO3 country or region code}
-#'   \item{entity_name}{Full name of the country or region}
+#'   \item{entity_id}{ISO3 country code or country group ID}
+#'   \item{entity_name}{Full name of the country or country group}
 #' }
 #'
 #' @export
@@ -31,8 +31,8 @@ weo_get_entities <- function(year = NULL, release = NULL, quiet = TRUE) {
 
   entities <- data |>
     dplyr::distinct(
-      entity_id = .data$iso,
-      entity_name = .data$country
+      entity_id = .data$id,
+      entity_name = .data$name
     ) |>
     dplyr::filter(!is.na(.data$entity_id)) |>
     dplyr::arrange(.data$entity_name)

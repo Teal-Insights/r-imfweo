@@ -1,3 +1,47 @@
+test_that("weo_bulk errors when downloaded file is empty (via check_file)", {
+  dummy_data <- charToRaw("dummy data")
+
+  mock_resp <- function(req) {
+    response(
+      method = "GET",
+      url = "https://fake.weo.test/test.xls",
+      status_code = 200,
+      body = dummy_data
+    )
+  }
+
+  with_mocked_responses(mock_resp, {
+    with_mocked_bindings(
+      create_weo_url = function(...) "https://fake.weo.test/test.xls",
+      check_file = function(path) TRUE,
+      {
+        expect_error(
+          weo_bulk(2024, "Spring"),
+          "file is empty"
+        )
+      }
+    )
+  })
+})
+
+test_that("download_weo handles req_perform error correctly", {
+  with_mocked_bindings(
+    perform_request = function(...) stop(),
+    {
+      expect_error(
+        download_weo(
+          url = "http://example.com/data.csv",
+          dest = tempfile(),
+          label = "test",
+          quiet = TRUE
+        ),
+        regexp = "Failed to download test data"
+      )
+    }
+  )
+})
+
+
 test_that("create_weo_url constructs correct URL for 2024+ format", {
   url <- create_weo_url(2024, 1)
   expect_match(url, "https://www.imf.org/.*/2024/April/WEOApr2024all.xls")
@@ -47,7 +91,7 @@ test_that("process_weo_data works with valid WEO input", {
   expect_s3_class(result, "data.frame")
   expect_equal(
     names(result),
-    c("country", "iso", "subject", "units", "series", "year", "value")
+    c("name", "id", "subject", "units", "series", "year", "value")
   )
   expect_equal(nrow(result), 4)
   expect_true(all(result$year %in% c(2020, 2021)))
@@ -179,19 +223,17 @@ test_that("weo_bulk handles valid mocked response", {
   }
 
   with_mocked_responses(mock_resp, {
-    withr::local_options(list(weo_test_url = "https://fake.weo.test/test.xls"))
-
-    # patch create_weo_url to use test URL
     result <- with_mocked_bindings(
-      create_weo_url = function(...) getOption("weo_test_url"),
+      create_weo_url = function(...) "https://fake.weo.test/test.xls",
       read_weo_file = function(path) data.frame(Country = "USA"),
       process_weo_data = function(df) data.frame(Cleaned = TRUE),
+      process_weo_group_data = function(df) data.frame(Cleaned = TRUE),
       {
         weo_bulk(2024, "Spring")
       }
     )
 
-    expect_equal(result, data.frame(Cleaned = TRUE))
+    expect_equal(result, data.frame(Cleaned = c(TRUE, TRUE)))
   })
 })
 
@@ -209,77 +251,94 @@ test_that("weo_bulk errors on non-200 mocked response", {
     with_mocked_bindings(
       create_weo_url = function(...) "https://fake.weo.test/test.xls",
       {
-        expect_error(weo_bulk(2024, "Fall"), "HTTP status: 404")
+        expect_error(weo_bulk(2024, "Fall"), "Failed to download")
       }
     )
   })
 })
 
-test_that("weo_bulk errors when request throws exception", {
-  mock_resp <- function(req) {
-    stop("Network failure")
-  }
+test_that("process_weo_group_data errors when required columns are missing", {
+  incomplete_data <- data.frame(
+    `Country Group Name` = "Group A",
+    `Subject Descriptor` = "GDP",
+    check.names = FALSE
+  )
 
-  with_mocked_responses(mock_resp, {
-    with_mocked_bindings(
-      create_weo_url = function(...) "https://fake.weo.test/test.xls",
-      {
-        expect_error(
-          weo_bulk(2024, "Spring"),
-          "Failed to download WEO data.*Network failure"
-        )
-      }
-    )
-  })
+  expect_error(
+    process_weo_group_data(incomplete_data),
+    regexp = "Missing required columns"
+  )
 })
 
-test_that("weo_bulk errors when downloaded file is empty (via check_file)", {
-  dummy_data <- charToRaw("dummy data")
+test_that("process_weo_group_data errors when no year columns are found", {
+  data_no_years <- data.frame(
+    `Country Group Name` = "Group A",
+    `Subject Descriptor` = "GDP",
+    `Units` = "USD",
+    `WEO Subject Code` = "NGDP",
+    check.names = FALSE
+  )
 
-  mock_resp <- function(req) {
-    response(
-      method = "GET",
-      url = "https://fake.weo.test/test.xls",
-      status_code = 200,
-      body = dummy_data
-    )
-  }
-
-  with_mocked_responses(mock_resp, {
-    with_mocked_bindings(
-      create_weo_url = function(...) "https://fake.weo.test/test.xls",
-      check_file = function(path) TRUE,
-      {
-        expect_error(
-          weo_bulk(2024, "Spring"),
-          "Downloaded file is empty"
-        )
-      }
-    )
-  })
+  expect_error(
+    process_weo_group_data(data_no_years),
+    regexp = "No year columns found"
+  )
 })
 
-test_that("weo_bulk errors if read_weo_file or process_weo_data fails", {
-  mock_resp <- function(req) {
-    response(
-      method = "GET",
-      url = "https://fake.weo.test/test.xls",
-      status_code = 200,
-      body = charToRaw("dummy data")
-    )
-  }
+test_that("process_weo_group_data correctly tidies numeric year cols", {
+  sample_data <- data.frame(
+    `Country Group Name` = c("Group A", "Group B"),
+    `Subject Descriptor` = c("GDP", "Inflation"),
+    `Units` = c("USD", "Percent"),
+    `WEO Subject Code` = c("NGDP", "PCPIPCH"),
+    `WEO Country Group Code` = c("001", "002"),
+    `2020` = c("1,000", "2.5"),
+    `2021` = c("1,200", "3.0"),
+    check.names = FALSE
+  )
 
-  with_mocked_responses(mock_resp, {
-    with_mocked_bindings(
-      create_weo_url = function(...) "https://fake.weo.test/test.xls",
-      read_weo_file = function(path) stop("Failed to read Excel"),
-      process_weo_data = function(df) df,
-      {
-        expect_error(
-          weo_bulk(2024, "Spring"),
-          "Failed to download WEO data"
-        )
-      }
-    )
-  })
+  result <- process_weo_group_data(sample_data)
+
+  expect_s3_class(result, "data.frame")
+  expect_named(
+    result,
+    c("name", "id", "subject", "units", "series", "year", "value")
+  )
+  expect_equal(nrow(result), 4)
+  expect_type(result$year, "integer")
+  expect_type(result$value, "double")
+})
+
+test_that("process_weo_group_data removes rows with NA values in year col", {
+  data_with_na <- data.frame(
+    `Country Group Name` = "Group A",
+    `Subject Descriptor` = "GDP",
+    `Units` = "USD",
+    `WEO Subject Code` = "NGDP",
+    `WEO Country Group Code` = "001",
+    `2020` = "1,000",
+    `2021` = NA,
+    check.names = FALSE
+  )
+
+  result <- process_weo_group_data(data_with_na)
+  expect_equal(nrow(result), 1)
+  expect_equal(result$year, 2020)
+})
+
+test_that("process_weo_group_data handles numeric year values directly", {
+  numeric_year_data <- data.frame(
+    `Country Group Name` = "Group A",
+    `Subject Descriptor` = "GDP",
+    `Units` = "USD",
+    `WEO Subject Code` = "NGDP",
+    `WEO Country Group Code` = "001",
+    `2020` = 1000,
+    `2021` = 1200,
+    check.names = FALSE
+  )
+
+  result <- process_weo_group_data(numeric_year_data)
+  expect_equal(nrow(result), 2)
+  expect_equal(result$value, c(1000, 1200))
 })

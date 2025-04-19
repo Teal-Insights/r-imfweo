@@ -25,7 +25,7 @@ test_that("weo_get_entities returns correct structure and content", {
       "Percent change",
       "Percent change"
     ),
-    country = c(
+    name = c(
       "United States",
       "Germany",
       "United States",
@@ -33,7 +33,7 @@ test_that("weo_get_entities returns correct structure and content", {
       "European Union",
       "European Union"
     ),
-    iso = c("USA", "DEU", "USA", "DEU", "EUU", "EUU"),
+    id = c("USA", "DEU", "USA", "DEU", "EUU", "EUU"),
     year = c(2022, 2022, 2022, 2022, 2022, 2022),
     value = c(2.1, 1.8, 8.0, 7.9, 3.5, 7.0)
   )
@@ -75,8 +75,8 @@ test_that("weo_get_entities handles custom year and release parameters", {
     series = c("NGDP", "NGDP", "PCPI", "PCPI"),
     subject = rep("Some subject", 4),
     units = rep("Some units", 4),
-    country = c("Japan", "Canada", "Japan", "Canada"),
-    iso = c("JPN", "CAN", "JPN", "CAN"),
+    name = c("Japan", "Canada", "Japan", "Canada"),
+    id = c("JPN", "CAN", "JPN", "CAN"),
     year = rep(2021, 4),
     value = c(1, 2, 3, 4)
   )
@@ -120,8 +120,8 @@ test_that("weo_get_entities handles rows with NA entity_id", {
     series = c("NGDP", "NGDP", "NGDP"),
     subject = rep("Some subject", 3),
     units = rep("Some units", 3),
-    country = c("United States", "World", "Euro Area"),
-    iso = c("USA", NA, "EUR"),
+    name = c("United States", "World", "Euro Area"),
+    id = c("USA", NA, "EUR"),
     year = rep(2022, 3),
     value = c(1, 2, 3)
   )
@@ -158,8 +158,8 @@ test_that("weo_get_entities handles empty dataset gracefully", {
     series = character(0),
     subject = character(0),
     units = character(0),
-    country = character(0),
-    iso = character(0),
+    name = character(0),
+    id = character(0),
     year = integer(0),
     value = numeric(0)
   )
@@ -197,8 +197,8 @@ test_that("weo_get_entities correctly sorts output by entity name", {
     series = rep("NGDP", 4),
     subject = rep("Some subject", 4),
     units = rep("Some units", 4),
-    country = c("United States", "Germany", "Albania", "Japan"),
-    iso = c("USA", "DEU", "ALB", "JPN"),
+    name = c("United States", "Germany", "Albania", "Japan"),
+    id = c("USA", "DEU", "ALB", "JPN"),
     year = rep(2022, 4),
     value = 1:4
   )
@@ -223,7 +223,7 @@ test_that("weo_get_entities correctly sorts output by entity name", {
 
       # Check sorting
       expect_equal(result, expected_output)
-      expect_equal(result$entity_name, sort(unique(mock_data$country)))
+      expect_equal(result$entity_name, sort(unique(mock_data$name)))
     }
   )
 })

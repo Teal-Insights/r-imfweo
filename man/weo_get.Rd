@@ -7,7 +7,7 @@
 weo_get(
   entities = NULL,
   series = NULL,
-  start_year = 1980,
+  start_year = 1980L,
   end_year = NULL,
   year = NULL,
   release = NULL,
@@ -15,8 +15,8 @@ weo_get(
 )
 }
 \arguments{
-\item{entities}{An optional character vector of ISO3 country codes.
-See \link{weo_get_entities}.}
+\item{entities}{An optional character vector of ISO3 country codes or country
+group identifiers. See \link{weo_get_entities}.}
 
 \item{series}{A optional character vector of series codes.
 See \link{weo_get_series}.}
@@ -36,7 +36,7 @@ Defaults to latest publication release.}
 \value{
 A data frame with columns:
 \describe{
-\item{entity_id}{ISO3 country code}
+\item{entity_id}{ISO3 country code or country group ID}
 \item{entity_name}{Entity name}
 \item{series_code}{WEO series code}
 \item{series_name}{Series name}

@@ -2,8 +2,8 @@ test_that("weo_get filters correctly with mocked bindings", {
   fake_publication <- list(year = 2024, release = "Spring")
 
   fake_bulk_data <- data.frame(
-    iso = c("USA", "GBR", "DEU", "USA"),
-    country = c("United States", "United Kingdom", "Germany", "United States"),
+    id = c("USA", "GBR", "DEU", "USA"),
+    name = c("United States", "United Kingdom", "Germany", "United States"),
     series = c("NGDP_RPCH", "NGDP_RPCH", "NGDP_RPCH", "NGDP_RPCH"),
     subject = c(
       "Real GDP Growth",
@@ -44,8 +44,8 @@ test_that("weo_get defaults end_year to current year + 5", {
   fake_publication <- list(year = fake_year, release = "Spring")
 
   fake_bulk_data <- data.frame(
-    iso = "USA",
-    country = "United States",
+    id = "USA",
+    name = "United States",
     series = "NGDP_RPCH",
     subject = "Real GDP Growth",
     units = "Percent",
