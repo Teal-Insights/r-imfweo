@@ -38,11 +38,11 @@ This package is a product of Teal Insights and not sponsored by or affiliated wi
 
 ## Installation
 
-You can install the development version of `imfweo` from [GitHub](https://github.com/) with:
+You can install the development version of `imfweo` from [GitHub](https://github.com/teal-insights/r-imfweo) with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("teal-insights/r-imfweo")
+# install.packages("pak")
+pak::pak("teal-insights/r-imfweo")
 ```
 
 ## Usage

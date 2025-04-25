@@ -4,7 +4,6 @@
 # imfweo
 
 <!-- badges: start -->
-
 <!-- [![CRAN
 status](https://www.r-pkg.org/badges/version/imfweo)](https://cran.r-project.org/package=imfweo)
 [![CRAN
@@ -38,11 +37,11 @@ affiliated with the IMF in any way, except for the use of the WEO data.
 ## Installation
 
 You can install the development version of `imfweo` from
-[GitHub](https://github.com/) with:
+[GitHub](https://github.com/teal-insights/r-imfweo) with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("teal-insights/r-imfweo")
+# install.packages("pak")
+pak::pak("teal-insights/r-imfweo")
 ```
 
 ## Usage
@@ -54,7 +53,7 @@ data from the latest World Economic Outlook (WEO) publication:
 library(imfweo)
 
 weo_get()
-#> # A tibble: 345,356 × 7
+#> # A tibble: 353,544 × 7
 #>    entity_name entity_id series_name             units     series_id  year value
 #>    <chr>       <chr>     <chr>                   <chr>     <chr>     <int> <dbl>
 #>  1 World       001       Current account balance U.S. dol… BCA        1980 -56.3
@@ -63,11 +62,11 @@ weo_get()
 #>  4 World       001       Current account balance U.S. dol… BCA        1983 -76.0
 #>  5 World       001       Current account balance U.S. dol… BCA        1984 -67.9
 #>  6 World       001       Current account balance U.S. dol… BCA        1985 -63.5
-#>  7 World       001       Current account balance U.S. dol… BCA        1986 -66.3
+#>  7 World       001       Current account balance U.S. dol… BCA        1986 -66.4
 #>  8 World       001       Current account balance U.S. dol… BCA        1987 -63.5
 #>  9 World       001       Current account balance U.S. dol… BCA        1988 -57.3
-#> 10 World       001       Current account balance U.S. dol… BCA        1989 -83.3
-#> # ℹ 345,346 more rows
+#> 10 World       001       Current account balance U.S. dol… BCA        1989 -83.4
+#> # ℹ 353,534 more rows
 ```
 
 Note: On the first run of each R session, the function may take a few
@@ -80,10 +79,10 @@ To explicitly retrieve the most recent publication metadata, use:
 ``` r
 weo_get_latest_publication()
 #> $year
-#> [1] 2024
+#> [1] 2025
 #> 
 #> $release
-#> [1] "Fall"
+#> [1] "Spring"
 ```
 
 To fetch data from a specific publication, or to filter by country,
