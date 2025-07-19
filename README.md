@@ -4,6 +4,7 @@
 # imfweo
 
 <!-- badges: start -->
+
 <!-- [![CRAN
 status](https://www.r-pkg.org/badges/version/imfweo)](https://cran.r-project.org/package=imfweo)
 [![CRAN
@@ -33,6 +34,12 @@ respectively. It follows the principles of the
 
 This package is a product of Teal Insights and not sponsored by or
 affiliated with the IMF in any way, except for the use of the WEO data.
+
+> :bulb: This package currently does not use the IMF Data API for
+> several reasons: (i) the API’s SDMX format is complex and difficult to
+> parse; (ii) leveraging the `rsdmx` package would require releasing
+> `imfweo` under the GPL license; and (iii) it’s unclear whether the API
+> provides access to historical WEO publications.
 
 ## Installation
 
@@ -184,7 +191,8 @@ please follow these steps:
 
 1.  **Create an issue**: Before making changes, create an issue
     describing the bug or feature you’re addressing.
-2.  **Fork the repository**: Fork the repository to your GitHub account.
+2.  **Fork the repository**: After receiving supportive feedback from
+    the package authors, fork the repository to your GitHub account.
 3.  **Create a branch**: Create a branch for your changes with a
     descriptive name.
 4.  **Make your changes**: Implement your bug fix or feature.
