@@ -58,6 +58,9 @@ downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org
 <p><code>imfweo</code> is an R package to access and analyze the International Monetary Fund’s World Economic Outlook (WEO) publications. WEO provides comprehensive analysis and forecasts of the global economy and is published twice a year - typically in April and October.</p>
 <p>The package is designed to work seamlessly with World Bank’s International Debt Statistics (IDS) and World Development Indicators (WDI) provided through the <a href="https://github.com/teal-insights/r-wbids" class="external-link">wbids</a> and <a href="https://github.com/tidy-intelligence/r-wbwdi" class="external-link">wbwdi</a> package, respectively. It follows the principles of the <a href="https://www.econdataverse.org/" class="external-link">econdataverse</a>.</p>
 <p>This package is a product of Teal Insights and not sponsored by or affiliated with the IMF in any way, except for the use of the WEO data.</p>
+<blockquote>
+<p><span class="emoji" data-emoji="bulb">💡</span> This package currently does not use the IMF Data API for several reasons: (i) the API’s SDMX format is complex and difficult to parse; (ii) leveraging the <code>rsdmx</code> package would require releasing <code>imfweo</code> under the GPL license; and (iii) it’s unclear whether the API provides access to historical WEO publications.</p>
+</blockquote>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -182,7 +185,7 @@ downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org
 <li>
 <strong>Create an issue</strong>: Before making changes, create an issue describing the bug or feature you’re addressing.</li>
 <li>
-<strong>Fork the repository</strong>: Fork the repository to your GitHub account.</li>
+<strong>Fork the repository</strong>: After receiving supportive feedback from the package authors, fork the repository to your GitHub account.</li>
 <li>
 <strong>Create a branch</strong>: Create a branch for your changes with a descriptive name.</li>
 <li>
@@ -221,8 +224,8 @@ downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Teal Emery <br><small class="roles"> Author, maintainer </small>  </li>
-<li>Christoph Scheuch <br><small class="roles"> Author </small> <a href="https://orcid.org/0009-0004-0423-6819" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Teal Emery <br><small class="roles"> Author, maintainer </small>   </li>
+<li>Christoph Scheuch <br><small class="roles"> Author </small> <a href="https://orcid.org/0009-0004-0423-6819" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
 <li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
@@ -244,7 +247,7 @@ downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>
