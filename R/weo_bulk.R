@@ -38,7 +38,9 @@ weo_bulk <- function(
     download_weo(url_country, file_country, "WEO country", quiet)
     download_weo(url_groups, file_groups, "WEO country groups", quiet)
 
-    if (!quiet) cli::cli_alert_info("Processing data...")
+    if (!quiet) {
+      cli::cli_alert_info("Processing data...")
+    }
 
     # Read and process both
     raw_country <- read_weo_file(file_country)
@@ -61,7 +63,9 @@ weo_bulk <- function(
 #' @keywords internal
 #' @noRd
 download_weo <- function(url, dest, label, quiet) {
-  if (!quiet) cli::cli_alert_info("Downloading {label} data...")
+  if (!quiet) {
+    cli::cli_alert_info("Downloading {label} data...")
+  }
 
   resp <- tryCatch(
     perform_request(url),

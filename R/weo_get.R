@@ -14,7 +14,8 @@
 #'  publication year.
 #' @param release The release of a WEO publication ("Spring" or "Fall").
 #'  Defaults to latest publication release.
-#' @param quiet description
+#' @param quiet A logical indicating whether to print download information.
+#'  Defaults to TRUE.
 #'
 #' @return A data frame with columns:
 #' \describe{
