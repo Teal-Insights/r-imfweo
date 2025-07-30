@@ -31,7 +31,8 @@ publication year.}
 \item{release}{The release of a WEO publication ("Spring" or "Fall").
 Defaults to latest publication release.}
 
-\item{quiet}{description}
+\item{quiet}{A logical indicating whether to print download information.
+Defaults to TRUE.}
 }
 \value{
 A data frame with columns:

@@ -210,3 +210,15 @@ test_that("weo_get_series correctly transforms and sorts output", {
     }
   )
 })
+
+
+test_that("weo_get_series handles empty response", {
+  with_mocked_bindings(
+    resolve_publication = function(...) NULL,
+    weo_bulk = function(...) NULL,
+    {
+      res <- weo_get_series()
+      expect_equal(res, NULL)
+    }
+  )
+})

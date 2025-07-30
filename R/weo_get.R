@@ -14,7 +14,8 @@
 #'  publication year.
 #' @param release The release of a WEO publication ("Spring" or "Fall").
 #'  Defaults to latest publication release.
-#' @param quiet description
+#' @param quiet A logical indicating whether to print download information.
+#'  Defaults to TRUE.
 #'
 #' @return A data frame with columns:
 #' \describe{
@@ -56,6 +57,10 @@ weo_get <- function(
   publication <- resolve_publication(year, release)
 
   data <- weo_bulk(publication$year, publication$release, quiet = quiet)
+
+  if (is.null(data)) {
+    return(invisible(NULL))
+  }
 
   filtered_data <- data |>
     dplyr::filter(

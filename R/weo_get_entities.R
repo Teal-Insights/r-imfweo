@@ -29,6 +29,10 @@ weo_get_entities <- function(year = NULL, release = NULL, quiet = TRUE) {
 
   data <- weo_bulk(publication$year, publication$release, quiet = quiet)
 
+  if (is.null(data)) {
+    return(invisible(NULL))
+  }
+
   entities <- data |>
     dplyr::distinct(
       entity_id = .data$id,

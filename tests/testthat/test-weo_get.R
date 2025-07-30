@@ -71,3 +71,14 @@ test_that("weo_get defaults end_year to current year + 5", {
     }
   )
 })
+
+test_that("weo_get handles empty response", {
+  with_mocked_bindings(
+    resolve_publication = function(...) NULL,
+    weo_bulk = function(...) NULL,
+    {
+      res <- weo_get()
+      expect_equal(res, NULL)
+    }
+  )
+})

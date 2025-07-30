@@ -30,6 +30,10 @@ weo_get_series <- function(year = NULL, release = NULL, quiet = TRUE) {
 
   data <- weo_bulk(publication$year, publication$release, quiet = quiet)
 
+  if (is.null(data)) {
+    return(invisible(NULL))
+  }
+
   series <- data |>
     dplyr::distinct(
       series_id = .data$series,
