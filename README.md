@@ -30,7 +30,7 @@ International Debt Statistics (IDS) and World Development Indicators
 [wbids](https://github.com/teal-insights/r-wbids) and
 [wbwdi](https://github.com/tidy-intelligence/r-wbwdi) package,
 respectively. It follows the principles of the
-[econdataverse](https://www.econdataverse.org/).
+[EconDataverse](https://www.econdataverse.org/).
 
 This package is a product of Teal Insights and not sponsored by or
 affiliated with the IMF in any way, except for the use of the WEO data.
@@ -42,6 +42,12 @@ affiliated with the IMF in any way, except for the use of the WEO data.
 > provides access to historical WEO publications.
 
 ## Installation
+
+You can install `oecdoda` from \[RAN via:
+
+``` r
+install.packages("imfweo")
+```
 
 You can install the development version of `imfweo` from
 [GitHub](https://github.com/teal-insights/r-imfweo) with:

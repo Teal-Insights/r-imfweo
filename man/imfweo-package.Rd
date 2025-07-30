@@ -4,7 +4,7 @@
 \name{imfweo-package}
 \alias{imfweo}
 \alias{imfweo-package}
-\title{imfweo: Download and Tidy IMF World Economic Outlook (WEO) Data}
+\title{imfweo: Seamless Access to IMF World Economic Outlook (WEO) Data}
 \description{
 Provides tools to download, process, and analyze data from the International Monetary Fund's World Economic Outlook (WEO) database. Functions support downloading complete WEO releases, accessing specific economic indicators for selected countries, and listing available data.
 }
