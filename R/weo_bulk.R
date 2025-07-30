@@ -35,8 +35,11 @@ weo_bulk <- function(
     })
 
     # Download both files
-    download_weo(url_country, file_country, "WEO country", quiet)
-    download_weo(url_groups, file_groups, "WEO country groups", quiet)
+    res1 <- download_weo(url_country, file_country, "WEO country", quiet)
+    res2 <- download_weo(url_groups, file_groups, "WEO country groups", quiet)
+    if (is.null(res1) || is.null(res2)) {
+      return(invisible(NULL))
+    }
 
     if (!quiet) {
       cli::cli_alert_info("Processing data...")
@@ -70,20 +73,31 @@ download_weo <- function(url, dest, label, quiet) {
   resp <- tryCatch(
     perform_request(url),
     error = function(e) {
-      cli::cli_abort(c(
-        "Failed to download {label} data",
-        "i" = "URL: {url}",
-        "x" = "Error: {conditionMessage(e)}"
-      ))
+      cli::cli_alert_warning(
+        paste(
+          "Failed to retrieve data from the WEO Database.",
+          "Error message: {conditionMessage(e)}"
+        ),
+        wrap = TRUE
+      )
+      invisible(NULL)
     }
   )
 
+  if (is.null(resp)) {
+    return(invisible(NULL))
+  }
+
   if (httr2::resp_status(resp) != 200) {
-    cli::cli_abort(c(
-      "Failed to download {label} data",
-      "i" = "URL: {url}",
-      "x" = "HTTP status: {httr2::resp_status(resp)}"
-    ))
+    cli::cli_alert_warning(
+      paste(
+        "Failed to download {label} data.",
+        "URL: {url}.",
+        "HTTP status: {httr2::resp_status(resp)}."
+      ),
+      wrap = TRUE
+    )
+    return(invisible(NULL))
   }
 
   writeBin(httr2::resp_body_raw(resp), dest)
@@ -94,6 +108,8 @@ download_weo <- function(url, dest, label, quiet) {
       "i" = "URL: {url}"
     ))
   }
+
+  invisible(TRUE) #nocov
 }
 
 #' @keywords internal

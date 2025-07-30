@@ -28,14 +28,13 @@ test_that("download_weo handles req_perform error correctly", {
   with_mocked_bindings(
     perform_request = function(...) stop(),
     {
-      expect_error(
+      expect_message(
         download_weo(
           url = "http://example.com/data.csv",
           dest = tempfile(),
           label = "test",
           quiet = TRUE
-        ),
-        regexp = "Failed to download test data"
+        )
       )
     }
   )
@@ -225,6 +224,7 @@ test_that("weo_bulk handles valid mocked response", {
   with_mocked_responses(mock_resp, {
     result <- with_mocked_bindings(
       create_weo_url = function(...) "https://fake.weo.test/test.xls",
+      download_weo = function(...) TRUE,
       read_weo_file = function(path) data.frame(Country = "USA"),
       process_weo_data = function(df) data.frame(Cleaned = TRUE),
       process_weo_group_data = function(df) data.frame(Cleaned = TRUE),
@@ -251,7 +251,7 @@ test_that("weo_bulk errors on non-200 mocked response", {
     with_mocked_bindings(
       create_weo_url = function(...) "https://fake.weo.test/test.xls",
       {
-        expect_error(weo_bulk(2024, "Fall"), "Failed to download")
+        expect_message(weo_bulk(2024, "Fall"), "Failed to download")
       }
     )
   })
@@ -341,4 +341,24 @@ test_that("process_weo_group_data handles numeric year values directly", {
   result <- process_weo_group_data(numeric_year_data)
   expect_equal(nrow(result), 2)
   expect_equal(result$value, c(1000, 1200))
+})
+
+test_that("weo_bulk handles empty response", {
+  with_mocked_bindings(
+    download_weo = function(...) NULL,
+    {
+      res <- weo_bulk(9999, "Spring")
+      expect_equal(res, NULL)
+    }
+  )
+})
+
+test_that("check_file works correctly", {
+  tmp_file <- tempfile()
+  expect_true(check_file(tmp_file))
+  file.create(tmp_file)
+  expect_true(check_file(tmp_file))
+  writeLines("some content", tmp_file)
+  expect_false(check_file(tmp_file))
+  unlink(tmp_file)
 })

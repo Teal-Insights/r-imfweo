@@ -58,6 +58,10 @@ weo_get <- function(
 
   data <- weo_bulk(publication$year, publication$release, quiet = quiet)
 
+  if (is.null(data)) {
+    return(invisible(NULL))
+  }
+
   filtered_data <- data |>
     dplyr::filter(
       if (!is.null(series)) .data$series %in% series else TRUE,

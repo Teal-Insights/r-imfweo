@@ -227,3 +227,14 @@ test_that("weo_get_entities correctly sorts output by entity name", {
     }
   )
 })
+
+test_that("weo_get_entities handles empty response", {
+  with_mocked_bindings(
+    resolve_publication = function(...) NULL,
+    weo_bulk = function(...) NULL,
+    {
+      res <- weo_get_entities()
+      expect_equal(res, NULL)
+    }
+  )
+})
