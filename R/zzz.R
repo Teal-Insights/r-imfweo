@@ -9,6 +9,9 @@
 }
 
 #' Reset the Cache
+#'
+#' @return No return value, called for side effects.
+#'
 #' @export
 weo_cache_reset <- function() {
   .weo_cache$latest_publication <- NULL
