@@ -76,18 +76,20 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://teal-insights.github.io/r-imfweo/">imfweo</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/weo_get.html">weo_get</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; ! Failed to retrieve data from the WEO Database. Error message: Failed to</span></span>
-<span><span class="co">#&gt; perform HTTP request. Caused by error in `curl::curl_fetch_memory()`: ! Stream</span></span>
-<span><span class="co">#&gt; error in the HTTP/2 framing layer [www.imf.org]: Invalid HTTP header field was</span></span>
-<span><span class="co">#&gt; received: frame type: 1, stream: 5, name: [set-cookie], value:</span></span>
-<span><span class="co">#&gt; [TS01e41fe4=01250698b2b2448b7a1fd17091e2a7f49401f8f058e173155c5290c07b5fc7a41922e46c4cb059ea91a6cb5091c56694c7280dd457ede47408f0585a1bbbf19936033a619b;</span></span>
-<span><span class="co">#&gt; Path=/; Do</span></span>
-<span><span class="co">#&gt; ! Failed to retrieve data from the WEO Database. Error message: Failed to</span></span>
-<span><span class="co">#&gt; perform HTTP request. Caused by error in `curl::curl_fetch_memory()`: ! Stream</span></span>
-<span><span class="co">#&gt; error in the HTTP/2 framing layer [www.imf.org]: Invalid HTTP header field was</span></span>
-<span><span class="co">#&gt; received: frame type: 1, stream: 7, name: [set-cookie], value:</span></span>
-<span><span class="co">#&gt; [TS01e41fe4=01250698b24c4dd7f26ddb33dcd38e8420b4150674a0dd7c6da94746be81258c50c5be2fa527a2e0de306b1c5070a7ec72be1060d1f6e5dd31fbf1b933861d42127404db88;</span></span>
-<span><span class="co">#&gt; Path=/; Do</span></span></code></pre></div>
+<span><span class="co">#&gt; # A tibble: 353,544 × 7</span></span>
+<span><span class="co">#&gt;    entity_name entity_id series_name             units     series_id  year value</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;                   &lt;chr&gt;     &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 World       001       Current account balance U.S. dol… BCA        1980 -56.3</span></span>
+<span><span class="co">#&gt;  2 World       001       Current account balance U.S. dol… BCA        1981 -82.2</span></span>
+<span><span class="co">#&gt;  3 World       001       Current account balance U.S. dol… BCA        1982 -91.8</span></span>
+<span><span class="co">#&gt;  4 World       001       Current account balance U.S. dol… BCA        1983 -76.0</span></span>
+<span><span class="co">#&gt;  5 World       001       Current account balance U.S. dol… BCA        1984 -67.9</span></span>
+<span><span class="co">#&gt;  6 World       001       Current account balance U.S. dol… BCA        1985 -63.5</span></span>
+<span><span class="co">#&gt;  7 World       001       Current account balance U.S. dol… BCA        1986 -66.4</span></span>
+<span><span class="co">#&gt;  8 World       001       Current account balance U.S. dol… BCA        1987 -63.5</span></span>
+<span><span class="co">#&gt;  9 World       001       Current account balance U.S. dol… BCA        1988 -57.3</span></span>
+<span><span class="co">#&gt; 10 World       001       Current account balance U.S. dol… BCA        1989 -83.4</span></span>
+<span><span class="co">#&gt; # ℹ 353,534 more rows</span></span></code></pre></div>
 <p>Note: On the first run of each R session, the function may take a few seconds to execute as the package checks which WEO publication is currently the latest. This information is put into a cache, which is reset whenever your session restarts.</p>
 <p>To explicitly retrieve the most recent publication metadata, use:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
