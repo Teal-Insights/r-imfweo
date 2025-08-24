@@ -6,6 +6,9 @@
 \usage{
 weo_cache_reset()
 }
+\value{
+No return value, called for side effects.
+}
 \description{
 Reset the Cache
 }

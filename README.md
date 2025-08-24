@@ -5,11 +5,10 @@
 
 <!-- badges: start -->
 
-<!-- [![CRAN
+[![CRAN
 status](https://www.r-pkg.org/badges/version/imfweo)](https://cran.r-project.org/package=imfweo)
 [![CRAN
-downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org/package=imfweo) -->
-
+downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org/package=imfweo)
 ![R CMD
 Check](https://github.com/teal-insights/r-imfweo/actions/workflows/R-CMD-check.yaml/badge.svg)
 ![Lint](https://github.com/teal-insights/r-imfweo/actions/workflows/lint.yaml/badge.svg)
@@ -30,7 +29,7 @@ International Debt Statistics (IDS) and World Development Indicators
 [wbids](https://github.com/teal-insights/r-wbids) and
 [wbwdi](https://github.com/tidy-intelligence/r-wbwdi) package,
 respectively. It follows the principles of the
-[econdataverse](https://www.econdataverse.org/).
+[EconDataverse](https://www.econdataverse.org/).
 
 This package is a product of Teal Insights and not sponsored by or
 affiliated with the IMF in any way, except for the use of the WEO data.
@@ -42,6 +41,13 @@ affiliated with the IMF in any way, except for the use of the WEO data.
 > provides access to historical WEO publications.
 
 ## Installation
+
+You can install `imfweo` from
+[CRAN](https://CRAN.R-project.org/package=imfweo) via:
+
+``` r
+install.packages("imfweo")
+```
 
 You can install the development version of `imfweo` from
 [GitHub](https://github.com/teal-insights/r-imfweo) with:
@@ -60,20 +66,18 @@ data from the latest World Economic Outlook (WEO) publication:
 library(imfweo)
 
 weo_get()
-#> # A tibble: 353,544 × 7
-#>    entity_name entity_id series_name             units     series_id  year value
-#>    <chr>       <chr>     <chr>                   <chr>     <chr>     <int> <dbl>
-#>  1 World       001       Current account balance U.S. dol… BCA        1980 -56.3
-#>  2 World       001       Current account balance U.S. dol… BCA        1981 -82.2
-#>  3 World       001       Current account balance U.S. dol… BCA        1982 -91.8
-#>  4 World       001       Current account balance U.S. dol… BCA        1983 -76.0
-#>  5 World       001       Current account balance U.S. dol… BCA        1984 -67.9
-#>  6 World       001       Current account balance U.S. dol… BCA        1985 -63.5
-#>  7 World       001       Current account balance U.S. dol… BCA        1986 -66.4
-#>  8 World       001       Current account balance U.S. dol… BCA        1987 -63.5
-#>  9 World       001       Current account balance U.S. dol… BCA        1988 -57.3
-#> 10 World       001       Current account balance U.S. dol… BCA        1989 -83.4
-#> # ℹ 353,534 more rows
+#> ! Failed to retrieve data from the WEO Database. Error message: Failed to
+#> perform HTTP request. Caused by error in `curl::curl_fetch_memory()`: ! Stream
+#> error in the HTTP/2 framing layer [www.imf.org]: Invalid HTTP header field was
+#> received: frame type: 1, stream: 5, name: [set-cookie], value:
+#> [TS01e41fe4=01250698b2b2448b7a1fd17091e2a7f49401f8f058e173155c5290c07b5fc7a41922e46c4cb059ea91a6cb5091c56694c7280dd457ede47408f0585a1bbbf19936033a619b;
+#> Path=/; Do
+#> ! Failed to retrieve data from the WEO Database. Error message: Failed to
+#> perform HTTP request. Caused by error in `curl::curl_fetch_memory()`: ! Stream
+#> error in the HTTP/2 framing layer [www.imf.org]: Invalid HTTP header field was
+#> received: frame type: 1, stream: 7, name: [set-cookie], value:
+#> [TS01e41fe4=01250698b24c4dd7f26ddb33dcd38e8420b4150674a0dd7c6da94746be81258c50c5be2fa527a2e0de306b1c5070a7ec72be1060d1f6e5dd31fbf1b933861d42127404db88;
+#> Path=/; Do
 ```
 
 Note: On the first run of each R session, the function may take a few

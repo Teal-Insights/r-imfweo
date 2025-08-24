@@ -67,7 +67,7 @@ test_that("cli_abort is triggered if no valid publication is found", {
     request = function(url) structure(list(url = url), class = "httr2_request"),
     req_options = function(req, ...) req,
     req_user_agent = function(req, ...) req,
-    req_perform = function(req) NULL, # Simulate all fetches fail
+    req_perform = function(req) NULL,
     {
       expect_error(
         weo_get_latest_publication(quiet = TRUE),
