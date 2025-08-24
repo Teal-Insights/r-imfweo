@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Download and Tidy IMF World Economic Outlook (WEO) Data • imfweo</title>
+<title>Seamless Access to IMF World Economic Outlook (WEO) Data • imfweo</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Download and Tidy IMF World Economic Outlook (WEO) Data">
-<meta name="description" content="Provides tools to download, process, and analyze data from the International Monetary Fund's World Economic Outlook (WEO) database. Functions support downloading complete WEO releases, accessing specific economic indicators for selected countries, and listing available data.">
-<meta property="og:description" content="Provides tools to download, process, and analyze data from the International Monetary Fund's World Economic Outlook (WEO) database. Functions support downloading complete WEO releases, accessing specific economic indicators for selected countries, and listing available data.">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Seamless Access to IMF World Economic Outlook (WEO) Data">
+<meta name="description" content="Provides tools to download, process, and analyze data from the International Monetary Fund's World Economic Outlook (WEO) database &lt;https://www.imf.org/en/Publications/SPROLLs/world-economic-outlook-databases&gt;. Functions support downloading complete WEO releases, accessing specific economic indicators for selected countries, and listing available data.">
+<meta property="og:description" content="Provides tools to download, process, and analyze data from the International Monetary Fund's World Economic Outlook (WEO) database &lt;https://www.imf.org/en/Publications/SPROLLs/world-economic-outlook-databases&gt;. Functions support downloading complete WEO releases, accessing specific economic indicators for selected countries, and listing available data.">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">imfweo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,7 +56,7 @@ status](https://www.r-pkg.org/badges/version/imfweo)](https://cran.r-project.org
 downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org/package=imfweo) -->
 
 <p><code>imfweo</code> is an R package to access and analyze the International Monetary Fund’s World Economic Outlook (WEO) publications. WEO provides comprehensive analysis and forecasts of the global economy and is published twice a year - typically in April and October.</p>
-<p>The package is designed to work seamlessly with World Bank’s International Debt Statistics (IDS) and World Development Indicators (WDI) provided through the <a href="https://github.com/teal-insights/r-wbids" class="external-link">wbids</a> and <a href="https://github.com/tidy-intelligence/r-wbwdi" class="external-link">wbwdi</a> package, respectively. It follows the principles of the <a href="https://www.econdataverse.org/" class="external-link">econdataverse</a>.</p>
+<p>The package is designed to work seamlessly with World Bank’s International Debt Statistics (IDS) and World Development Indicators (WDI) provided through the <a href="https://github.com/teal-insights/r-wbids" class="external-link">wbids</a> and <a href="https://github.com/tidy-intelligence/r-wbwdi" class="external-link">wbwdi</a> package, respectively. It follows the principles of the <a href="https://www.econdataverse.org/" class="external-link">EconDataverse</a>.</p>
 <p>This package is a product of Teal Insights and not sponsored by or affiliated with the IMF in any way, except for the use of the WEO data.</p>
 <blockquote>
 <p><span class="emoji" data-emoji="bulb">💡</span> This package currently does not use the IMF Data API for several reasons: (i) the API’s SDMX format is complex and difficult to parse; (ii) leveraging the <code>rsdmx</code> package would require releasing <code>imfweo</code> under the GPL license; and (iii) it’s unclear whether the API provides access to historical WEO publications.</p>
@@ -64,8 +64,11 @@ downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of <code>imfweo</code> from <a href="https://github.com/teal-insights/r-imfweo" class="external-link">GitHub</a> with:</p>
+<p>You can install <code>oecdoda</code> from [RAN via:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"imfweo"</span><span class="op">)</span></span></code></pre></div>
+<p>You can install the development version of <code>imfweo</code> from <a href="https://github.com/teal-insights/r-imfweo" class="external-link">GitHub</a> with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"teal-insights/r-imfweo"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -73,7 +76,7 @@ downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
 <p>The main function <code><a href="reference/weo_get.html">weo_get()</a></code> provides a simple interface to download data from the latest World Economic Outlook (WEO) publication:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://teal-insights.github.io/r-imfweo/">imfweo</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/weo_get.html">weo_get</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -93,7 +96,7 @@ downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org
 <span><span class="co">#&gt; # ℹ 353,534 more rows</span></span></code></pre></div>
 <p>Note: On the first run of each R session, the function may take a few seconds to execute as the package checks which WEO publication is currently the latest. This information is put into a cache, which is reset whenever your session restarts.</p>
 <p>To explicitly retrieve the most recent publication metadata, use:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/weo_get_latest_publication.html">weo_get_latest_publication</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $year</span></span>
 <span><span class="co">#&gt; [1] 2025</span></span>
@@ -101,7 +104,7 @@ downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org
 <span><span class="co">#&gt; $release</span></span>
 <span><span class="co">#&gt; [1] "Spring"</span></span></code></pre></div>
 <p>To fetch data from a specific publication, or to filter by country, indicator, or time range, you can use the available parameters:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/weo_get.html">weo_get</a></span><span class="op">(</span></span>
 <span>  entities <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"USA"</span>, <span class="st">"GBR"</span>, <span class="st">"DEU"</span><span class="op">)</span>,</span>
 <span>  series <span class="op">=</span> <span class="st">"NGDP_RPCH"</span>,</span>
@@ -126,7 +129,7 @@ downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org
 <span><span class="co">#&gt; # ℹ 782 more rows</span></span></code></pre></div>
 <p>Even when filtering, the full dataset for the selected publication must be downloaded, as the WEO data is distributed in Excel format.</p>
 <p>To explore available publications:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/weo_list_publications.html">weo_list_publications</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 37 × 3</span></span>
 <span><span class="co">#&gt;     year release month  </span></span>
@@ -143,7 +146,7 @@ downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org
 <span><span class="co">#&gt; 10  2011 Fall    October</span></span>
 <span><span class="co">#&gt; # ℹ 27 more rows</span></span></code></pre></div>
 <p>To list the available entities (countries or country groups) for the latest publication:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/weo_get_entities.html">weo_get_entities</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 209 × 2</span></span>
 <span><span class="co">#&gt;    entity_id entity_name        </span></span>
@@ -160,7 +163,7 @@ downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org
 <span><span class="co">#&gt; 10 ARM       Armenia            </span></span>
 <span><span class="co">#&gt; # ℹ 199 more rows</span></span></code></pre></div>
 <p>To list the available data series:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/weo_get_series.html">weo_get_series</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 150 × 3</span></span>
 <span><span class="co">#&gt;    series_id series_name                   units         </span></span>
@@ -200,6 +203,7 @@ downloads](https://cranlogs.r-pkg.org/badges/imfweo)](https://cran.r-project.org
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
+<li><a href="https://cloud.r-project.org/package=imfweo" class="external-link">View on CRAN</a></li>
 <li><a href="https://github.com/teal-insights/r-imfweo/" class="external-link">Browse source code</a></li>
 <li><a href="https://github.com/teal-insights/r-imfweo/issues" class="external-link">Report a bug</a></li>
 </ul>
