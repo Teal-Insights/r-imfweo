@@ -329,7 +329,8 @@ process_weo_data <- function(raw_data) {
     tidyr::pivot_longer(
       cols = dplyr::all_of(year_cols),
       names_to = "year",
-      values_to = "value"
+      values_to = "value",
+      values_transform = list(value = as.character)
     )
 
   clean_values <- long_data |>
