@@ -1,6 +1,8 @@
 # imfweo (development version)
 
-* Add support for all publications until 2025 Spring. 
+## Bug fixes
+
+* Add support for all publications until 2025 Spring in `weo_get()`. 
 
 # imfweo 0.1.0
 
