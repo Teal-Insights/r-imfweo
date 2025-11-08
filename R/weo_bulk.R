@@ -156,6 +156,9 @@ create_weo_url <- function(year, release, country_groups = FALSE) {
   } else if (year >= 2021) {
     # Format from April 2021 to 2023
     paste0(base_url, "/", year, "/WEO", month, year, suffix, ".ashx")
+  } else if (year == 2020 && release == 1) {
+    # Special case: April 2020 uses .ashx
+    paste0(base_url, "/", year, "/WEO", month, year, suffix, ".ashx")
   } else if (year >= 2020) {
     # Format from October 2020
     release_pad <- ifelse(
@@ -234,58 +237,6 @@ read_weo_file <- function(file_path) {
 #' @noRd
 check_file <- function(file_path) {
   !file.exists(file_path) || file.size(file_path) == 0
-}
-
-#' Create WEO Download URL
-#'
-#' @keywords internal
-#' @noRd
-create_weo_url <- function(year, release, country_groups = FALSE) {
-  base_url <- "https://www.imf.org/-/media/Files/Publications/WEO/WEO-Database"
-  month <- ifelse(release == 1, "Apr", "Oct")
-  month_long <- ifelse(release == 1, "April", "October")
-  suffix <- ifelse(country_groups, "alla", "all")
-
-  # New format since April 2024
-  if (year >= 2024) {
-    paste0(
-      base_url,
-      "/",
-      year,
-      "/",
-      month_long,
-      "/WEO",
-      month,
-      year,
-      suffix,
-      ".xls"
-    )
-  } else if (year >= 2021) {
-    # Format from April 2021 to 2023
-    paste0(base_url, "/", year, "/WEO", month, year, suffix, ".ashx")
-  } else if (year >= 2020) {
-    # Format from October 2020
-    release_pad <- ifelse(
-      release < 10,
-      paste0("0", release),
-      as.character(release)
-    )
-    paste0(
-      base_url,
-      "/",
-      year,
-      "/",
-      release_pad,
-      "/WEO",
-      month,
-      year,
-      suffix,
-      ".xls"
-    )
-  } else {
-    # Earlier format
-    paste0(base_url, "/", year, "/WEO", month, year, suffix, ".xls")
-  }
 }
 
 #' Read WEO File
