@@ -178,6 +178,8 @@ create_weo_url <- function(year, release, country_groups = FALSE) {
       suffix,
       ".xls"
     )
+  } else if (year == 2011 && release == 2) {
+    paste0(base_url, "/", year, "/WEO", "Sep", year, suffix, ".ashx")
   } else {
     # Earlier format
     paste0(base_url, "/", year, "/WEO", month, year, suffix, ".xls")
