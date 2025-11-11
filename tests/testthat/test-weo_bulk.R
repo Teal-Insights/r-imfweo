@@ -52,7 +52,7 @@ test_that("create_weo_url constructs correct URL for 2024+ format", {
   )
 })
 
-test_that("create_weo_url constructs correct URL for 2021–2023 format", {
+test_that("create_weo_url constructs correct URL for 2021-2023 format", {
   url <- create_weo_url(2021, 1)
   expect_match(url, "https://www.imf.org/.*/2021/WEOApr2021all.ashx")
 
@@ -63,6 +63,16 @@ test_that("create_weo_url constructs correct URL for 2021–2023 format", {
 test_that("create_weo_url constructs correct URL for 2020 format", {
   url <- create_weo_url(2020, 2)
   expect_match(url, "https://www.imf.org/.*/2020/02/WEOOct2020all.xls")
+})
+
+test_that("create_weo_url constructs correct URL for 2020 release 1 format", {
+  url <- create_weo_url(2020, 1)
+  expect_match(url, "https://www.imf.org/.*/2020/WEOApr2020all.xls")
+})
+
+test_that("create_weo_url constructs correct URL for 2011 release 2 format", {
+  url <- create_weo_url(2011, 2)
+  expect_match(url, "https://www.imf.org/.*/2011/WEOSep2011all.xls")
 })
 
 test_that("create_weo_url constructs correct URL for pre-2020 format", {
