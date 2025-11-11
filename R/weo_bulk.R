@@ -158,7 +158,7 @@ create_weo_url <- function(year, release, country_groups = FALSE) {
     paste0(base_url, "/", year, "/WEO", month, year, suffix, ".ashx")
   } else if (year == 2020 && release == 1) {
     # Special case: April 2020 uses .ashx
-    paste0(base_url, "/", year, "/WEO", month, year, suffix, ".ashx")
+    paste0(base_url, "/", year, "/WEO", month, year, suffix, ".xls")
   } else if (year >= 2020) {
     # Format from October 2020
     release_pad <- ifelse(
@@ -179,7 +179,7 @@ create_weo_url <- function(year, release, country_groups = FALSE) {
       ".xls"
     )
   } else if (year == 2011 && release == 2) {
-    paste0(base_url, "/", year, "/WEO", "Sep", year, suffix, ".ashx")
+    paste0(base_url, "/", year, "/WEO", "Sep", year, suffix, ".xls")
   } else {
     # Earlier format
     paste0(base_url, "/", year, "/WEO", month, year, suffix, ".xls")
