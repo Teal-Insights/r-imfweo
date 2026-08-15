@@ -187,7 +187,7 @@ download_weo <- function(url, dest, label, quiet) {
     ))
   }
 
-  invisible(TRUE) #nocov
+  invisible(TRUE)
 }
 
 #' Detect an HTML Error Page in a Downloaded Body

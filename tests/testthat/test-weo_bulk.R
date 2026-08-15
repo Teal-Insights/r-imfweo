@@ -491,10 +491,38 @@ test_that("is_html_body detects error pages but not data files", {
   expect_false(is_html_body(charToRaw("Country\tISO\t2020\n")))
   expect_false(is_html_body(raw(0)))
 
+  # A body of nothing but nuls leaves no bytes to compare
+  expect_false(is_html_body(as.raw(c(0, 0, 0))))
+
   # UTF-16LE encoded data contains nuls, which rawToChar would reject
   utf16 <- iconv("Country\tISO\n", from = "UTF-8", to = "UTF-16LE",
                  toRaw = TRUE)[[1]]
   expect_false(is_html_body(utf16))
+})
+
+test_that("download_weo writes the body on success", {
+  mock_resp <- function(req) {
+    response(
+      method = "GET",
+      url = "https://fake.weo.test/test.xls",
+      status_code = 200,
+      body = charToRaw("Country\tISO\t2020\nUSA\tUSA\t21000\n")
+    )
+  }
+
+  dest <- withr::local_tempfile(fileext = ".xls")
+
+  with_mocked_responses(mock_resp, {
+    expect_message(
+      res <- download_weo(
+        "https://fake.weo.test/test.xls", dest, "test", FALSE
+      ),
+      "Downloading test data"
+    )
+    expect_true(res)
+    expect_true(file.exists(dest))
+    expect_gt(file.size(dest), 0)
+  })
 })
 
 test_that("download_weo rejects an error page served with status 200", {
@@ -525,6 +553,96 @@ test_that("read_weo_workbook errors for a missing file or sheet", {
   expect_error(
     read_weo_workbook("nonexistent-file.xlsx", "Countries"),
     "File does not exist"
+  )
+
+  expect_error(
+    read_weo_workbook(test_path("fixtures", "weo_portal.xlsx"), "Nope"),
+    "not found in the WEO workbook"
+  )
+})
+
+test_that("read_weo_workbook reads a sheet as text", {
+  result <- read_weo_workbook(
+    test_path("fixtures", "weo_portal.xlsx"), "Countries"
+  )
+
+  expect_s3_class(result, "data.frame")
+  expect_true(
+    all(c("COUNTRY", "COUNTRY.ID", "INDICATOR.ID") %in% names(result))
+  )
+  expect_equal(result$COUNTRY.ID, c("USA", "DEU"))
+  # Reading everything as text keeps the numeric parsing in one place
+  expect_type(result$`2020`, "character")
+})
+
+test_that("read_weo_group_codes reads the crosswalk", {
+  result <- read_weo_group_codes(test_path("fixtures", "weo_portal.xlsx"))
+
+  expect_named(result, c("id", "id_legacy"))
+  expect_equal(result$id, c("G001", "G110"))
+  expect_equal(result$id_legacy, c("001", "110"))
+})
+
+test_that("read_weo_group_codes returns NULL when the crosswalk is absent", {
+  expect_null(
+    read_weo_group_codes(
+      test_path("fixtures", "weo_portal_no_composition.xlsx")
+    )
+  )
+
+  # Sheet is present but does not carry the previous codes
+  expect_null(
+    read_weo_group_codes(
+      test_path("fixtures", "weo_portal_no_crosswalk.xlsx")
+    )
+  )
+})
+
+test_that("weo_bulk_portal reads all sheets and applies the crosswalk", {
+  fixture <- test_path("fixtures", "weo_portal.xlsx")
+
+  with_mocked_bindings(
+    download_weo = function(url, dest, label, quiet) {
+      file.copy(fixture, dest, overwrite = TRUE)
+      TRUE
+    },
+    {
+      result <- weo_bulk_portal("https://fake.weo.test/test.xlsx", TRUE)
+    }
+  )
+
+  expect_named(
+    result,
+    c("name", "id", "subject", "units", "series", "year", "value")
+  )
+  # Countries + country groups + commodity prices, minus the empty 2021 cell
+  expect_equal(nrow(result), 7)
+  expect_setequal(unique(result$series), c("NGDPD", "PALLFNFW"))
+  # G001 is mapped back to its pre-portal code, ISO3 codes are untouched
+  expect_setequal(unique(result$id), c("USA", "DEU", "001"))
+})
+
+test_that("weo_bulk_portal reports progress when not quiet", {
+  fixture <- test_path("fixtures", "weo_portal.xlsx")
+
+  with_mocked_bindings(
+    download_weo = function(url, dest, label, quiet) {
+      file.copy(fixture, dest, overwrite = TRUE)
+      TRUE
+    },
+    {
+      expect_message(
+        weo_bulk_portal("https://fake.weo.test/test.xlsx", FALSE),
+        "Processing data"
+      )
+    }
+  )
+})
+
+test_that("weo_portal_sheets lists the sheets holding observations", {
+  expect_equal(
+    weo_portal_sheets(),
+    c("Countries", "Country Groups", "Commodity Prices")
   )
 })
 
