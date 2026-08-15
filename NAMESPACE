@@ -3,7 +3,6 @@
 export(weo_cache_reset)
 export(weo_get)
 export(weo_get_entities)
-export(weo_get_latest_publication)
 export(weo_get_series)
 export(weo_list_publications)
 import(httr2)

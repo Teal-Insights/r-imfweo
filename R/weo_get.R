@@ -51,7 +51,7 @@ weo_get <- function(
   validate_year(start_year)
 
   if (is.null(end_year)) {
-    end_year <- as.integer(format(Sys.Date(), "%Y")) + 5
+    end_year <- get_current_year() + 5
   }
 
   publication <- resolve_publication(year, release)

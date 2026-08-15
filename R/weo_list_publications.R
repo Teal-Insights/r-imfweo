@@ -1,15 +1,19 @@
 #' List Available IMF WEO Publications
 #'
 #' @description
-#' Returns a data frame of available WEO publications from 2007 onwards.
-#' The IMF typically releases the WEO database twice per year:
+#' Returns a data frame of the WEO publications this package knows how to
+#' download. The IMF releases the WEO database twice per year:
 #' - Spring (April)
 #' - Fall (October)
 #'
+#' The list is maintained as a lookup table inside the package rather than
+#' detected online, because releases published on the IMF Data portal
+#' (October 2025 onwards) sit behind opaque per-vintage identifiers. A new
+#' release therefore only becomes available after a package update.
+#'
 #' @param start_year Minimum year to include. Defaults to 2007.
-#' @param end_year Maximum year to include. Defaults to current year.
-#' @param check_latest Logical indicating whether to check whether the latest
-#'  publication according to current date has been released. Defaults to FALSE.
+#' @param end_year Maximum year to include. Defaults to the year of the most
+#'  recent known publication.
 #'
 #' @return A data frame with columns:
 #' \describe{
@@ -18,59 +22,32 @@
 #'   \item{month}{The month of release ("April" or "October")}
 #' }
 #'
-#' @examplesIf curl::has_internet()
-#' \donttest{
-#' weo_list_publications(check_latest = TRUE)
-#' }
+#' @examples
+#' weo_list_publications()
 #'
 #' @export
 weo_list_publications <- function(
   start_year = 2007,
-  end_year = as.integer(format(Sys.Date(), "%Y")),
-  check_latest = FALSE
+  end_year = NULL
 ) {
-  validate_years(start_year, end_year)
+  releases <- weo_releases()
 
-  years <- seq(start_year, end_year)
-
-  publications <- tidyr::expand_grid(
-    year = years,
-    release = c("Spring", "Fall")
-  ) |>
-    dplyr::mutate(
-      month = dplyr::if_else(.data$release == "Spring", "April", "October")
-    ) |>
-    dplyr::arrange(.data$year, .data$month)
-
-  if (check_latest) {
-    latest <- weo_get_latest_publication()
-    current_year <- as.integer(latest$year)
-    current_month <- ifelse(latest$release == "April", 4L, 10L)
-  } else {
-    current_year <- get_current_year()
-    current_month <- get_current_month()
+  if (is.null(end_year)) {
+    end_year <- max(releases$year)
   }
 
-  publications <- publications |>
-    dplyr::filter(
-      .data$year < current_year |
-        (.data$year == current_year &
-          ((.data$month == "April" & current_month >= 4) | # nolint
-            (.data$month == "October" & current_month >= 10)))
-    ) |>
-    dplyr::arrange(.data$year)
+  validate_years(start_year, end_year)
 
-  publications
+  releases |>
+    dplyr::filter(
+      .data$year >= start_year,
+      .data$year <= end_year
+    ) |>
+    dplyr::select("year", "release", "month")
 }
 
 #' @keywords internal
 #' @noRd
 get_current_year <- function() {
   as.integer(format(Sys.Date(), "%Y"))
-}
-
-#' @keywords internal
-#' @noRd
-get_current_month <- function() {
-  as.integer(format(Sys.Date(), "%m"))
 }

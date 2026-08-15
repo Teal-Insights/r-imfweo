@@ -1,6 +1,6 @@
 Package: imfweo
 Title: Seamless Access to IMF World Economic Outlook (WEO) Data
-Version: 0.1.0.9001
+Version: 0.1.0.9003
 Authors@R: 
     c(person("Teal", "Emery", , "lte@tealinsights.com", role = c("aut", "cre")),
       person("Teal Insights", role = c("cph")),
@@ -14,7 +14,7 @@ Description: Provides tools to download, process, and analyze data from the
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Depends: 
     R (>= 4.1.0)
 Imports: 
@@ -24,12 +24,12 @@ Imports:
     readr,
     readxl,
     rlang,
+    tibble,
     tidyr
 Suggests:
     curl,
     testthat,
-    withr,
-    tibble
+    withr
 Config/testthat/edition: 3
 URL: https://teal-insights.github.io/r-imfweo/, https://github.com/teal-insights/r-imfweo/
 BugReports: https://github.com/teal-insights/r-imfweo/issues

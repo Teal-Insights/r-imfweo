@@ -51,7 +51,7 @@ Retrieve data from the IMF World Economic Outlook (WEO) database for specific
 series, countries, and years.
 }
 \examples{
-\dontshow{if (curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (curl::has_internet()) withAutoprint(\{ # examplesIf}
 \donttest{
 # Get GDP growth for selected countries
 weo_get(

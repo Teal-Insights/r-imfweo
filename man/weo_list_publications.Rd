@@ -4,19 +4,13 @@
 \alias{weo_list_publications}
 \title{List Available IMF WEO Publications}
 \usage{
-weo_list_publications(
-  start_year = 2007,
-  end_year = as.integer(format(Sys.Date(), "\%Y")),
-  check_latest = FALSE
-)
+weo_list_publications(start_year = 2007, end_year = NULL)
 }
 \arguments{
 \item{start_year}{Minimum year to include. Defaults to 2007.}
 
-\item{end_year}{Maximum year to include. Defaults to current year.}
-
-\item{check_latest}{Logical indicating whether to check whether the latest
-publication according to current date has been released. Defaults to FALSE.}
+\item{end_year}{Maximum year to include. Defaults to the year of the most
+recent known publication.}
 }
 \value{
 A data frame with columns:
@@ -27,17 +21,19 @@ A data frame with columns:
 }
 }
 \description{
-Returns a data frame of available WEO publications from 2007 onwards.
-The IMF typically releases the WEO database twice per year:
+Returns a data frame of the WEO publications this package knows how to
+download. The IMF releases the WEO database twice per year:
 \itemize{
 \item Spring (April)
 \item Fall (October)
 }
+
+The list is maintained as a lookup table inside the package rather than
+detected online, because releases published on the IMF Data portal
+(October 2025 onwards) sit behind opaque per-vintage identifiers. A new
+release therefore only becomes available after a package update.
 }
 \examples{
-\dontshow{if (curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-\donttest{
-weo_list_publications(check_latest = TRUE)
-}
-\dontshow{\}) # examplesIf}
+weo_list_publications()
+
 }

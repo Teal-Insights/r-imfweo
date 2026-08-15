@@ -28,7 +28,7 @@ Returns a data frame with available entities (countries and country groups)
 in the WEO database.
 }
 \examples{
-\dontshow{if (curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (curl::has_internet()) withAutoprint(\{ # examplesIf}
 \donttest{
 # List all countries and regions
 weo_get_entities()
