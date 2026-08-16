@@ -2,18 +2,25 @@ test_that("weo_get filters correctly with mocked bindings", {
   fake_publication <- list(year = 2024, release = "Spring")
 
   fake_bulk_data <- data.frame(
-    id = c("USA", "GBR", "DEU", "USA"),
-    name = c("United States", "United Kingdom", "Germany", "United States"),
-    series = c("NGDP_RPCH", "NGDP_RPCH", "NGDP_RPCH", "NGDP_RPCH"),
+    id = c("USA", "USA", "GBR", "DEU", "USA"),
+    name = c(
+      "United States",
+      "United States",
+      "United Kingdom",
+      "Germany",
+      "United States"
+    ),
+    series = c("NGDP_RPCH", "BCA", "NGDP_RPCH", "NGDP_RPCH", "NGDP_RPCH"),
     subject = c(
       "Real GDP Growth",
+      "Current account balance",
       "Real GDP Growth",
       "Real GDP Growth",
       "Real GDP Growth"
     ),
-    units = c("Percent", "Percent", "Percent", "Percent"),
-    year = c(2015, 2016, 2017, 2018),
-    value = c(2.5, 1.8, 1.6, 2.9),
+    units = c("Percent", "USD billion", "Percent", "Percent", "Percent"),
+    year = c(2015, 2015, 2016, 2017, 2018),
+    value = c(2.5, -400, 1.8, 1.6, 2.9),
     stringsAsFactors = FALSE
   )
 
