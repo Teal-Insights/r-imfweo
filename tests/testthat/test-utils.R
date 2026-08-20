@@ -87,9 +87,9 @@ test_that("validate_years handles valid and invalid inputs correctly", {
 })
 
 test_that("resolve_publication handles various input combinations", {
-  # Mock weo_get_latest_publication using with_mocked_bindings
+  # Mock weo_latest_release using with_mocked_bindings
   with_mocked_bindings(
-    weo_get_latest_publication = function() {
+    weo_latest_release = function() {
       list(year = 2023, release = "October")
     },
     {

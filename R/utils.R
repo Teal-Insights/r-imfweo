@@ -46,7 +46,8 @@ validate_years <- function(start_year, end_year) {
 #' @noRd
 resolve_publication <- function(year = NULL, release = NULL) {
   if (is.null(year) && is.null(release)) {
-    publication <- weo_get_latest_publication()
+    latest <- weo_latest_release()
+    publication <- list(year = latest$year, release = latest$release)
   } else {
     publication <- list(year = year, release = release)
   }

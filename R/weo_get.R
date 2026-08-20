@@ -51,7 +51,7 @@ weo_get <- function(
   validate_year(start_year)
 
   if (is.null(end_year)) {
-    end_year <- as.integer(format(Sys.Date(), "%Y")) + 5
+    end_year <- get_current_year() + 5
   }
 
   publication <- resolve_publication(year, release)
@@ -62,12 +62,21 @@ weo_get <- function(
     return(invisible(NULL))
   }
 
+  # NULL checks are kept in plain R, outside filter()'s data mask: inside the
+  # mask a bare `series`/`entities` resolves to the data column, so both the
+  # `is.null()` guard and the match would silently target the column instead of
+  # the function arguments.
+  if (!is.null(series)) {
+    data <- dplyr::filter(data, .data$series %in% .env$series)
+  }
+  if (!is.null(entities)) {
+    data <- dplyr::filter(data, .data$id %in% .env$entities)
+  }
+
   filtered_data <- data |>
     dplyr::filter(
-      if (!is.null(series)) .data$series %in% series else TRUE,
-      if (!is.null(entities)) .data$id %in% entities else TRUE,
-      .data$year >= start_year,
-      .data$year <= end_year
+      .data$year >= .env$start_year,
+      .data$year <= .env$end_year
     ) |>
     dplyr::rename(
       entity_id = "id",
