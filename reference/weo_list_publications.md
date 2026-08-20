@@ -1,20 +1,21 @@
 # List Available IMF WEO Publications
 
-Returns a data frame of available WEO publications from 2007 onwards.
-The IMF typically releases the WEO database twice per year:
+Returns a data frame of the WEO publications this package knows how to
+download. The IMF releases the WEO database twice per year:
 
 - Spring (April)
 
 - Fall (October)
 
+The list is maintained as a lookup table inside the package rather than
+detected online, because releases published on the IMF Data portal
+(October 2025 onwards) sit behind opaque per-vintage identifiers. A new
+release therefore only becomes available after a package update.
+
 ## Usage
 
 ``` r
-weo_list_publications(
-  start_year = 2007,
-  end_year = as.integer(format(Sys.Date(), "%Y")),
-  check_latest = FALSE
-)
+weo_list_publications(start_year = 2007, end_year = NULL)
 ```
 
 ## Arguments
@@ -25,12 +26,8 @@ weo_list_publications(
 
 - end_year:
 
-  Maximum year to include. Defaults to current year.
-
-- check_latest:
-
-  Logical indicating whether to check whether the latest publication
-  according to current date has been released. Defaults to FALSE.
+  Maximum year to include. Defaults to the year of the most recent known
+  publication.
 
 ## Value
 
@@ -51,9 +48,8 @@ A data frame with columns:
 ## Examples
 
 ``` r
-# \donttest{
-weo_list_publications(check_latest = TRUE)
-#> # A tibble: 38 × 3
+weo_list_publications()
+#> # A tibble: 39 × 3
 #>     year release month  
 #>    <int> <chr>   <chr>  
 #>  1  2007 Spring  April  
@@ -66,6 +62,5 @@ weo_list_publications(check_latest = TRUE)
 #>  8  2010 Fall    October
 #>  9  2011 Spring  April  
 #> 10  2011 Fall    October
-#> # ℹ 28 more rows
-# }
+#> # ℹ 29 more rows
 ```

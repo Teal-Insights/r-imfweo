@@ -44,19 +44,19 @@ A data frame with columns:
 # \donttest{
 # List all countries and regions
 weo_get_entities()
-#> # A tibble: 209 × 2
-#>    entity_id entity_name        
-#>    <chr>     <chr>              
-#>  1 510       ASEAN-5            
-#>  2 110       Advanced economies 
-#>  3 AFG       Afghanistan        
-#>  4 ALB       Albania            
-#>  5 DZA       Algeria            
-#>  6 AND       Andorra            
-#>  7 AGO       Angola             
-#>  8 ATG       Antigua and Barbuda
-#>  9 ARG       Argentina          
-#> 10 ARM       Armenia            
-#> # ℹ 199 more rows
+#> # A tibble: 210 × 2
+#>    entity_id entity_name                     
+#>    <chr>     <chr>                           
+#>  1 510       ASEAN-5                         
+#>  2 110       Advanced Economies              
+#>  3 AFG       Afghanistan, Islamic Republic of
+#>  4 ALB       Albania                         
+#>  5 DZA       Algeria                         
+#>  6 AND       Andorra, Principality of        
+#>  7 AGO       Angola                          
+#>  8 ATG       Antigua and Barbuda             
+#>  9 ARG       Argentina                       
+#> 10 ARM       Armenia, Republic of            
+#> # ℹ 200 more rows
 # }
 ```

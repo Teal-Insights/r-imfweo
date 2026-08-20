@@ -96,19 +96,26 @@ weo_get(
   start_year = 2015,
   end_year = 2020
 )
-#> # A tibble: 792 × 7
-#>    entity_name    entity_id series_name             units series_id  year  value
-#>    <chr>          <chr>     <chr>                   <chr> <chr>     <int>  <dbl>
-#>  1 Germany        DEU       Current account balance U.S.… BCA        2015  278. 
-#>  2 Germany        DEU       Current account balance U.S.… BCA        2016  315. 
-#>  3 Germany        DEU       Current account balance U.S.… BCA        2017  303. 
-#>  4 Germany        DEU       Current account balance U.S.… BCA        2018  342. 
-#>  5 Germany        DEU       Current account balance U.S.… BCA        2019  312. 
-#>  6 Germany        DEU       Current account balance U.S.… BCA        2020  249. 
-#>  7 United Kingdom GBR       Current account balance U.S.… BCA        2015 -145. 
-#>  8 United Kingdom GBR       Current account balance U.S.… BCA        2016 -147. 
-#>  9 United Kingdom GBR       Current account balance U.S.… BCA        2017  -93.7
-#> 10 United Kingdom GBR       Current account balance U.S.… BCA        2018 -113. 
-#> # ℹ 782 more rows
+#> # A tibble: 18 × 7
+#>    entity_name    entity_id series_name            units series_id  year   value
+#>    <chr>          <chr>     <chr>                  <chr> <chr>     <int>   <dbl>
+#>  1 Germany        DEU       Gross domestic produc… Perc… NGDP_RPCH  2015   1.66 
+#>  2 Germany        DEU       Gross domestic produc… Perc… NGDP_RPCH  2016   2.22 
+#>  3 Germany        DEU       Gross domestic produc… Perc… NGDP_RPCH  2017   2.81 
+#>  4 Germany        DEU       Gross domestic produc… Perc… NGDP_RPCH  2018   1.13 
+#>  5 Germany        DEU       Gross domestic produc… Perc… NGDP_RPCH  2019   0.973
+#>  6 Germany        DEU       Gross domestic produc… Perc… NGDP_RPCH  2020  -4.13 
+#>  7 United Kingdom GBR       Gross domestic produc… Perc… NGDP_RPCH  2015   2.14 
+#>  8 United Kingdom GBR       Gross domestic produc… Perc… NGDP_RPCH  2016   2.21 
+#>  9 United Kingdom GBR       Gross domestic produc… Perc… NGDP_RPCH  2017   3.02 
+#> 10 United Kingdom GBR       Gross domestic produc… Perc… NGDP_RPCH  2018   1.55 
+#> 11 United Kingdom GBR       Gross domestic produc… Perc… NGDP_RPCH  2019   1.26 
+#> 12 United Kingdom GBR       Gross domestic produc… Perc… NGDP_RPCH  2020 -10.0  
+#> 13 United States  USA       Gross domestic produc… Perc… NGDP_RPCH  2015   2.95 
+#> 14 United States  USA       Gross domestic produc… Perc… NGDP_RPCH  2016   1.82 
+#> 15 United States  USA       Gross domestic produc… Perc… NGDP_RPCH  2017   2.46 
+#> 16 United States  USA       Gross domestic produc… Perc… NGDP_RPCH  2018   2.97 
+#> 17 United States  USA       Gross domestic produc… Perc… NGDP_RPCH  2019   2.58 
+#> 18 United States  USA       Gross domestic produc… Perc… NGDP_RPCH  2020  -2.08 
 # }
 ```

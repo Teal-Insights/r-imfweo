@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Seamless Access to IMF World Economic Outlook (WEO) Data • imfweo</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Seamless Access to IMF World Economic Outlook (WEO) Data">
 <meta name="description" content="Provides tools to download, process, and analyze data from the International Monetary Fund's World Economic Outlook (WEO) database &lt;https://www.imf.org/en/Publications/SPROLLs/world-economic-outlook-databases&gt;. Functions support downloading complete WEO releases, accessing specific economic indicators for selected countries, and listing available data.">
@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">imfweo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9003</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,31 +76,24 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://teal-insights.github.io/r-imfweo/">imfweo</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/weo_get.html">weo_get</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 353,544 × 7</span></span>
-<span><span class="co">#&gt;    entity_name entity_id series_name             units     series_id  year value</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;                   &lt;chr&gt;     &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 World       001       Current account balance U.S. dol… BCA        1980 -56.3</span></span>
-<span><span class="co">#&gt;  2 World       001       Current account balance U.S. dol… BCA        1981 -82.2</span></span>
-<span><span class="co">#&gt;  3 World       001       Current account balance U.S. dol… BCA        1982 -91.8</span></span>
-<span><span class="co">#&gt;  4 World       001       Current account balance U.S. dol… BCA        1983 -76.0</span></span>
-<span><span class="co">#&gt;  5 World       001       Current account balance U.S. dol… BCA        1984 -67.9</span></span>
-<span><span class="co">#&gt;  6 World       001       Current account balance U.S. dol… BCA        1985 -63.5</span></span>
-<span><span class="co">#&gt;  7 World       001       Current account balance U.S. dol… BCA        1986 -66.4</span></span>
-<span><span class="co">#&gt;  8 World       001       Current account balance U.S. dol… BCA        1987 -63.5</span></span>
-<span><span class="co">#&gt;  9 World       001       Current account balance U.S. dol… BCA        1988 -57.3</span></span>
-<span><span class="co">#&gt; 10 World       001       Current account balance U.S. dol… BCA        1989 -83.4</span></span>
-<span><span class="co">#&gt; # ℹ 353,534 more rows</span></span></code></pre></div>
-<p>Note: On the first run of each R session, the function may take a few seconds to execute as the package checks which WEO publication is currently the latest. This information is put into a cache, which is reset whenever your session restarts.</p>
-<p>To explicitly retrieve the most recent publication metadata, use:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/weo_get_latest_publication.html">weo_get_latest_publication</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; $year</span></span>
-<span><span class="co">#&gt; [1] 2025</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $release</span></span>
-<span><span class="co">#&gt; [1] "Spring"</span></span></code></pre></div>
+<span><span class="co">#&gt; # A tibble: 361,733 × 7</span></span>
+<span><span class="co">#&gt;    entity_name entity_id series_name                 units series_id  year value</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;                       &lt;chr&gt; &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 World       001       Current account balance (c… US d… BCA        1980 -56.3</span></span>
+<span><span class="co">#&gt;  2 World       001       Current account balance (c… US d… BCA        1981 -82.3</span></span>
+<span><span class="co">#&gt;  3 World       001       Current account balance (c… US d… BCA        1982 -91.9</span></span>
+<span><span class="co">#&gt;  4 World       001       Current account balance (c… US d… BCA        1983 -76.7</span></span>
+<span><span class="co">#&gt;  5 World       001       Current account balance (c… US d… BCA        1984 -68.7</span></span>
+<span><span class="co">#&gt;  6 World       001       Current account balance (c… US d… BCA        1985 -64.3</span></span>
+<span><span class="co">#&gt;  7 World       001       Current account balance (c… US d… BCA        1986 -67.4</span></span>
+<span><span class="co">#&gt;  8 World       001       Current account balance (c… US d… BCA        1987 -64.8</span></span>
+<span><span class="co">#&gt;  9 World       001       Current account balance (c… US d… BCA        1988 -58.7</span></span>
+<span><span class="co">#&gt; 10 World       001       Current account balance (c… US d… BCA        1989 -84.7</span></span>
+<span><span class="co">#&gt; # ℹ 361,723 more rows</span></span></code></pre></div>
+<p>Note: On the first run of each R session, the function may take a few seconds to execute as the full publication is downloaded. The data is put into a cache, which is reset whenever your session restarts.</p>
+<p>The set of known publications is maintained as a lookup table inside the package. Since the WEO database moved to the <a href="https://data.imf.org" class="external-link">IMF Data portal</a> with the October 2025 release, each vintage sits behind an opaque per-vintage identifier that cannot be derived from the year and release, so the latest publication can no longer be detected online. A new release becomes available after a package update.</p>
 <p>To fetch data from a specific publication, or to filter by country, indicator, or time range, you can use the available parameters:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/weo_get.html">weo_get</a></span><span class="op">(</span></span>
 <span>  entities <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"USA"</span>, <span class="st">"GBR"</span>, <span class="st">"DEU"</span><span class="op">)</span>,</span>
 <span>  series <span class="op">=</span> <span class="st">"NGDP_RPCH"</span>,</span>
@@ -125,9 +118,9 @@
 <span><span class="co">#&gt; # ℹ 782 more rows</span></span></code></pre></div>
 <p>Even when filtering, the full dataset for the selected publication must be downloaded, as the WEO data is distributed in Excel format.</p>
 <p>To explore available publications:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/weo_list_publications.html">weo_list_publications</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 37 × 3</span></span>
+<span><span class="co">#&gt; # A tibble: 39 × 3</span></span>
 <span><span class="co">#&gt;     year release month  </span></span>
 <span><span class="co">#&gt;    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;  </span></span>
 <span><span class="co">#&gt;  1  2007 Spring  April  </span></span>
@@ -140,41 +133,41 @@
 <span><span class="co">#&gt;  8  2010 Fall    October</span></span>
 <span><span class="co">#&gt;  9  2011 Spring  April  </span></span>
 <span><span class="co">#&gt; 10  2011 Fall    October</span></span>
-<span><span class="co">#&gt; # ℹ 27 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt; # ℹ 29 more rows</span></span></code></pre></div>
 <p>To list the available entities (countries or country groups) for the latest publication:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/weo_get_entities.html">weo_get_entities</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 209 × 2</span></span>
-<span><span class="co">#&gt;    entity_id entity_name        </span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;              </span></span>
-<span><span class="co">#&gt;  1 510       ASEAN-5            </span></span>
-<span><span class="co">#&gt;  2 110       Advanced economies </span></span>
-<span><span class="co">#&gt;  3 AFG       Afghanistan        </span></span>
-<span><span class="co">#&gt;  4 ALB       Albania            </span></span>
-<span><span class="co">#&gt;  5 DZA       Algeria            </span></span>
-<span><span class="co">#&gt;  6 AND       Andorra            </span></span>
-<span><span class="co">#&gt;  7 AGO       Angola             </span></span>
-<span><span class="co">#&gt;  8 ATG       Antigua and Barbuda</span></span>
-<span><span class="co">#&gt;  9 ARG       Argentina          </span></span>
-<span><span class="co">#&gt; 10 ARM       Armenia            </span></span>
-<span><span class="co">#&gt; # ℹ 199 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt; # A tibble: 210 × 2</span></span>
+<span><span class="co">#&gt;    entity_id entity_name                     </span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;                           </span></span>
+<span><span class="co">#&gt;  1 510       ASEAN-5                         </span></span>
+<span><span class="co">#&gt;  2 110       Advanced Economies              </span></span>
+<span><span class="co">#&gt;  3 AFG       Afghanistan, Islamic Republic of</span></span>
+<span><span class="co">#&gt;  4 ALB       Albania                         </span></span>
+<span><span class="co">#&gt;  5 DZA       Algeria                         </span></span>
+<span><span class="co">#&gt;  6 AND       Andorra, Principality of        </span></span>
+<span><span class="co">#&gt;  7 AGO       Angola                          </span></span>
+<span><span class="co">#&gt;  8 ATG       Antigua and Barbuda             </span></span>
+<span><span class="co">#&gt;  9 ARG       Argentina                       </span></span>
+<span><span class="co">#&gt; 10 ARM       Armenia, Republic of            </span></span>
+<span><span class="co">#&gt; # ℹ 200 more rows</span></span></code></pre></div>
 <p>To list the available data series:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/weo_get_series.html">weo_get_series</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 150 × 3</span></span>
-<span><span class="co">#&gt;    series_id series_name                   units         </span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;                         &lt;chr&gt;         </span></span>
-<span><span class="co">#&gt;  1 BCA       Current account balance       U.S. dollars  </span></span>
-<span><span class="co">#&gt;  2 BCA_NGDPD Current account balance       Percent of GDP</span></span>
-<span><span class="co">#&gt;  3 BF        Financial account balance     U.S. dollars  </span></span>
-<span><span class="co">#&gt;  4 BFD       Direct investment, net        U.S. dollars  </span></span>
-<span><span class="co">#&gt;  5 BFF       Financial derivatives, net    U.S. dollars  </span></span>
-<span><span class="co">#&gt;  6 BFO       Other investment, net         U.S. dollars  </span></span>
-<span><span class="co">#&gt;  7 BFP       Portfolio investment, net     U.S. dollars  </span></span>
-<span><span class="co">#&gt;  8 BFRA      Change in reserves            U.S. dollars  </span></span>
-<span><span class="co">#&gt;  9 BM        Imports of goods and services U.S. dollars  </span></span>
-<span><span class="co">#&gt; 10 BX        Exports of goods and services U.S. dollars  </span></span>
-<span><span class="co">#&gt; # ℹ 140 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt; # A tibble: 145 × 3</span></span>
+<span><span class="co">#&gt;    series_id series_name                                                   units</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;                                                         &lt;chr&gt;</span></span>
+<span><span class="co">#&gt;  1 BCA       Current account balance (credit less debit), US dollar        US d…</span></span>
+<span><span class="co">#&gt;  2 BCA_NGDPD Current account balance (credit less debit), Percent of GDP   Perc…</span></span>
+<span><span class="co">#&gt;  3 BF        Financial account balance (assets less liabilities), US doll… US d…</span></span>
+<span><span class="co">#&gt;  4 BFD       Direct investment, Net (assets minus liabilities), US dollar  US d…</span></span>
+<span><span class="co">#&gt;  5 BFF       Financial derivatives and employee stock options, Net (asset… US d…</span></span>
+<span><span class="co">#&gt;  6 BFO       Other investment, Net (assets minus liabilities), US dollar   US d…</span></span>
+<span><span class="co">#&gt;  7 BFP       Portfolio investment, Net (assets minus liabilities), US dol… US d…</span></span>
+<span><span class="co">#&gt;  8 BFRA      Change in reserve assets, Net (assets minus liabilities), US… US d…</span></span>
+<span><span class="co">#&gt;  9 BM        Imports of goods and services, US dollar                      US d…</span></span>
+<span><span class="co">#&gt; 10 BX        Exports of goods and services, US dollar                      US d…</span></span>
+<span><span class="co">#&gt; # ℹ 135 more rows</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
@@ -249,7 +242,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

@@ -14,14 +14,14 @@
 Source:
 [`DESCRIPTION`](https://github.com/teal-insights/r-imfweo/blob/main/DESCRIPTION)
 
-Emery T, Scheuch C (2025). *imfweo: Seamless Access to IMF World
-Economic Outlook (WEO) Data*. R package version 0.1.0.9001,
+Emery T, Scheuch C (2026). *imfweo: Seamless Access to IMF World
+Economic Outlook (WEO) Data*. R package version 0.1.0.9003,
 <https://teal-insights.github.io/r-imfweo/>.
 
     @Manual{,
       title = {imfweo: Seamless Access to IMF World Economic Outlook (WEO) Data},
       author = {Teal Emery and Christoph Scheuch},
-      year = {2025},
-      note = {R package version 0.1.0.9001},
+      year = {2026},
+      note = {R package version 0.1.0.9003},
       url = {https://teal-insights.github.io/r-imfweo/},
     }

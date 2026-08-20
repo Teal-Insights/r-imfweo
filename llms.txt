@@ -28,6 +28,7 @@ You can install `imfweo` from
 [CRAN](https://CRAN.R-project.org/package=imfweo) via:
 
 ``` r
+
 install.packages("imfweo")
 ```
 
@@ -35,6 +36,7 @@ You can install the development version of `imfweo` from
 [GitHub](https://github.com/teal-insights/r-imfweo) with:
 
 ``` r
+
 # install.packages("pak")
 pak::pak("teal-insights/r-imfweo")
 ```
@@ -47,45 +49,43 @@ provides a simple interface to download data from the latest World
 Economic Outlook (WEO) publication:
 
 ``` r
+
 library(imfweo)
 
 weo_get()
-#> # A tibble: 353,544 × 7
-#>    entity_name entity_id series_name             units     series_id  year value
-#>    <chr>       <chr>     <chr>                   <chr>     <chr>     <int> <dbl>
-#>  1 World       001       Current account balance U.S. dol… BCA        1980 -56.3
-#>  2 World       001       Current account balance U.S. dol… BCA        1981 -82.2
-#>  3 World       001       Current account balance U.S. dol… BCA        1982 -91.8
-#>  4 World       001       Current account balance U.S. dol… BCA        1983 -76.0
-#>  5 World       001       Current account balance U.S. dol… BCA        1984 -67.9
-#>  6 World       001       Current account balance U.S. dol… BCA        1985 -63.5
-#>  7 World       001       Current account balance U.S. dol… BCA        1986 -66.4
-#>  8 World       001       Current account balance U.S. dol… BCA        1987 -63.5
-#>  9 World       001       Current account balance U.S. dol… BCA        1988 -57.3
-#> 10 World       001       Current account balance U.S. dol… BCA        1989 -83.4
-#> # ℹ 353,534 more rows
+#> # A tibble: 361,733 × 7
+#>    entity_name entity_id series_name                 units series_id  year value
+#>    <chr>       <chr>     <chr>                       <chr> <chr>     <int> <dbl>
+#>  1 World       001       Current account balance (c… US d… BCA        1980 -56.3
+#>  2 World       001       Current account balance (c… US d… BCA        1981 -82.3
+#>  3 World       001       Current account balance (c… US d… BCA        1982 -91.9
+#>  4 World       001       Current account balance (c… US d… BCA        1983 -76.7
+#>  5 World       001       Current account balance (c… US d… BCA        1984 -68.7
+#>  6 World       001       Current account balance (c… US d… BCA        1985 -64.3
+#>  7 World       001       Current account balance (c… US d… BCA        1986 -67.4
+#>  8 World       001       Current account balance (c… US d… BCA        1987 -64.8
+#>  9 World       001       Current account balance (c… US d… BCA        1988 -58.7
+#> 10 World       001       Current account balance (c… US d… BCA        1989 -84.7
+#> # ℹ 361,723 more rows
 ```
 
 Note: On the first run of each R session, the function may take a few
-seconds to execute as the package checks which WEO publication is
-currently the latest. This information is put into a cache, which is
-reset whenever your session restarts.
+seconds to execute as the full publication is downloaded. The data is
+put into a cache, which is reset whenever your session restarts.
 
-To explicitly retrieve the most recent publication metadata, use:
-
-``` r
-weo_get_latest_publication()
-#> $year
-#> [1] 2025
-#> 
-#> $release
-#> [1] "Spring"
-```
+The set of known publications is maintained as a lookup table inside the
+package. Since the WEO database moved to the [IMF Data
+portal](https://data.imf.org) with the October 2025 release, each
+vintage sits behind an opaque per-vintage identifier that cannot be
+derived from the year and release, so the latest publication can no
+longer be detected online. A new release becomes available after a
+package update.
 
 To fetch data from a specific publication, or to filter by country,
 indicator, or time range, you can use the available parameters:
 
 ``` r
+
 weo_get(
   entities = c("USA", "GBR", "DEU"),
   series = "NGDP_RPCH",
@@ -116,8 +116,9 @@ be downloaded, as the WEO data is distributed in Excel format.
 To explore available publications:
 
 ``` r
+
 weo_list_publications()
-#> # A tibble: 37 × 3
+#> # A tibble: 39 × 3
 #>     year release month  
 #>    <int> <chr>   <chr>  
 #>  1  2007 Spring  April  
@@ -130,48 +131,50 @@ weo_list_publications()
 #>  8  2010 Fall    October
 #>  9  2011 Spring  April  
 #> 10  2011 Fall    October
-#> # ℹ 27 more rows
+#> # ℹ 29 more rows
 ```
 
 To list the available entities (countries or country groups) for the
 latest publication:
 
 ``` r
+
 weo_get_entities()
-#> # A tibble: 209 × 2
-#>    entity_id entity_name        
-#>    <chr>     <chr>              
-#>  1 510       ASEAN-5            
-#>  2 110       Advanced economies 
-#>  3 AFG       Afghanistan        
-#>  4 ALB       Albania            
-#>  5 DZA       Algeria            
-#>  6 AND       Andorra            
-#>  7 AGO       Angola             
-#>  8 ATG       Antigua and Barbuda
-#>  9 ARG       Argentina          
-#> 10 ARM       Armenia            
-#> # ℹ 199 more rows
+#> # A tibble: 210 × 2
+#>    entity_id entity_name                     
+#>    <chr>     <chr>                           
+#>  1 510       ASEAN-5                         
+#>  2 110       Advanced Economies              
+#>  3 AFG       Afghanistan, Islamic Republic of
+#>  4 ALB       Albania                         
+#>  5 DZA       Algeria                         
+#>  6 AND       Andorra, Principality of        
+#>  7 AGO       Angola                          
+#>  8 ATG       Antigua and Barbuda             
+#>  9 ARG       Argentina                       
+#> 10 ARM       Armenia, Republic of            
+#> # ℹ 200 more rows
 ```
 
 To list the available data series:
 
 ``` r
+
 weo_get_series()
-#> # A tibble: 150 × 3
-#>    series_id series_name                   units         
-#>    <chr>     <chr>                         <chr>         
-#>  1 BCA       Current account balance       U.S. dollars  
-#>  2 BCA_NGDPD Current account balance       Percent of GDP
-#>  3 BF        Financial account balance     U.S. dollars  
-#>  4 BFD       Direct investment, net        U.S. dollars  
-#>  5 BFF       Financial derivatives, net    U.S. dollars  
-#>  6 BFO       Other investment, net         U.S. dollars  
-#>  7 BFP       Portfolio investment, net     U.S. dollars  
-#>  8 BFRA      Change in reserves            U.S. dollars  
-#>  9 BM        Imports of goods and services U.S. dollars  
-#> 10 BX        Exports of goods and services U.S. dollars  
-#> # ℹ 140 more rows
+#> # A tibble: 145 × 3
+#>    series_id series_name                                                   units
+#>    <chr>     <chr>                                                         <chr>
+#>  1 BCA       Current account balance (credit less debit), US dollar        US d…
+#>  2 BCA_NGDPD Current account balance (credit less debit), Percent of GDP   Perc…
+#>  3 BF        Financial account balance (assets less liabilities), US doll… US d…
+#>  4 BFD       Direct investment, Net (assets minus liabilities), US dollar  US d…
+#>  5 BFF       Financial derivatives and employee stock options, Net (asset… US d…
+#>  6 BFO       Other investment, Net (assets minus liabilities), US dollar   US d…
+#>  7 BFP       Portfolio investment, Net (assets minus liabilities), US dol… US d…
+#>  8 BFRA      Change in reserve assets, Net (assets minus liabilities), US… US d…
+#>  9 BM        Imports of goods and services, US dollar                      US d…
+#> 10 BX        Exports of goods and services, US dollar                      US d…
+#> # ℹ 135 more rows
 ```
 
 ## Contributing
@@ -204,8 +207,6 @@ please follow these steps:
   : Get WEO Data
 - [`weo_get_entities()`](https://teal-insights.github.io/r-imfweo/reference/weo_get_entities.md)
   : Get Available WEO Entities
-- [`weo_get_latest_publication()`](https://teal-insights.github.io/r-imfweo/reference/weo_get_latest_publication.md)
-  : Get Latest WEO Publication from IMF Website
 - [`weo_get_series()`](https://teal-insights.github.io/r-imfweo/reference/weo_get_series.md)
   : Get Available WEO Series
 - [`weo_list_publications()`](https://teal-insights.github.io/r-imfweo/reference/weo_list_publications.md)
