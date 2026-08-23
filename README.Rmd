@@ -65,7 +65,7 @@ weo_get()
 
 Note: On the first run of each R session, the function may take a few seconds to execute as the full publication is downloaded. The data is put into a cache, which is reset whenever your session restarts.
 
-The set of known publications is maintained as a lookup table inside the package. Since the WEO database moved to the [IMF Data portal](https://data.imf.org) with the October 2025 release, each vintage sits behind an opaque per-vintage identifier that cannot be derived from the year and release, so the latest publication can no longer be detected online. A new release becomes available after a package update.
+The set of known publications is maintained as a lookup table inside the package. Since the WEO database moved to the IMF Data portal with the October 2025 release, each vintage sits behind an opaque per-vintage identifier that cannot be derived from the year and release, so the latest publication can no longer be detected online. A new release becomes available after a package update.
 
 To fetch data from a specific publication, or to filter by country, indicator, or time range, you can use the available parameters:
 
