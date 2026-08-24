@@ -1,14 +1,14 @@
 Package: imfweo
 Title: Seamless Access to IMF World Economic Outlook (WEO) Data
-Version: 0.1.0.9003
+Version: 0.2.0.9000
 Authors@R: 
     c(person("Teal", "Emery", , "lte@tealinsights.com", role = c("aut", "cre")),
       person("Teal Insights", role = c("cph")),
       person("Christoph", "Scheuch", , "christoph@tidy-intelligence.com",
              role = c("aut"), comment = c(ORCID = "0009-0004-0423-6819")))
 Description: Provides tools to download, process, and analyze data from the
-    International Monetary Fund's World Economic Outlook (WEO) database 
-    <https://www.imf.org/en/Publications/SPROLLs/world-economic-outlook-databases>. 
+    International Monetary Fund's World Economic Outlook (WEO) 
+    <https://www.imf.org/en/publications/weo>. 
     Functions support downloading complete WEO releases, accessing specific 
     economic indicators for selected countries, and listing available data.
 License: MIT + file LICENSE

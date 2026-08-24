@@ -1,10 +1,12 @@
 # imfweo (development version)
 
+# imfweo 0.2.0
+
 ## Breaking changes
 
 * Removed `weo_get_latest_publication()`. With the move of the WEO database to
-  the IMF Data portal (<https://data.imf.org>), each vintage sits behind an
-  opaque per-vintage identifier, so the latest publication can no longer be
+  the IMF Data portal, each vintage sits behind an opaque per-vintage 
+  identifier, so the latest publication can no longer be
   detected from the IMF website. The known releases are now kept in a lookup
   table inside the package, whose newest entry is the default publication for
   `weo_get()`, `weo_get_entities()` and `weo_get_series()`. New releases become
@@ -35,4 +37,5 @@
 
 # imfweo 0.1.0
 
-* Initial CRAN submission with `weo_get()`, `weo_get_series()`, `weo_entities()`, `weo_latest_publication()`, `weo_list_publications()`
+* Initial CRAN submission with `weo_get()`, `weo_get_series()`, `weo_entities()`, 
+  `weo_latest_publication()`, `weo_list_publications()`
