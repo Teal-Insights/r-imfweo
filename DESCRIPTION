@@ -1,6 +1,6 @@
 Package: imfweo
 Title: Seamless Access to IMF World Economic Outlook (WEO) Data
-Version: 0.2.0
+Version: 0.2.0.9000
 Authors@R: 
     c(person("Teal", "Emery", , "lte@tealinsights.com", role = c("aut", "cre")),
       person("Teal Insights", role = c("cph")),
