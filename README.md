@@ -19,9 +19,10 @@ MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.or
 <!-- badges: end -->
 
 `imfweo` is an R package to access and analyze the International
-Monetary Fund’s World Economic Outlook (WEO) publications. WEO provides
-comprehensive analysis and forecasts of the global economy and is
-published twice a year - typically in April and October.
+Monetary Fund’s [World Economic
+Outlook](https://www.imf.org/en/publications/weo) (WEO) publications.
+WEO provides comprehensive analysis and forecasts of the global economy
+and is published twice a year - typically in April and October.
 
 The package is designed to work seamlessly with World Bank’s
 International Debt Statistics (IDS) and World Development Indicators
