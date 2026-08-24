@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">imfweo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9003</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,22 +29,22 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/teal-insights/r-imfweo/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/teal-insights/r-imfweo/blob/v0.2.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="imfweo-development-version">imfweo (development version)<a class="anchor" aria-label="anchor" href="#imfweo-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.2.0" id="imfweo-020">imfweo 0.2.0<a class="anchor" aria-label="anchor" href="#imfweo-020"></a></h2><p class="text-muted">CRAN release: 2026-08-24</p>
 <div class="section level3">
-<h3 id="breaking-changes-development-version">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-development-version"></a></h3>
-<ul><li>Removed <code>weo_get_latest_publication()</code>. With the move of the WEO database to the IMF Data portal (<a href="https://data.imf.org" class="external-link uri">https://data.imf.org</a>), each vintage sits behind an opaque per-vintage identifier, so the latest publication can no longer be detected from the IMF website. The known releases are now kept in a lookup table inside the package, whose newest entry is the default publication for <code><a href="../reference/weo_get.html">weo_get()</a></code>, <code><a href="../reference/weo_get_entities.html">weo_get_entities()</a></code> and <code><a href="../reference/weo_get_series.html">weo_get_series()</a></code>. New releases become available after a package update — see the maintainer note at the top of <code>R/weo_releases.R</code> for how to add one.</li>
+<h3 id="breaking-changes-0-2-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-2-0"></a></h3>
+<ul><li>Removed <code>weo_get_latest_publication()</code>. With the move of the WEO database to the IMF Data portal, each vintage sits behind an opaque per-vintage identifier, so the latest publication can no longer be detected from the IMF website. The known releases are now kept in a lookup table inside the package, whose newest entry is the default publication for <code><a href="../reference/weo_get.html">weo_get()</a></code>, <code><a href="../reference/weo_get_entities.html">weo_get_entities()</a></code> and <code><a href="../reference/weo_get_series.html">weo_get_series()</a></code>. New releases become available after a package update — see the maintainer note at the top of <code>R/weo_releases.R</code> for how to add one.</li>
 <li>Removed the <code>check_latest</code> argument of <code><a href="../reference/weo_list_publications.html">weo_list_publications()</a></code>, which relied on the online check. The function now returns the known releases from the lookup table and no longer depends on the current date. Its <code>end_year</code> now defaults to the year of the most recent known publication.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
+<h3 id="new-features-0-2-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-2-0"></a></h3>
 <ul><li>Added support for the 2025 Fall and 2026 Spring publications, which are distributed as a single multi-sheet Excel workbook on the IMF Data portal instead of the two tab-delimited files used up to 2025 Spring. Country group codes of these releases are mapped back to their pre-portal codes (e.g. <code>G001</code> to <code>001</code>) using the crosswalk shipped in the workbook, so that entity IDs stay comparable across publications.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<h3 id="bug-fixes-0-2-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2-0"></a></h3>
 <ul><li>Fixed the download of the 2021 to 2023 publications. The IMF retired the <code>.ashx</code> URLs these vintages were served under; the same files are still available as <code>.xls</code>.</li>
 <li>A download that answers with an error page under an HTTP 200 status is now reported as a failed download instead of being parsed as data.</li>
 <li>Add support for all publications until 2025 Spring in <code><a href="../reference/weo_get.html">weo_get()</a></code>.</li>

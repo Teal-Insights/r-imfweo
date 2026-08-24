@@ -1,15 +1,17 @@
 # Changelog
 
-## imfweo (development version)
+## imfweo 0.2.0
+
+CRAN release: 2026-08-24
 
 ### Breaking changes
 
 - Removed `weo_get_latest_publication()`. With the move of the WEO
-  database to the IMF Data portal (<https://data.imf.org>), each vintage
-  sits behind an opaque per-vintage identifier, so the latest
-  publication can no longer be detected from the IMF website. The known
-  releases are now kept in a lookup table inside the package, whose
-  newest entry is the default publication for
+  database to the IMF Data portal, each vintage sits behind an opaque
+  per-vintage identifier, so the latest publication can no longer be
+  detected from the IMF website. The known releases are now kept in a
+  lookup table inside the package, whose newest entry is the default
+  publication for
   [`weo_get()`](https://teal-insights.github.io/r-imfweo/reference/weo_get.md),
   [`weo_get_entities()`](https://teal-insights.github.io/r-imfweo/reference/weo_get_entities.md)
   and

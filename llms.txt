@@ -1,9 +1,10 @@
 # imfweo
 
 `imfweo` is an R package to access and analyze the International
-Monetary Fund’s World Economic Outlook (WEO) publications. WEO provides
-comprehensive analysis and forecasts of the global economy and is
-published twice a year - typically in April and October.
+Monetary Fund’s [World Economic
+Outlook](https://www.imf.org/en/publications/weo) (WEO) publications.
+WEO provides comprehensive analysis and forecasts of the global economy
+and is published twice a year - typically in April and October.
 
 The package is designed to work seamlessly with World Bank’s
 International Debt Statistics (IDS) and World Development Indicators
@@ -74,12 +75,11 @@ seconds to execute as the full publication is downloaded. The data is
 put into a cache, which is reset whenever your session restarts.
 
 The set of known publications is maintained as a lookup table inside the
-package. Since the WEO database moved to the [IMF Data
-portal](https://data.imf.org) with the October 2025 release, each
-vintage sits behind an opaque per-vintage identifier that cannot be
-derived from the year and release, so the latest publication can no
-longer be detected online. A new release becomes available after a
-package update.
+package. Since the WEO database moved to the IMF Data portal with the
+October 2025 release, each vintage sits behind an opaque per-vintage
+identifier that cannot be derived from the year and release, so the
+latest publication can no longer be detected online. A new release
+becomes available after a package update.
 
 To fetch data from a specific publication, or to filter by country,
 indicator, or time range, you can use the available parameters:
@@ -94,20 +94,27 @@ weo_get(
   year = 2023,
   release = "Spring"
 )
-#> # A tibble: 792 × 7
-#>    entity_name    entity_id series_name             units series_id  year  value
-#>    <chr>          <chr>     <chr>                   <chr> <chr>     <int>  <dbl>
-#>  1 Germany        DEU       Current account balance U.S.… BCA        2015  288. 
-#>  2 Germany        DEU       Current account balance U.S.… BCA        2016  299. 
-#>  3 Germany        DEU       Current account balance U.S.… BCA        2017  289. 
-#>  4 Germany        DEU       Current account balance U.S.… BCA        2018  316. 
-#>  5 Germany        DEU       Current account balance U.S.… BCA        2019  318. 
-#>  6 Germany        DEU       Current account balance U.S.… BCA        2020  274. 
-#>  7 United Kingdom GBR       Current account balance U.S.… BCA        2015 -149. 
-#>  8 United Kingdom GBR       Current account balance U.S.… BCA        2016 -149. 
-#>  9 United Kingdom GBR       Current account balance U.S.… BCA        2017  -96.9
-#> 10 United Kingdom GBR       Current account balance U.S.… BCA        2018 -117. 
-#> # ℹ 782 more rows
+#> # A tibble: 18 × 7
+#>    entity_name    entity_id series_name            units series_id  year   value
+#>    <chr>          <chr>     <chr>                  <chr> <chr>     <int>   <dbl>
+#>  1 Germany        DEU       Gross domestic produc… Perc… NGDP_RPCH  2015   1.49 
+#>  2 Germany        DEU       Gross domestic produc… Perc… NGDP_RPCH  2016   2.23 
+#>  3 Germany        DEU       Gross domestic produc… Perc… NGDP_RPCH  2017   2.68 
+#>  4 Germany        DEU       Gross domestic produc… Perc… NGDP_RPCH  2018   0.984
+#>  5 Germany        DEU       Gross domestic produc… Perc… NGDP_RPCH  2019   1.05 
+#>  6 Germany        DEU       Gross domestic produc… Perc… NGDP_RPCH  2020  -3.69 
+#>  7 United Kingdom GBR       Gross domestic produc… Perc… NGDP_RPCH  2015   2.39 
+#>  8 United Kingdom GBR       Gross domestic produc… Perc… NGDP_RPCH  2016   2.16 
+#>  9 United Kingdom GBR       Gross domestic produc… Perc… NGDP_RPCH  2017   2.44 
+#> 10 United Kingdom GBR       Gross domestic produc… Perc… NGDP_RPCH  2018   1.70 
+#> 11 United Kingdom GBR       Gross domestic produc… Perc… NGDP_RPCH  2019   1.60 
+#> 12 United Kingdom GBR       Gross domestic produc… Perc… NGDP_RPCH  2020 -11.0  
+#> 13 United States  USA       Gross domestic produc… Perc… NGDP_RPCH  2015   2.71 
+#> 14 United States  USA       Gross domestic produc… Perc… NGDP_RPCH  2016   1.67 
+#> 15 United States  USA       Gross domestic produc… Perc… NGDP_RPCH  2017   2.24 
+#> 16 United States  USA       Gross domestic produc… Perc… NGDP_RPCH  2018   2.94 
+#> 17 United States  USA       Gross domestic produc… Perc… NGDP_RPCH  2019   2.30 
+#> 18 United States  USA       Gross domestic produc… Perc… NGDP_RPCH  2020  -2.77
 ```
 
 Even when filtering, the full dataset for the selected publication must

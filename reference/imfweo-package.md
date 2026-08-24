@@ -1,10 +1,10 @@
 # imfweo: Seamless Access to IMF World Economic Outlook (WEO) Data
 
 Provides tools to download, process, and analyze data from the
-International Monetary Fund's World Economic Outlook (WEO) database
-<https://www.imf.org/en/Publications/SPROLLs/world-economic-outlook-databases>.
-Functions support downloading complete WEO releases, accessing specific
-economic indicators for selected countries, and listing available data.
+International Monetary Fund's World Economic Outlook (WEO)
+<https://www.imf.org/en/publications/weo>. Functions support downloading
+complete WEO releases, accessing specific economic indicators for
+selected countries, and listing available data.
 
 ## See also
 

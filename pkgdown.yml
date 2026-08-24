@@ -2,7 +2,7 @@ pandoc: 3.8.3
 pkgdown: 2.2.1
 pkgdown_sha: ~
 articles: {}
-last_built: 2026-08-20T07:48Z
+last_built: 2026-08-24T17:33Z
 urls:
   reference: https://teal-insights.github.io/r-imfweo/reference
   article: https://teal-insights.github.io/r-imfweo/articles

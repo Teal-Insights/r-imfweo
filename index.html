@@ -11,8 +11,8 @@
 <script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Seamless Access to IMF World Economic Outlook (WEO) Data">
-<meta name="description" content="Provides tools to download, process, and analyze data from the International Monetary Fund's World Economic Outlook (WEO) database &lt;https://www.imf.org/en/Publications/SPROLLs/world-economic-outlook-databases&gt;. Functions support downloading complete WEO releases, accessing specific economic indicators for selected countries, and listing available data.">
-<meta property="og:description" content="Provides tools to download, process, and analyze data from the International Monetary Fund's World Economic Outlook (WEO) database &lt;https://www.imf.org/en/Publications/SPROLLs/world-economic-outlook-databases&gt;. Functions support downloading complete WEO releases, accessing specific economic indicators for selected countries, and listing available data.">
+<meta name="description" content="Provides tools to download, process, and analyze data from the International Monetary Fund's World Economic Outlook (WEO) &lt;https://www.imf.org/en/publications/weo&gt;. Functions support downloading complete WEO releases, accessing specific economic indicators for selected countries, and listing available data.">
+<meta property="og:description" content="Provides tools to download, process, and analyze data from the International Monetary Fund's World Economic Outlook (WEO) &lt;https://www.imf.org/en/publications/weo&gt;. Functions support downloading complete WEO releases, accessing specific economic indicators for selected countries, and listing available data.">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">imfweo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9003</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,7 +51,7 @@
 </h1></div>
 <!-- badges: start -->
 
-<p><code>imfweo</code> is an R package to access and analyze the International Monetary Fund’s World Economic Outlook (WEO) publications. WEO provides comprehensive analysis and forecasts of the global economy and is published twice a year - typically in April and October.</p>
+<p><code>imfweo</code> is an R package to access and analyze the International Monetary Fund’s <a href="https://www.imf.org/en/publications/weo" class="external-link">World Economic Outlook</a> (WEO) publications. WEO provides comprehensive analysis and forecasts of the global economy and is published twice a year - typically in April and October.</p>
 <p>The package is designed to work seamlessly with World Bank’s International Debt Statistics (IDS) and World Development Indicators (WDI) provided through the <a href="https://github.com/teal-insights/r-wbids" class="external-link">wbids</a> and <a href="https://github.com/tidy-intelligence/r-wbwdi" class="external-link">wbwdi</a> package, respectively. It follows the principles of the <a href="https://www.econdataverse.org/" class="external-link">EconDataverse</a>.</p>
 <p>This package is a product of Teal Insights and not sponsored by or affiliated with the IMF in any way, except for the use of the WEO data.</p>
 <blockquote>
@@ -91,7 +91,7 @@
 <span><span class="co">#&gt; 10 World       001       Current account balance (c… US d… BCA        1989 -84.7</span></span>
 <span><span class="co">#&gt; # ℹ 361,723 more rows</span></span></code></pre></div>
 <p>Note: On the first run of each R session, the function may take a few seconds to execute as the full publication is downloaded. The data is put into a cache, which is reset whenever your session restarts.</p>
-<p>The set of known publications is maintained as a lookup table inside the package. Since the WEO database moved to the <a href="https://data.imf.org" class="external-link">IMF Data portal</a> with the October 2025 release, each vintage sits behind an opaque per-vintage identifier that cannot be derived from the year and release, so the latest publication can no longer be detected online. A new release becomes available after a package update.</p>
+<p>The set of known publications is maintained as a lookup table inside the package. Since the WEO database moved to the IMF Data portal with the October 2025 release, each vintage sits behind an opaque per-vintage identifier that cannot be derived from the year and release, so the latest publication can no longer be detected online. A new release becomes available after a package update.</p>
 <p>To fetch data from a specific publication, or to filter by country, indicator, or time range, you can use the available parameters:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/weo_get.html">weo_get</a></span><span class="op">(</span></span>
@@ -102,20 +102,27 @@
 <span>  year <span class="op">=</span> <span class="fl">2023</span>,</span>
 <span>  release <span class="op">=</span> <span class="st">"Spring"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 792 × 7</span></span>
-<span><span class="co">#&gt;    entity_name    entity_id series_name             units series_id  year  value</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;          &lt;chr&gt;     &lt;chr&gt;                   &lt;chr&gt; &lt;chr&gt;     &lt;int&gt;  &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 Germany        DEU       Current account balance U.S.… BCA        2015  288. </span></span>
-<span><span class="co">#&gt;  2 Germany        DEU       Current account balance U.S.… BCA        2016  299. </span></span>
-<span><span class="co">#&gt;  3 Germany        DEU       Current account balance U.S.… BCA        2017  289. </span></span>
-<span><span class="co">#&gt;  4 Germany        DEU       Current account balance U.S.… BCA        2018  316. </span></span>
-<span><span class="co">#&gt;  5 Germany        DEU       Current account balance U.S.… BCA        2019  318. </span></span>
-<span><span class="co">#&gt;  6 Germany        DEU       Current account balance U.S.… BCA        2020  274. </span></span>
-<span><span class="co">#&gt;  7 United Kingdom GBR       Current account balance U.S.… BCA        2015 -149. </span></span>
-<span><span class="co">#&gt;  8 United Kingdom GBR       Current account balance U.S.… BCA        2016 -149. </span></span>
-<span><span class="co">#&gt;  9 United Kingdom GBR       Current account balance U.S.… BCA        2017  -96.9</span></span>
-<span><span class="co">#&gt; 10 United Kingdom GBR       Current account balance U.S.… BCA        2018 -117. </span></span>
-<span><span class="co">#&gt; # ℹ 782 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt; # A tibble: 18 × 7</span></span>
+<span><span class="co">#&gt;    entity_name    entity_id series_name            units series_id  year   value</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;          &lt;chr&gt;     &lt;chr&gt;                  &lt;chr&gt; &lt;chr&gt;     &lt;int&gt;   &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 Germany        DEU       Gross domestic produc… Perc… NGDP_RPCH  2015   1.49 </span></span>
+<span><span class="co">#&gt;  2 Germany        DEU       Gross domestic produc… Perc… NGDP_RPCH  2016   2.23 </span></span>
+<span><span class="co">#&gt;  3 Germany        DEU       Gross domestic produc… Perc… NGDP_RPCH  2017   2.68 </span></span>
+<span><span class="co">#&gt;  4 Germany        DEU       Gross domestic produc… Perc… NGDP_RPCH  2018   0.984</span></span>
+<span><span class="co">#&gt;  5 Germany        DEU       Gross domestic produc… Perc… NGDP_RPCH  2019   1.05 </span></span>
+<span><span class="co">#&gt;  6 Germany        DEU       Gross domestic produc… Perc… NGDP_RPCH  2020  -3.69 </span></span>
+<span><span class="co">#&gt;  7 United Kingdom GBR       Gross domestic produc… Perc… NGDP_RPCH  2015   2.39 </span></span>
+<span><span class="co">#&gt;  8 United Kingdom GBR       Gross domestic produc… Perc… NGDP_RPCH  2016   2.16 </span></span>
+<span><span class="co">#&gt;  9 United Kingdom GBR       Gross domestic produc… Perc… NGDP_RPCH  2017   2.44 </span></span>
+<span><span class="co">#&gt; 10 United Kingdom GBR       Gross domestic produc… Perc… NGDP_RPCH  2018   1.70 </span></span>
+<span><span class="co">#&gt; 11 United Kingdom GBR       Gross domestic produc… Perc… NGDP_RPCH  2019   1.60 </span></span>
+<span><span class="co">#&gt; 12 United Kingdom GBR       Gross domestic produc… Perc… NGDP_RPCH  2020 -11.0  </span></span>
+<span><span class="co">#&gt; 13 United States  USA       Gross domestic produc… Perc… NGDP_RPCH  2015   2.71 </span></span>
+<span><span class="co">#&gt; 14 United States  USA       Gross domestic produc… Perc… NGDP_RPCH  2016   1.67 </span></span>
+<span><span class="co">#&gt; 15 United States  USA       Gross domestic produc… Perc… NGDP_RPCH  2017   2.24 </span></span>
+<span><span class="co">#&gt; 16 United States  USA       Gross domestic produc… Perc… NGDP_RPCH  2018   2.94 </span></span>
+<span><span class="co">#&gt; 17 United States  USA       Gross domestic produc… Perc… NGDP_RPCH  2019   2.30 </span></span>
+<span><span class="co">#&gt; 18 United States  USA       Gross domestic produc… Perc… NGDP_RPCH  2020  -2.77</span></span></code></pre></div>
 <p>Even when filtering, the full dataset for the selected publication must be downloaded, as the WEO data is distributed in Excel format.</p>
 <p>To explore available publications:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
