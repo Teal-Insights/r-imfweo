@@ -52,6 +52,15 @@ test_that("weo_lookup_release finds a known release", {
   expect_equal(result$layout, "legacy")
 })
 
+test_that("weo_lookup_release finds the Fall 2026 portal release", {
+  result <- weo_lookup_release(2026, "Fall")
+
+  expect_equal(result$year, 2026L)
+  expect_equal(result$month, "October")
+  expect_equal(result$layout, "portal")
+  expect_match(result$url, "WEOOct2026all\\.xlsx$")
+})
+
 test_that("weo_lookup_release errors for an unknown release", {
   expect_error(
     weo_lookup_release(1999, "Spring"),

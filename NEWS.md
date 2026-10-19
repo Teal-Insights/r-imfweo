@@ -1,5 +1,7 @@
 # imfweo (development version)
 
+* Added support for the 2026 Fall publication.
+
 # imfweo 0.2.0
 
 ## Breaking changes
