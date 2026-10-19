@@ -277,8 +277,12 @@ test_that("weo_bulk errors on non-200 mocked response", {
   with_mocked_responses(mock_resp, {
     with_mocked_bindings(
       create_weo_url = function(...) "https://fake.weo.test/test.xls",
+      weo_bulk_hf = function(...) NULL,
       {
-        expect_message(weo_bulk(2024, "Fall"), "Failed to download")
+        expect_warning(
+          expect_message(weo_bulk(2024, "Fall"), "Failed to download"),
+          "blocks automated downloads"
+        )
       }
     )
   })
@@ -377,7 +381,7 @@ test_that("weo_bulk handles empty response", {
   with_mocked_bindings(
     download_weo = function(...) NULL,
     {
-      res <- weo_bulk(2024, "Spring")
+      expect_warning(res <- weo_bulk(2024, "Spring"), "Hugging Face")
       expect_equal(res, NULL)
     }
   )
@@ -665,4 +669,122 @@ test_that("check_file works correctly", {
   writeLines("some content", tmp_file)
   expect_false(check_file(tmp_file))
   unlink(tmp_file)
+})
+
+# Hugging Face mirror ---------------------------------------------------------
+
+write_hf_fixture <- function() {
+  path <- withr::local_tempfile(fileext = ".parquet", .local_envir = parent.frame())
+  arrow::write_parquet(
+    data.frame(
+      entity_name = c("Germany", "World", "Germany"),
+      entity_id = c("DEU", "001", "DEU"),
+      series_name = "Gross domestic product, constant prices",
+      units = "Percent change",
+      series_id = "NGDP_RPCH",
+      year = c(2020L, 2020L, 2020L),
+      value = c(-3.7, -2.8, -4.1),
+      publication_year = c(2023L, 2023L, 2024L),
+      publication_release = c("Spring", "Spring", "Fall")
+    ),
+    path
+  )
+  path
+}
+
+test_that("read_weo_hf returns one vintage with internal column names", {
+  skip_if_not_installed("arrow")
+  path <- write_hf_fixture()
+
+  result <- read_weo_hf(path, 2023, "Spring")
+
+  expect_named(
+    result,
+    c("name", "id", "subject", "units", "series", "year", "value")
+  )
+  expect_equal(result$id, c("DEU", "001"))
+  expect_equal(result$value, c(-3.7, -2.8))
+})
+
+test_that("weo_bulk_hf downloads the mirror once per session", {
+  skip_if_not_installed("arrow")
+  weo_cache_reset()
+  withr::defer(weo_cache_reset())
+
+  fixture <- write_hf_fixture()
+  downloads <- 0
+  local_mocked_bindings(
+    download_weo = function(url, dest, label, quiet) {
+      downloads <<- downloads + 1
+      expect_equal(url, weo_hf_url())
+      file.copy(fixture, dest)
+      invisible(TRUE)
+    }
+  )
+
+  first <- weo_bulk_hf(2023, "Spring", quiet = TRUE)
+  second <- weo_bulk_hf(2024, "Fall", quiet = TRUE)
+
+  expect_equal(downloads, 1)
+  expect_equal(nrow(first), 2)
+  expect_equal(second$value, -4.1)
+
+  cached <- .weo_cache$hf_file
+  expect_true(file.exists(cached))
+  weo_cache_reset()
+  expect_false(file.exists(cached))
+})
+
+test_that("weo_bulk_hf returns NULL for a vintage missing on the mirror", {
+  skip_if_not_installed("arrow")
+  weo_cache_reset()
+  withr::defer(weo_cache_reset())
+
+  .weo_cache$hf_file <- write_hf_fixture()
+
+  expect_message(
+    res <- weo_bulk_hf(2010, "Spring", quiet = TRUE),
+    "not available on Hugging Face"
+  )
+  expect_null(res)
+})
+
+test_that("weo_bulk_hf returns NULL when the mirror download fails", {
+  weo_cache_reset()
+  withr::defer(weo_cache_reset())
+
+  local_mocked_bindings(download_weo = function(...) NULL)
+  local_mocked_bindings(is_installed = function(...) TRUE, .package = "rlang")
+
+  expect_null(weo_bulk_hf(2023, "Spring", quiet = TRUE))
+  expect_null(.weo_cache$hf_file)
+})
+
+test_that("weo_bulk_hf asks for arrow when it is not installed", {
+  local_mocked_bindings(is_installed = function(...) FALSE, .package = "rlang")
+  local_mocked_bindings(download_weo = function(...) stop("must not download"))
+
+  expect_message(
+    res <- weo_bulk_hf(2023, "Spring", quiet = TRUE),
+    "arrow"
+  )
+  expect_null(res)
+})
+
+test_that("blocked legacy downloads warn and fall back to Hugging Face", {
+  weo_cache_reset()
+  withr::defer(weo_cache_reset())
+
+  mirror <- data.frame(id = "DEU", value = 1)
+  local_mocked_bindings(
+    download_weo = function(...) NULL,
+    weo_bulk_hf = function(year, release, quiet) {
+      expect_equal(c(year, release), c(2023, "Spring"))
+      mirror
+    }
+  )
+
+  expect_snapshot(res <- weo_bulk(2023, "Spring", quiet = TRUE))
+  expect_equal(res, mirror)
+  expect_equal(.weo_cache$bulk, mirror)
 })
