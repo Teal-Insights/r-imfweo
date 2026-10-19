@@ -49,7 +49,7 @@ A data frame with columns:
 
 ``` r
 weo_list_publications()
-#> # A tibble: 39 × 3
+#> # A tibble: 40 × 3
 #>     year release month  
 #>    <int> <chr>   <chr>  
 #>  1  2007 Spring  April  
@@ -62,5 +62,5 @@ weo_list_publications()
 #>  8  2010 Fall    October
 #>  9  2011 Spring  April  
 #> 10  2011 Fall    October
-#> # ℹ 29 more rows
+#> # ℹ 30 more rows
 ```

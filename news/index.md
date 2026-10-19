@@ -2,6 +2,8 @@
 
 ## imfweo (development version)
 
+- Added support for the 2026 Fall publication.
+
 ## imfweo 0.2.0
 
 CRAN release: 2026-08-24
