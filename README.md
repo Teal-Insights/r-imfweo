@@ -67,7 +67,7 @@ data from the latest World Economic Outlook (WEO) publication:
 library(imfweo)
 
 weo_get()
-#> # A tibble: 361,733 × 7
+#> # A tibble: 361,508 × 7
 #>    entity_name entity_id series_name                 units series_id  year value
 #>    <chr>       <chr>     <chr>                       <chr> <chr>     <int> <dbl>
 #>  1 World       001       Current account balance (c… US d… BCA        1980 -56.3
@@ -80,7 +80,7 @@ weo_get()
 #>  8 World       001       Current account balance (c… US d… BCA        1987 -64.8
 #>  9 World       001       Current account balance (c… US d… BCA        1988 -58.7
 #> 10 World       001       Current account balance (c… US d… BCA        1989 -84.7
-#> # ℹ 361,723 more rows
+#> # ℹ 361,498 more rows
 ```
 
 Note: On the first run of each R session, the function may take a few
@@ -106,6 +106,16 @@ weo_get(
   year = 2023,
   release = "Spring"
 )
+#> ! Failed to download WEO country data. URL:
+#> https://www.imf.org/-/media/files/publications/weo/weo-database/2023/weoapr2023all.xls.
+#> HTTP status: 404.
+#> ! Failed to download WEO country groups data. URL:
+#> https://www.imf.org/-/media/files/publications/weo/weo-database/2023/weoapr2023alla.xls.
+#> HTTP status: 404.
+#> Warning: ! The IMF blocks automated downloads of the Spring 2023 WEO vintage from
+#>   <https://www.imf.org>.
+#> ℹ Reading it from the EconDataverse mirror on Hugging Face instead:
+#>   <https://huggingface.co/datasets/econdataverse/imfweo>
 #> # A tibble: 18 × 7
 #>    entity_name    entity_id series_name            units series_id  year   value
 #>    <chr>          <chr>     <chr>                  <chr> <chr>     <int>   <dbl>
@@ -132,11 +142,20 @@ weo_get(
 Even when filtering, the full dataset for the selected publication must
 be downloaded, as the WEO data is distributed in Excel format.
 
+The IMF currently blocks automated downloads of publications up to and
+including Spring 2025. For these publications, `weo_get()` warns and
+reads the data from the [EconDataverse mirror on Hugging
+Face](https://huggingface.co/datasets/econdataverse/imfweo) instead,
+which requires the [arrow](https://arrow.apache.org/docs/r/) package.
+The mirror holds all WEO vintages and is also available through the
+[econdatasets](https://github.com/tidy-intelligence/r-econdatasets)
+package.
+
 To explore available publications:
 
 ``` r
 weo_list_publications()
-#> # A tibble: 39 × 3
+#> # A tibble: 40 × 3
 #>     year release month  
 #>    <int> <chr>   <chr>  
 #>  1  2007 Spring  April  
@@ -149,7 +168,7 @@ weo_list_publications()
 #>  8  2010 Fall    October
 #>  9  2011 Spring  April  
 #> 10  2011 Fall    October
-#> # ℹ 29 more rows
+#> # ℹ 30 more rows
 ```
 
 To list the available entities (countries or country groups) for the
