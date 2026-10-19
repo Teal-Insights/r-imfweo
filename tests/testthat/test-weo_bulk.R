@@ -43,50 +43,61 @@ test_that("download_weo handles req_perform error correctly", {
 
 test_that("create_weo_url constructs correct URL for 2024+ format", {
   url <- create_weo_url(2024, 1)
-  expect_match(url, "https://www.imf.org/.*/2024/April/WEOApr2024all.xls")
+  expect_match(url, "https://www.imf.org/.*/2024/april/weoapr2024all.xls")
 
   url_fall <- create_weo_url(2025, 2)
   expect_match(
     url_fall,
-    "https://www.imf.org/.*/2025/October/WEOOct2025all.xls"
+    "https://www.imf.org/.*/2025/october/weooct2025all.xls"
   )
 })
 
 test_that("create_weo_url constructs correct URL for 2021-2023 format", {
   # These were served under .ashx until 2026, when the IMF retired those URLs
   url <- create_weo_url(2021, 1)
-  expect_match(url, "https://www.imf.org/.*/2021/WEOApr2021all.xls")
+  expect_match(url, "https://www.imf.org/.*/2021/weoapr2021all.xls")
 
   url_fall <- create_weo_url(2023, 2)
-  expect_match(url_fall, "https://www.imf.org/.*/2023/WEOOct2023all.xls")
+  expect_match(url_fall, "https://www.imf.org/.*/2023/weooct2023all.xls")
 
   url_groups <- create_weo_url(2022, 1, country_groups = TRUE)
-  expect_match(url_groups, "https://www.imf.org/.*/2022/WEOApr2022alla.xls")
+  expect_match(url_groups, "https://www.imf.org/.*/2022/weoapr2022alla.xls")
 
   expect_false(any(grepl("\\.ashx$", c(url, url_fall, url_groups))))
 })
 
 test_that("create_weo_url constructs correct URL for 2020 format", {
   url <- create_weo_url(2020, 2)
-  expect_match(url, "https://www.imf.org/.*/2020/02/WEOOct2020all.xls")
+  expect_match(url, "https://www.imf.org/.*/2020/02/weooct2020all.xls")
 })
 
 test_that("create_weo_url constructs correct URL for 2020 release 1 format", {
   url <- create_weo_url(2020, 1)
-  expect_match(url, "https://www.imf.org/.*/2020/WEOApr2020all.xls")
+  expect_match(url, "https://www.imf.org/.*/2020/weoapr2020all.xls")
 })
 
 test_that("create_weo_url constructs correct URL for 2011 release 2 format", {
   url <- create_weo_url(2011, 2)
-  expect_match(url, "https://www.imf.org/.*/2011/WEOSep2011all.xls")
+  expect_match(url, "https://www.imf.org/.*/2011/weosep2011all.xls")
+})
+
+test_that("create_weo_url returns all-lowercase URLs", {
+  # The IMF answers 404 for the mixed-case paths it used before 2026
+  urls <- c(
+    create_weo_url(2024, 1),
+    create_weo_url(2020, 2, country_groups = TRUE),
+    create_weo_url(2011, 2),
+    create_weo_url(2019, 1)
+  )
+  expect_equal(urls, tolower(urls))
 })
 
 test_that("create_weo_url constructs correct URL for pre-2020 format", {
   url <- create_weo_url(2019, 1)
-  expect_match(url, "https://www.imf.org/.*/2019/WEOApr2019all.xls")
+  expect_match(url, "https://www.imf.org/.*/2019/weoapr2019all.xls")
 
   url_fall <- create_weo_url(2018, 2)
-  expect_match(url_fall, "https://www.imf.org/.*/2018/WEOOct2018all.xls")
+  expect_match(url_fall, "https://www.imf.org/.*/2018/weooct2018all.xls")
 })
 
 test_that("process_weo_data works with valid WEO input", {

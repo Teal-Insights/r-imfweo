@@ -1,6 +1,6 @@
 Package: imfweo
 Title: Seamless Access to IMF World Economic Outlook (WEO) Data
-Version: 0.2.0.9000
+Version: 0.2.1
 Authors@R: 
     c(person("Teal", "Emery", , "lte@tealinsights.com", role = c("aut", "cre")),
       person("Teal Insights", role = c("cph")),
@@ -31,5 +31,5 @@ Suggests:
     testthat,
     withr
 Config/testthat/edition: 3
-URL: https://teal-insights.github.io/r-imfweo/, https://github.com/teal-insights/r-imfweo/
-BugReports: https://github.com/teal-insights/r-imfweo/issues
+URL: https://teal-insights.github.io/r-imfweo/, https://github.com/Teal-Insights/r-imfweo
+BugReports: https://github.com/Teal-Insights/r-imfweo/issues

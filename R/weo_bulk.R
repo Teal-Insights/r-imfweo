@@ -243,6 +243,9 @@ check_file <- function(file_path) {
 #' releases carry an opaque per-vintage GUID and are looked up in
 #' `weo_releases()` instead.
 #'
+#' Since 2026 the IMF only serves these files under all-lowercase paths, so
+#' the URL is lowercased before it is returned.
+#'
 #' @keywords internal
 #' @noRd
 create_weo_url <- function(year, release, country_groups = FALSE) {
@@ -252,7 +255,7 @@ create_weo_url <- function(year, release, country_groups = FALSE) {
   suffix <- ifelse(country_groups, "alla", "all")
 
   # New format since April 2024
-  if (year >= 2024) {
+  url <- if (year >= 2024) {
     paste0(
       base_url,
       "/",
@@ -292,6 +295,8 @@ create_weo_url <- function(year, release, country_groups = FALSE) {
     # .ashx but is now only reachable as .xls
     paste0(base_url, "/", year, "/WEO", month, year, suffix, ".xls")
   }
+
+  tolower(url)
 }
 
 #' Read WEO File

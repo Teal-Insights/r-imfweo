@@ -28,7 +28,7 @@ The package is designed to work seamlessly with World Bank’s
 International Debt Statistics (IDS) and World Development Indicators
 (WDI) provided through the
 [wbids](https://github.com/teal-insights/r-wbids) and
-[wbwdi](https://github.com/tidy-intelligence/r-wbwdi) package,
+[wbwdi](https://github.com/econdataverse/r-wbwdi) package,
 respectively. It follows the principles of the
 [EconDataverse](https://www.econdataverse.org/).
 

@@ -1,6 +1,10 @@
-# imfweo (development version)
+# imfweo 0.2.1
 
-* Added support for the 2026 Fall publication.
+* Fixed downloads of publications up to and including 2025 Spring, which
+  failed with HTTP 404 because the IMF now only serves these files under
+  all-lowercase URLs.
+* Added support for the 2026 Fall publication, which is now the default
+  publication for `weo_get()`, `weo_get_entities()` and `weo_get_series()`.
 
 # imfweo 0.2.0
 
