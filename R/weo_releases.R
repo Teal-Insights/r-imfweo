@@ -57,6 +57,10 @@ weo_releases <- function() {
     2026L, "Spring", paste0(
       "https://data.imf.org/-/media/iData/External-Storage/Documents/",
       "2F78EE59F79143A7921E5E203D3AAA80/en/WEOApr2026all.xlsx"
+    ),
+    2026L, "Fall", paste0(
+      "https://data.imf.org/-/media/iData/External-Storage/Documents/",
+      "0FA3DC49A04D446E9D69DBEB29979E1C/en/WEOOct2026all.xlsx"
     )
   ) |>
     dplyr::mutate(layout = "portal")
