@@ -674,7 +674,10 @@ test_that("check_file works correctly", {
 # Hugging Face mirror ---------------------------------------------------------
 
 write_hf_fixture <- function() {
-  path <- withr::local_tempfile(fileext = ".parquet", .local_envir = parent.frame())
+  path <- withr::local_tempfile(
+    fileext = ".parquet",
+    .local_envir = parent.frame()
+  )
   arrow::write_parquet(
     data.frame(
       entity_name = c("Germany", "World", "Germany"),
@@ -787,4 +790,17 @@ test_that("blocked legacy downloads warn and fall back to Hugging Face", {
   expect_snapshot(res <- weo_bulk(2023, "Spring", quiet = TRUE))
   expect_equal(res, mirror)
   expect_equal(.weo_cache$bulk, mirror)
+})
+
+test_that("weo_bulk_hf reports progress when not quiet", {
+  skip_if_not_installed("arrow")
+  weo_cache_reset()
+  withr::defer(weo_cache_reset())
+
+  .weo_cache$hf_file <- write_hf_fixture()
+
+  expect_message(
+    weo_bulk_hf(2023, "Spring", quiet = FALSE),
+    "Processing data"
+  )
 })
