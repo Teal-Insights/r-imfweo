@@ -27,6 +27,7 @@ Imports:
     tibble,
     tidyr
 Suggests:
+    arrow,
     curl,
     testthat,
     withr

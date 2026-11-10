@@ -1,5 +1,12 @@
 # imfweo (development version)
 
+* Publications up to and including 2025 Spring failed to download because
+  the IMF moved them to all-lowercase URLs and now blocks automated downloads
+  of these files (#22). The URLs are updated, and when the IMF still blocks
+  the download, `weo_get()`, `weo_get_entities()` and `weo_get_series()`
+  warn and read the vintage from the EconDataverse mirror on Hugging Face
+  (<https://huggingface.co/datasets/econdataverse/imfweo>) instead. This
+  requires the arrow package, which is now suggested.
 * Added support for the 2026 Fall publication.
 
 # imfweo 0.2.0

@@ -67,7 +67,8 @@ weo_bulk_legacy <- function(year, release, quiet) {
   res1 <- download_weo(url_country, file_country, "WEO country", quiet)
   res2 <- download_weo(url_groups, file_groups, "WEO country groups", quiet)
   if (is.null(res1) || is.null(res2)) {
-    return(NULL)
+    warn_blocked_download(year, release)
+    return(weo_bulk_hf(year, release, quiet))
   }
 
   if (!quiet) {
@@ -82,6 +83,120 @@ weo_bulk_legacy <- function(year, release, quiet) {
   data_groups <- process_weo_group_data(raw_group)
 
   dplyr::bind_rows(data_country, data_groups)
+}
+
+#' Warn That the IMF Blocked a Legacy Download
+#'
+#' Since 2026 the IMF CDN rejects scripted requests for the legacy files on
+#' www.imf.org, while browsers still get them. See
+#' https://github.com/Teal-Insights/r-imfweo/issues/22.
+#'
+#' @keywords internal
+#' @noRd
+warn_blocked_download <- function(year, release) {
+  cli::cli_warn(c(
+    "!" = paste(
+      "The IMF blocks automated downloads of the {release} {year} WEO",
+      "vintage from {.url https://www.imf.org}."
+    ),
+    "i" = paste(
+      "Reading it from the EconDataverse mirror on Hugging Face instead:",
+      "{.url {weo_hf_page()}}"
+    )
+  ))
+}
+
+#' EconDataverse Mirror of All WEO Vintages on Hugging Face
+#'
+#' The mirror holds every WEO vintage in a single Parquet file, in the format
+#' returned by `weo_get()` plus `publication_year` and `publication_release`.
+#' It is also available through the econdatasets package via
+#' `econdatasets::ed_get("imfweo", "economic_outlook")`.
+#'
+#' @keywords internal
+#' @noRd
+weo_hf_page <- function() {
+  "https://huggingface.co/datasets/econdataverse/imfweo"
+}
+
+#' @keywords internal
+#' @noRd
+weo_hf_url <- function() {
+  paste0(weo_hf_page(), "/resolve/main/economic_outlook.parquet")
+}
+
+#' Read a WEO Vintage From the Hugging Face Mirror
+#'
+#' The Parquet file is downloaded once per session and filtered with arrow, so
+#' that only the requested vintage is loaded into memory. Calling
+#' `econdatasets::ed_get()` instead would load all vintages at once.
+#'
+#' @keywords internal
+#' @noRd
+weo_bulk_hf <- function(year, release, quiet) {
+  if (!rlang::is_installed("arrow")) {
+    cli::cli_alert_warning(
+      paste(
+        "The {.pkg arrow} package is required to read WEO vintages from",
+        "Hugging Face. Install it with {.code install.packages(\"arrow\")}."
+      ),
+      wrap = TRUE
+    )
+    return(invisible(NULL))
+  }
+
+  file <- .weo_cache$hf_file
+  if (is.null(file) || !file.exists(file)) {
+    file <- tempfile(fileext = ".parquet")
+    res <- download_weo(weo_hf_url(), file, "WEO mirror", quiet)
+    if (is.null(res)) {
+      unlink(file)
+      return(invisible(NULL))
+    }
+    .weo_cache$hf_file <- file
+  }
+
+  if (!quiet) {
+    cli::cli_alert_info("Processing data...")
+  }
+
+  data <- read_weo_hf(file, year, release)
+
+  if (nrow(data) == 0) {
+    cli::cli_alert_warning(
+      "The {release} {year} WEO vintage is not available on Hugging Face.",
+      wrap = TRUE
+    )
+    return(invisible(NULL))
+  }
+
+  data
+}
+
+#' Read One Vintage From the Hugging Face Parquet File
+#'
+#' Renames the columns back to the internal names used by `weo_bulk()`.
+#'
+#' @keywords internal
+#' @noRd
+read_weo_hf <- function(file_path, year, release) {
+  year <- as.integer(year)
+
+  arrow::open_dataset(file_path) |>
+    dplyr::filter(
+      .data$publication_year == .env$year,
+      .data$publication_release == .env$release
+    ) |>
+    dplyr::select(
+      name = "entity_name",
+      id = "entity_id",
+      subject = "series_name",
+      units = "units",
+      series = "series_id",
+      year = "year",
+      value = "value"
+    ) |>
+    dplyr::collect()
 }
 
 #' Download and Process a Portal (data.imf.org) WEO Release
@@ -243,6 +358,9 @@ check_file <- function(file_path) {
 #' releases carry an opaque per-vintage GUID and are looked up in
 #' `weo_releases()` instead.
 #'
+#' Since 2026 the IMF only serves these files under all-lowercase paths, so
+#' the URL is lowercased before it is returned.
+#'
 #' @keywords internal
 #' @noRd
 create_weo_url <- function(year, release, country_groups = FALSE) {
@@ -252,7 +370,7 @@ create_weo_url <- function(year, release, country_groups = FALSE) {
   suffix <- ifelse(country_groups, "alla", "all")
 
   # New format since April 2024
-  if (year >= 2024) {
+  url <- if (year >= 2024) {
     paste0(
       base_url,
       "/",
@@ -292,6 +410,8 @@ create_weo_url <- function(year, release, country_groups = FALSE) {
     # .ashx but is now only reachable as .xls
     paste0(base_url, "/", year, "/WEO", month, year, suffix, ".xls")
   }
+
+  tolower(url)
 }
 
 #' Read WEO File

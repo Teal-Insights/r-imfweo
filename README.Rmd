@@ -82,6 +82,8 @@ weo_get(
 
 Even when filtering, the full dataset for the selected publication must be downloaded, as the WEO data is distributed in Excel format.
 
+The IMF currently blocks automated downloads of publications up to and including Spring 2025. For these publications, `weo_get()` warns and reads the data from the [EconDataverse mirror on Hugging Face](https://huggingface.co/datasets/econdataverse/imfweo) instead, which requires the [arrow](https://arrow.apache.org/docs/r/) package. The mirror holds all WEO vintages and is also available through the [econdatasets](https://github.com/tidy-intelligence/r-econdatasets) package.
+
 To explore available publications:
 
 ```{r}
